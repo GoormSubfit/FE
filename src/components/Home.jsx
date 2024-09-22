@@ -49,13 +49,12 @@ const Home = () => {
 
         <button
           className={`${styles.button} ${
-            selected.includes("cloud") ? styles.selected : ""
+            selected.includes("cloud") ? styles.select_cloud : ""
           }`}
           onClick={() => handleClick("cloud")}
         >
           클라우드
         </button>
-
 
         <button
           className={`${styles.button} ${
