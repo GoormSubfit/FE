@@ -53,7 +53,7 @@ const Home = () => {
           }`}
           onClick={() => handleClick("cloud")}
         >
-          <span className={styles.buttonText}>클라우드</span>
+          클라우드
         </button>
 
 
