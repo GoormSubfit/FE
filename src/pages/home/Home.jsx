@@ -1,6 +1,6 @@
-// src/components/Home.jsx
+// src/pages/home/Home.jsx
 import React, { useState } from "react";
-import styles from "./../cssModule/Home.module.css";
+import styles from "../../styles/home/Home.module.css";
 import arrowIcon from "/src/assets/images/arrow.svg";
 
 const Home = () => {
