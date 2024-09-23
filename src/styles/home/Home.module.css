@@ -6,7 +6,6 @@ body {
   height: 100vh;  /* 화면 전체 높이 사용 */
   margin: 0;  /* 기본 여백 제거 */
   background-color: white; /* 배경을 흰색으로 */
-  margin-left: 0 1000px;
 }
 
 .homeContainer {
@@ -33,7 +32,7 @@ h2 {
   justify-items: center;  /* 그리드 아이템 중앙 정렬 */
 }
 
-.button {
+.ebook, .ott, .deliver, .cloud, .music {
   background-color: #b4ceff;  /* 버튼 배경색 */
   border-radius: 38px;  /* 둥근 모서리 */
   padding: 20px 30px;  /* 버튼의 안쪽 여백 */
@@ -44,6 +43,23 @@ h2 {
   color: #000000;
   width: 160px;
   height: 160px;
+}
+
+.ebook span, .ott span, .deliver span, .cloud span, .music span {
+  color: #000000; /* 기본 텍스트 색 */
+}
+
+.ebook:hover span,
+.ott:hover span, 
+.deliver:hover span,
+.cloud:hover span, 
+.music:hover span,
+.select_ebook span,
+.select_cloud span,
+.select_ott span,
+.select_music span,
+.select_deliver span {
+  color: transparent; /* 선택 또는 호버 시 텍스트 투명화 */
 }
 
 .next {
@@ -73,14 +89,14 @@ h2 {
   height: 38px; /* 화살표 크기 설정 */
 }
 
-:is(.select_ebook, .select_cloud, .select_ott, .select_music, .select_deliver, .next):active,
-:is(.select_ebook, .select_cloud, .select_ott, .select_music, .select_deliver, .next):focus {
+:is(.select_ebook, .select_ott, .select_deliver, .select_cloud, .select_music, .next):active,
+:is(.select_ebook, .select_ott, .select_deliver, .select_cloud, .select_music, .next):focus {
   outline: none; /* 포커스 outline 제거 */
   border: none; /* 테두리 제거 */
 }
 
-:is(.button,.ebook, .cloud, .ott, .music, .deliver):active,
-:is(.button,.ebook, .cloud, .ott, .music, .deliver):focus {
+:is(.ebook, .ott, .deliver, .cloud, .music):active,
+:is(.ebook, .ott, .deliver, .cloud, .music):focus {
   outline: none; /* 포커스 outline 제거 */
   border: none; /* 테두리 제거 */
 }
@@ -89,15 +105,6 @@ h2 {
   background-color: transparent;
   transform: scale(1.05);  /* 마우스 호버 시 버튼이 약간 커짐 */
   background-image: url('/src/assets/images/home_ebook.svg');
-  background-size: cover; /* 이미지를 버튼 크기에 맞춤 */
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.select_cloud,.cloud:hover {
-  background-color: transparent;
-  transform: scale(1.05);  /* 마우스 호버 시 버튼이 약간 커짐 */
-  background-image: url('/src/assets/images/home_cloud.svg');
   background-size: cover; /* 이미지를 버튼 크기에 맞춤 */
   background-repeat: no-repeat;
   background-position: center;
@@ -112,15 +119,6 @@ h2 {
   background-position: center;
 }
 
-/* 버튼이 선택된 상태 */
-.select_music,.music:hover {
-  background-color: transparent;
-  background-image: url('/src/assets/images/home_music.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 /* 동일하게 배송 버튼에 대한 처리 */
 .select_deliver,.deliver:hover {
   background-color: transparent;
@@ -130,3 +128,20 @@ h2 {
   background-position: center;
 }
 
+.select_cloud,.cloud:hover {
+  background-color: transparent;
+  transform: scale(1.05);  /* 마우스 호버 시 버튼이 약간 커짐 */
+  background-image: url('/src/assets/images/home_cloud.svg');
+  background-size: cover; /* 이미지를 버튼 크기에 맞춤 */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 버튼이 선택된 상태 */
+.select_music,.music:hover {
+  background-color: transparent;
+  background-image: url('/src/assets/images/home_music.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

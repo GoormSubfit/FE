@@ -21,48 +21,48 @@ const Home = () => {
       <h2>구독중인 서비스를 모두 선택해주세요</h2>
       <div className={styles.optionsGrid}>
         <button
-          className={`${styles.button} ${
+          className={`${styles.ebook} ${
             selected.includes("ebook") ? styles.select_ebook : ""
           }`}
           onClick={() => handleClick("ebook")}
         >
-          ebook
+          <span className={styles.text}>ebook</span>
         </button>
 
         <button
-          className={`${styles.button} ${
+          className={`${styles.ott} ${
             selected.includes("ott") ? styles.select_ott : ""
           }`}
           onClick={() => handleClick("ott")}
         >
-          OTT
+          <span className={styles.text}>OTT</span>
         </button>
 
         <button
-          className={`${styles.button} ${
+          className={`${styles.deliver} ${
             selected.includes("deliver") ? styles.select_deliver : ""
           }`}
           onClick={() => handleClick("deliver")}
         >
-          배송<br />멤버십
+          <span className={styles.text}>배송<br />멤버십</span>
         </button>
 
         <button
-          className={`${styles.button} ${
+          className={`${styles.cloud} ${
             selected.includes("cloud") ? styles.select_cloud : ""
           }`}
           onClick={() => handleClick("cloud")}
         >
-          클라우드
+          <span className={styles.text}>클라우드</span>
         </button>
 
         <button
-          className={`${styles.button} ${
+          className={`${styles.music} ${
             selected.includes("music") ? styles.select_music : ""
           }`}
           onClick={() => handleClick("music")}
         >
-          음악
+          <span className={styles.text}>음악</span>
         </button>
 
         <button className={styles.next}>
