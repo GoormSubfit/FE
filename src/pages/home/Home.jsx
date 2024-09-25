@@ -22,7 +22,7 @@ const Home = () => {
       <div className={styles.optionsGrid}>
         <button
           className={`${styles.ebook} ${
-            selected.includes("ebook") ? styles.select_ebook : ""
+            selected.includes("ebook") ? styles.selectEbook : ""
           }`}
           onClick={() => handleClick("ebook")}
         >
@@ -31,7 +31,7 @@ const Home = () => {
 
         <button
           className={`${styles.ott} ${
-            selected.includes("ott") ? styles.select_ott : ""
+            selected.includes("ott") ? styles.selectOtt : ""
           }`}
           onClick={() => handleClick("ott")}
         >
@@ -40,7 +40,7 @@ const Home = () => {
 
         <button
           className={`${styles.deliver} ${
-            selected.includes("deliver") ? styles.select_deliver : ""
+            selected.includes("deliver") ? styles.selectDeliver : ""
           }`}
           onClick={() => handleClick("deliver")}
         >
@@ -49,7 +49,7 @@ const Home = () => {
 
         <button
           className={`${styles.cloud} ${
-            selected.includes("cloud") ? styles.select_cloud : ""
+            selected.includes("cloud") ? styles.selectCloud : ""
           }`}
           onClick={() => handleClick("cloud")}
         >
@@ -58,7 +58,7 @@ const Home = () => {
 
         <button
           className={`${styles.music} ${
-            selected.includes("music") ? styles.select_music : ""
+            selected.includes("music") ? styles.selectMusic : ""
           }`}
           onClick={() => handleClick("music")}
         >
