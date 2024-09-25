@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from '../../styles/question/Question1_1.module.css';
-import backIcon from "/src/assets/images/backbutton.svg";
+import line from "/src/assets/images/question-line.svg";
+import backIcon from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
-import homeIcon from "/src/assets/images/homebutton.svg";
+import homeIcon from "/src/assets/images/home-button.svg";
 
 const Question1_1 = () => {
   const [selected, setSelected] = useState([]);
@@ -47,6 +48,9 @@ const Question1_1 = () => {
       </header>
       <nav>
         <div className={styles.pageNumbers}>
+          <div className={styles.line}>
+            <img src={line} alt="line" className={styles.line} />
+          </div>
           <button className={styles.activePage}>OTT</button>
           <button className={styles.pageNumber2}>2</button>
           <button className={styles.pageNumber3}>3</button>
