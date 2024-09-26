@@ -129,4 +129,14 @@
   .q-start{
     position: absolute;
     top:90%;
+    background-color: #D9D9D9;
+    color: #ffffff;
+    width: 280px;
+    height: 60px;
+    border-radius: 30px;
+  }
+
+  .q-start.active {
+    background-color: #528DFF; 
+    cursor: pointer; 
   }

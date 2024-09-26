@@ -7,8 +7,9 @@ function App() {
   const [age, setAge] = useState('');
   const [job, setJob] = useState('');
 
-
-  const isFilled = (value) => value.trim() !== '';
+  const allFieldsFilled = () => {
+    return name.trim() !== '' && age.trim() !== '' && job.trim() !== '';
+  };
 
   return (
     <div className={styles["app-container"]}>
@@ -21,14 +22,14 @@ function App() {
       </div>
       <div className={styles["q-container"]}>
         <input
-          className={`${styles["input-name"]} ${isFilled(name) ? styles["input-filled"] : ""}`}
+          className={`${styles["input-name"]} ${name.trim() ? styles["input-filled"] : ""}`}
           type="text"
           placeholder="이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => {
             if (/\d/.test(e.key)) {
-              e.preventDefault(); 
+              e.preventDefault();
             }
           }}
         />
@@ -37,27 +38,32 @@ function App() {
         <CustomDropdown />
 
         <input
-          className={`${styles["input-age"]} ${isFilled(age) ? styles["input-filled"] : ""}`}
+          className={`${styles["input-age"]} ${age.trim() ? styles["input-filled"] : ""}`}
           type="number"
           placeholder="나이"
           value={age}
-          onChange={(e) => setAge(e.target.value)} 
+          onChange={(e) => setAge(e.target.value)}
         />
         <input
-          className={`${styles["input-job"]} ${isFilled(job) ? styles["input-filled"] : ""}`}
+          className={`${styles["input-job"]} ${job.trim() ? styles["input-filled"] : ""}`}
           type="text"
           placeholder="직업"
           value={job}
           onChange={(e) => setJob(e.target.value)}
           onKeyDown={(e) => {
             if (/\d/.test(e.key)) {
-              e.preventDefault(); 
+              e.preventDefault();
             }
           }}
         />
         <p className={styles["comment-job"]}>ex. 학생, 백수</p>
       </div>
-      <button className={styles["q-start"]}>회원가입 질문 시작</button>
+      <button
+        className={`${styles["q-start"]} ${allFieldsFilled() ? styles["active"] : ""}`}
+        disabled={!allFieldsFilled()}
+      >
+        회원가입 질문 시작
+      </button>
     </div>
   );
 }
