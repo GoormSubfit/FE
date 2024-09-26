@@ -137,7 +137,7 @@ body {
   margin-bottom: 4vh;
 }
   
-.contentsOptions {
+.timeOptions {
   width: 100%;
   align-items: center; 
   display: flex;
@@ -150,16 +150,16 @@ body {
 }
   
   
-.contentsOptions > button {
+.timeOptions > button {
   min-height: 6.5vh; /* 버튼 최소 높이 설정 */
   flex-grow: 0; /* 버튼이 줄어들지 않도록 설정 */
 }
   
-.contentsOptions::-webkit-scrollbar {
+.timeOptions::-webkit-scrollbar {
   display: none; /* 크롬 및 사파리 브라우저에서 스크롤바 숨김 */
 }
     
-.ottcontentsButton {
+.otttimeButton {
   background-color: #d9d9d9;
   border-radius: 5vh;
   font-weight: bold;
@@ -192,16 +192,16 @@ body {
 }
   
   
-:is(.ottcontentsButton, .back, .home, .next):hover,
-:is(.ottcontentsButton, .back, .home, .next):active,
-:is(.ottcontentsButton, .back, .home, .next):focus,
+:is(.otttimeButton, .back, .home, .next):hover,
+:is(.otttimeButton, .back, .home, .next):active,
+:is(.otttimeButton, .back, .home, .next):focus,
 .selected:active,
 .selected:focus{
   outline: none;
   border: none; 
 }
   
-:is(.ottcontentsButton, .home, .next):hover{
+:is(.otttimeButton, .home, .next):hover{
   transform: scale(1.02); 
 }
   

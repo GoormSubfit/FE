@@ -1,0 +1,185 @@
+/* src/styles/home/RecommendationHome.module.css */
+body {
+  display: flex;
+  justify-content: center;  /* 가로 방향으로 중앙 정렬 */
+  align-items: center;  /* 세로 방향으로 중앙 정렬 */
+  height: 100vh;  /* 화면 전체 높이 사용 */
+  margin: 0;  /* 기본 여백 제거 */
+  background-color: white; /* 배경을 흰색으로 */
+  font-family: "Inter", sans-serif;
+}
+
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 95vh;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;  /* 오른쪽 정렬 */
+  align-items: center; /* 홈 버튼을 오른쪽 위로 이동 */
+  width: 95%;
+  padding: 1vh;
+  margin-bottom: 0.5vh;
+  margin-left: 5vh;
+}
+
+.h2{
+  width: 100%;
+  font-weight: bolder;
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 3vh;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex-direction: column;  /* 세로로 나열 */
+  align-items: center;
+  justify-content: center;
+}
+
+.optionsGrid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5vh;  /* 버튼 사이의 간격 */
+  margin-bottom: 1.2vh;
+}
+
+.column1, .column2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2vh;
+}
+
+.ebook, .ott, .delivery, .cloud, .music {
+  background-color: #b4ceff;  /* 버튼 배경색 */
+  border-radius: 38px;  /* 둥근 모서리 */
+  padding: 20px 30px;  /* 버튼의 안쪽 여백 */
+  text-align: center;  /* 텍스트 가운데 정렬 */
+  font-size: 24px;  /* 폰트 크기 */
+  cursor: pointer;  /* 마우스 포인터를 클릭 가능한 상태로 표시 */
+  transition: transform 0.5s, background-color 0.3s ease;  
+  color: #000000;
+  width: 160px;
+  height: 160px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.next {
+  background-color: #528DFF; 
+  border-radius: 5vh; 
+  grid-column: span 2; 
+  width: 33vh;
+  height: 6.5vh;
+  padding: auto;
+  margin-top: 1vh;
+  margin-bottom: 6vh;
+  display: inline-flex;
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease; 
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home {
+  background-color: transparent;
+  width: 4vh;
+  height: 4vh;
+  margin-right: 1vh;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; 
+  cursor: pointer; 
+  transition: transform 0.2s, background-color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.homebutton {
+  width: 4vh; 
+  height: 4vh; 
+}
+
+.arrow {
+  width: 8vh; 
+  height: 7vh; 
+}
+
+.ebook span, .ott span, .delivery span, .cloud span, .music span {
+  color: #000000; /* 기본 텍스트 색 */
+}
+
+.selectEbook span,
+.selectCloud span,
+.selectOtt span,
+.selectMusic span,
+.selectDelivery span {
+  color: transparent;
+}
+
+:is(.selectEbook, .selectOtt, .selectDelivery, .selectCloud, .selectMusic, .next, .home):active{
+  outline: none; 
+  border: none; 
+}
+
+:is(.ebook, .ott, .delivery, .cloud, .music, .next, .home):focus {
+  outline: none; 
+  border: none; 
+  transform: scale(1.02); 
+}
+
+:is(.ebook, .ott, .delivery, .cloud, .music, .home, .next):hover{
+  transform: scale(1.02); 
+}
+
+:is(.selectEbook, .selectOtt, .selectDelivery, .selectCloud, .selectMusic):hover{
+  transform: scale(1.02); 
+}
+
+
+.selectEbook {
+  background-color: transparent;
+  background-image: url('/src/assets/images/home_ebook.svg');
+  background-size: cover; /* 이미지를 버튼 크기에 맞춤 */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.selectOtt {
+  background-color: transparent;
+  background-image: url('/src/assets/images/home_ott.svg');
+  background-size: cover; /* 이미지를 버튼 크기에 맞춤 */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.selectDelivery {
+  background-color: transparent;
+  background-image: url('/src/assets/images/home_delivery.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.selectCloud {
+  background-color: transparent;
+  background-image: url('/src/assets/images/home_cloud.svg');
+  background-size: cover; /* 이미지를 버튼 크기에 맞춤 */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.selectMusic {
+  background-color: transparent;
+  background-image: url('/src/assets/images/home_music.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

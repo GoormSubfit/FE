@@ -46,18 +46,18 @@ const Question1_1 = () => {
           <img src={homeIcon} alt="homebutton" className={styles.homebutton} />
         </button>
       </header>
-      <nav>
-        <div className={styles.pageNumbers}>
-          <div className={styles.line}>
-            <img src={line} alt="line" className={styles.line} />
-          </div>
-          <button className={styles.activePage}>OTT</button>
-          <button className={styles.pageNumber2}>2</button>
-          <button className={styles.pageNumber3}>3</button>
-          <button className={styles.pageNumber4}>4</button>
+      <div className={styles.questionStep}>
+        <div className={styles.line}>
+          <img src={line} alt="line" className={styles.line} />
         </div>
-      </nav>
-      <h2>주로 시청하는 콘텐츠 유형은 무엇인가요?</h2>
+        <div className={styles.activePage}>Step 1</div>
+        <div className={styles.midcircle1}> </div>
+        <div className={styles.smallcircle1}> </div>
+        <div className={styles.smallcircle2}> </div>
+        <div className={styles.midcircle2}> </div>
+        <div className={styles.bigcircle}>7</div>
+      </div>
+      <h2 className={styles.h2}>주로 시청하는 콘텐츠 유형은 무엇인가요?</h2>
       <div className={styles.contentsOptions} ref={contentsOptionsRef}>
         <button
           className={`${styles.ottcontentsButton} ${selected.includes("movie") ? styles.selected : ""}`}
@@ -86,6 +86,14 @@ const Question1_1 = () => {
           onClick={() => handleClick("animation")}
         >
           애니메이션
+        </button>
+        <button
+          className={`${styles.ottcontentsButton} ${
+            selected.includes("sports") ? styles.selected : ""
+          }`}
+          onClick={() => handleClick("sports")}
+        >
+          스포츠
         </button>
       </div>
       <div>
