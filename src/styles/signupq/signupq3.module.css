@@ -9,9 +9,86 @@
     background-repeat: no-repeat;
     background-size: 100vw;
   }
-
-  .title{
+  
+  .title {
     position: absolute;
     top: 8%;
     font-size: 20px;
   }
+  
+  .q1 {
+    margin-top: 250px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .q-container {
+    position: relative;
+    top: 8%;
+    width: 300px;
+    height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    padding: 10px;
+  }
+  
+  .bank-button {
+    width: 280px; 
+    height: 60px; 
+    margin: 5px;
+    background-color: #D9D9D9;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 60px; 
+    transition: background-color 0.3s ease;
+  }
+  
+  .bank-button.selected {
+    background-color: #595959;
+    color: #fff;
+  }
+  
+  .q-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .q-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 5px;
+  }
+  
+  .q-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+  }
+  
+  q-container::-webkit-scrollbar {
+    display: none; /* 스크롤바 숨기기 */
+  }
+  
+  .bottom-button {
+    margin-top: 45%;
+    width: 280px; 
+    height: 60px;
+    background-color: #528DFF; 
+    border: none; 
+    border-radius: 30px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  .arrow-icon {
+    width: 70px; 
+    height: 40px;
+  }
+  

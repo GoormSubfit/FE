@@ -22,7 +22,7 @@ function App() {
   return (
     <div className={styles["app-container"]}>
       <p className={styles["title"]}>회원가입</p>
-      <h2 className={styles["q1"]}>사용중인 통신사는 무엇인가요?</h2>
+      <h2 className={styles["q1"]}>사용중인 카드를 선택해 주세요</h2>
       <div className={styles["q-container"]}>
         {cards.map(card => (
           <div

@@ -10,7 +10,7 @@ import Signupq3 from './pages/signupq/signupq3'
 const App = () => {
   return (
     <div>
-      <Signupq2 />
+      <Signupq3 />
     </div>
   );
 };
