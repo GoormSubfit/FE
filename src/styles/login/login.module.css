@@ -1,0 +1,66 @@
+.app-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../assets/images/login/background.svg');
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: 100vw;
+}
+
+
+.icon{
+    position: absolute;
+    top: 3%;
+    right: 5%;
+}
+
+.comment0{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.comment1{
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    color: #ffffff;
+    font-weight:bolder;
+}
+
+.comment2{
+    position: absolute;
+    top: 27%;
+    left: 10%;
+    color: #CFFF46;
+    font-weight:bolder;
+}
+
+.comment3{
+    position: absolute;
+    top: 34%;
+    left: 10%;
+    color: #ffffff;
+    font-weight:bolder;
+}
+
+.comment5{
+    position: absolute;
+    bottom: 25%;
+    color: #ffffff;
+    font-weight:bolder;
+}
+
+.login-button{
+    position: absolute;
+    bottom: 20%;
+}
