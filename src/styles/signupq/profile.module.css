@@ -1,0 +1,11 @@
+.app-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/images/signupq//background.svg');
+    background-repeat: no-repeat;
+    background-size: 100vw;
+  }

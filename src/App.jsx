@@ -6,11 +6,12 @@ import Signup from './pages/signup/signup';
 import Signupq from './pages/signupq/signupq'
 import Signupq2 from './pages/signupq/signupq2'
 import Signupq3 from './pages/signupq/signupq3'
+import Profile from './pages/signupq/profile'
 
 const App = () => {
   return (
     <div>
-      <Signupq3 />
+      <Profile />
     </div>
   );
 };
