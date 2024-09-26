@@ -6,7 +6,6 @@ import styles from '../../styles/login/login.module.css'
 function App() {
     return (
       <div className={styles["app-container"]}>
-        <img src={Background} className={styles["background"]} alt="Background" />
         <img src={Icon} className={styles["icon"]} alt="Icon" />
         <p className={styles["comment0"]}>
           Subfit
@@ -20,9 +19,8 @@ function App() {
         <h1 className={styles["comment3"]}>
            구독 플랫폼은?
         </h1>
-        <p className={styles["comment4"]}>
-          간편로그인 후
-          이용이 가능합니다.
+        <p className={styles["comment5"]}>
+          간편로그인 후 이용이 가능합니다.
         </p>
         <button className={styles["login-button"]}>
       로그인
