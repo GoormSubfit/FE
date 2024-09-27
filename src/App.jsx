@@ -10,7 +10,7 @@ import Question1_4 from './pages/question/Question1_4';
 function App() {
   return (
     <div>
-      <Question1_4/>
+      < Question1_1/>
     </div>
   );
 }

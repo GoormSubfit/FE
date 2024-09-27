@@ -1,35 +1,40 @@
 /* Question1_1.module.css */
 body {
-    display: flex;
-    justify-content: center;  /* 가로 방향으로 중앙 정렬 */
-    align-items: center;  /* 세로 방향으로 중앙 정렬 */
-    height: 100vh;  /* 화면 전체 높이 사용 */
-    margin: 0;  /* 기본 여백 제거 */
-    background-color: white; /* 배경을 흰색으로 */
-    font-family: "Inter", sans-serif;
+  display: flex;
+  justify-content: center;  /* 가로 방향으로 중앙 정렬 */
+  align-items: center;  /* 세로 방향으로 중앙 정렬 */
+  height: 100%;  /* 화면 전체 높이 사용 */
+  padding: 0;
+  background-color: white; /* 배경을 흰색으로 */
+  font-family: "Inter", sans-serif;
 }
-  
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;  /* 위아래 요소 간격을 자동으로 배분 */
-  height: 95vh;
+  width: 100%;
+  min-width: 390px;
+  max-width: 430px;
+  height: 100%;
+  min-height: 844px;
+  max-height: 932px;
   text-align: center;
 }
   
 .header {
   display: flex;
   justify-content: space-between;
-  width: 95%;
+  width: 93%;
   padding: 1vh;
-  margin-bottom: 5vh;
+  margin-top: 5%;
+  margin-bottom: 16%;
 }
 
 .back {
   background-color: transparent; 
-  width: 3vh;
-  height: 4vh;
+  width: 36px;
+  height: 36px;
   display: inline-flex;
   align-items: center; 
   justify-content: center; 
@@ -40,9 +45,9 @@ body {
   
 .home {
   background-color: transparent;
-  width: 4vh;
-  height: 4vh;
-  margin-right: 1vh;
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center; 
@@ -50,21 +55,14 @@ body {
   transition: transform 0.2s, background-color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
 }
-    
-.nav {
-  display: flex;
-  justify-content: space-between;
-  width: 95%;
-  padding: 1vh;
-}
   
 .questionStep {
   display: flex;
   justify-content: space-between;
-  width: 93%;
-  padding: 1vh;
-  gap: 2vh;
-  margin-bottom: 10vh;
+  width: 90%;
+  padding: 0;
+  gap: 26px;
+  margin-bottom: 35%;
   position: relative; /* 부모 요소에 상대 위치 */
   align-items: center;
 }
@@ -72,10 +70,9 @@ body {
 .line {
   position: absolute;  /* 부모 요소의 상대 위치를 기반으로 절대 위치 지정 */
   transform: translateX(10%);
-  width: 33vh;
+  width: 100%;
   top: 50%; /* 부모 요소의 중앙에 점선을 배치 */
-  left: 0;
-  right: 0;
+  right: 10%;
   z-index: 1; /* 버튼보다 낮은 레이어에 위치 */
 }
     
@@ -84,8 +81,8 @@ body {
   color:#000000;
   font-weight: bold;
   border-radius: 3vh;
-  width: 9.3vh;
-  height: 4.5vh;
+  width: 93px;
+  height: 37px;
   display: inline-flex;
   align-items: center; 
   justify-content: center;
@@ -98,8 +95,8 @@ body {
   color:#000000;
   font-weight: bold;
   border-radius: 100%;
-  width: 4.5vh;
-  height: 4.5vh;
+  width: 37px;
+  height: 37px;
   display: inline-flex;
   align-items: center; 
   justify-content: center;
@@ -109,8 +106,8 @@ body {
 .midcircle{
   background-color: #d9d9d9;
   border-radius: 100%;
-  width: 3vh;
-  height: 3vh;
+  width: 20px;
+  height: 20px;
   display: inline-flex;
   align-items: center; 
   justify-content: center;
@@ -120,30 +117,40 @@ body {
 .smallcircle1, .smallcircle2, .smallcircle3{
   background-color: #d9d9d9;
   border-radius: 100%;
-  width: 2vh;
-  height: 2vh;
+  width: 15px;
+  height: 15px;
   display: inline-flex;
   align-items: center; 
   justify-content: center;
   z-index: 2;
 }
-  
-.h2{
+
+.question{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 20%;
+}
+
+.p{
   font-family: "Inter", sans-serif;
-  width: 100%;
   font-weight: bolder;
-  font-size: 20px;
+  font-size: 18.5px;
+  height: 50px;
+  text-align: center;
   color: #000000;
-  margin-bottom: 4vh;
 }
   
 .genreOptions {
   width: 100%;
+  margin-bottom: 22%;
   align-items: center; 
   display: flex;
   flex-direction: column; /* 버튼들을 세로로 나열 */
-  gap: 3vh;
-  max-height: 37vh; /* 세로 높이 계산 */
+  gap: 23px;
+  height: calc(57px * 3 + 23px * 2); /* 세로 높이 계산 */
   overflow-y: auto; /* 세로 스크롤 적용 */
   scroll-behavior: smooth; /* 스크롤 부드럽게 */
   position: relative;
@@ -151,7 +158,7 @@ body {
   
   
 .genreOptions > button {
-  min-height: 6.5vh; /* 버튼 최소 높이 설정 */
+  min-height: 57px; /* 버튼 최소 높이 설정 */
   flex-grow: 0; /* 버튼이 줄어들지 않도록 설정 */
 }
   
@@ -159,15 +166,15 @@ body {
   display: none; /* 크롬 및 사파리 브라우저에서 스크롤바 숨김 */
 }
     
-.ottgenreButton {
+.ottgenreBtn {
   background-color: #d9d9d9;
-  border-radius: 5vh;
+  border-radius: 30px;
   font-weight: bold;
   padding: 1vh; 
   font-size: 24px;
   text-align: center;
-  width: 33vh;
-  height: 6.5vh;
+  width: 276px;
+  height: 57px;
   cursor: pointer;  /* 마우스 포인터를 클릭 가능한 상태로 표시 */
   transition: transform 0.2s, background-color 0.3s ease; 
   color: #ffffff;
@@ -176,13 +183,12 @@ body {
   
 .next {
   background-color: #528DFF; 
-  border-radius: 5vh; 
+  border-radius: 30px; 
   grid-column: span 2; /* 마지막 줄에 버튼이 2열을 차지하도록 설정 */
-  width: 33vh;
-  height: 6.5vh;
+  width: 276px;
+  height: 57px;
   padding: auto;
-  margin-top: 1vh;
-  margin-bottom: 6vh;
+  margin-bottom: 20%;
   display: inline-flex;
   align-items: center; 
   justify-content: center; 
@@ -192,16 +198,16 @@ body {
 }
   
   
-:is(.ottgenreButton, .back, .home, .next):hover,
-:is(.ottgenreButton, .back, .home, .next):active,
-:is(.ottgenreButton, .back, .home, .next):focus,
+:is(.ottgenreBtn, .back, .home, .next):hover,
+:is(.ottgenreBtn, .back, .home, .next):active,
+:is(.ottgenreBtn, .back, .home, .next):focus,
 .selected:active,
 .selected:focus{
   outline: none;
   border: none; 
 }
   
-:is(.ottgenreButton, .home, .next):hover{
+:is(.ottgenreBtn, .home, .next):hover{
   transform: scale(1.02); 
 }
   
@@ -216,17 +222,17 @@ body {
 }
   
 .backbutton {
-  width: 4vh; 
-  height: 3vh; 
+  width: 14px; 
+  height: 24px; 
 }
   
 .homebutton {
-  width: 4vh; 
-  height: 4vh; 
+  width: 36px; 
+  height: 36px; 
 }
   
 .arrow {
-  width: 8vh; 
-  height: 7vh; 
+  width: 71px; 
+  height: 38px; 
 }
   

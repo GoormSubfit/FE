@@ -4,6 +4,7 @@ import line from "/src/assets/images/question-line.svg";
 import backIcon from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import homeIcon from "/src/assets/images/home-button.svg";
+import Back from "../../components/Back";
 
 const Question1_1 = () => {
   const [selected, setSelected] = useState([]);
@@ -57,22 +58,24 @@ const Question1_1 = () => {
         <div className={styles.midcircle2}> </div>
         <div className={styles.bigcircle}>7</div>
       </div>
-      <h2 className={styles.h2}>주로 시청하는 콘텐츠 유형은 무엇인가요?</h2>
+      <div className={styles.question}>
+        <p className={styles.p}>주로 시청하는 콘텐츠 유형은 무엇인가요?</p>
+      </div>
       <div className={styles.contentsOptions} ref={contentsOptionsRef}>
         <button
-          className={`${styles.ottcontentsButton} ${selected.includes("movie") ? styles.selected : ""}`}
+          className={`${styles.ottcontentsBtn} ${selected.includes("movie") ? styles.selected : ""}`}
           onClick={() => handleClick("movie")}
         >
           영화
         </button>
         <button
-          className={`${styles.ottcontentsButton} ${selected.includes("drama") ? styles.selected : ""}`}
+          className={`${styles.ottcontentsBtn} ${selected.includes("drama") ? styles.selected : ""}`}
           onClick={() => handleClick("drama")}
         >
           드라마
         </button>
         <button
-          className={`${styles.ottcontentsButton} ${
+          className={`${styles.ottcontentsBtn} ${
             selected.includes("documentary") ? styles.selected : ""
           }`}
           onClick={() => handleClick("documentary")}
@@ -80,7 +83,7 @@ const Question1_1 = () => {
           다큐멘터리
         </button>
         <button
-          className={`${styles.ottcontentsButton} ${
+          className={`${styles.ottcontentsBtn} ${
             selected.includes("animation") ? styles.selected : ""
           }`}
           onClick={() => handleClick("animation")}
@@ -88,7 +91,7 @@ const Question1_1 = () => {
           애니메이션
         </button>
         <button
-          className={`${styles.ottcontentsButton} ${
+          className={`${styles.ottcontentsBtn} ${
             selected.includes("sports") ? styles.selected : ""
           }`}
           onClick={() => handleClick("sports")}

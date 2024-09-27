@@ -57,22 +57,24 @@ const Question1_3 = () => {
         <div className={styles.midcircle}> </div>
         <div className={styles.bigcircle}>7</div>
       </div>
-      <h2 className={styles.h2}>동시 시청이 필요한 디바이스 수는 몇 대인가요?</h2>
+      <div className={styles.question}>
+        <p className={styles.p}>동시 시청이 필요한 디바이스<br/> 수는 몇 대인가요?</p>
+      </div>
       <div className={styles.deviceOptions} ref={deviceOptionsRef}>
         <button
-          className={`${styles.ottdeviceButton} ${selected.includes("one") ? styles.selected : ""}`}
+          className={`${styles.ottdeviceBtn} ${selected.includes("one") ? styles.selected : ""}`}
           onClick={() => handleClick("one")}
         >
           1대
         </button>
         <button
-          className={`${styles.ottdeviceButton} ${selected.includes("two") ? styles.selected : ""}`}
+          className={`${styles.ottdeviceBtn} ${selected.includes("two") ? styles.selected : ""}`}
           onClick={() => handleClick("two")}
         >
           2대
         </button>
         <button
-          className={`${styles.ottdeviceButton} ${
+          className={`${styles.ottdeviceBtn} ${
             selected.includes("threemore") ? styles.selected : ""
           }`}
           onClick={() => handleClick("threemore")}

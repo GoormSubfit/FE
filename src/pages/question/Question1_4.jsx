@@ -57,22 +57,24 @@ const Question1_4 = () => {
         <div className={styles.midcircle}> </div>
         <div className={styles.bigcircle}>7</div>
       </div>
-      <h2 className={styles.h2}>선호하는 영상의 장르는 무엇인가요?</h2>
+      <div className={styles.question}>
+        <p className={styles.p}>선호하는 영상의 장르는 무엇인가요?</p>
+      </div>
       <div className={styles.genreOptions} ref={genreOptionsRef}>
         <button
-          className={`${styles.ottgenreButton} ${selected.includes("action") ? styles.selected : ""}`}
+          className={`${styles.ottgenreBtn} ${selected.includes("action") ? styles.selected : ""}`}
           onClick={() => handleClick("action")}
         >
           액션
         </button>
         <button
-          className={`${styles.ottgenreButton} ${selected.includes("romance") ? styles.selected : ""}`}
+          className={`${styles.ottgenreBtn} ${selected.includes("romance") ? styles.selected : ""}`}
           onClick={() => handleClick("romance")}
         >
           로맨스
         </button>
         <button
-          className={`${styles.ottgenreButton} ${
+          className={`${styles.ottgenreBtn} ${
             selected.includes("comedy") ? styles.selected : ""
           }`}
           onClick={() => handleClick("comedy")}
@@ -80,25 +82,25 @@ const Question1_4 = () => {
           코미디
         </button>
         <button
-          className={`${styles.ottgenreButton} ${selected.includes("thriller") ? styles.selected : ""}`}
+          className={`${styles.ottgenreBtn} ${selected.includes("thriller") ? styles.selected : ""}`}
           onClick={() => handleClick("thriller")}
         >
           스릴러
         </button>
         <button
-          className={`${styles.ottgenreButton} ${selected.includes("horror") ? styles.selected : ""}`}
+          className={`${styles.ottgenreBtn} ${selected.includes("horror") ? styles.selected : ""}`}
           onClick={() => handleClick("horror")}
         >
           공포
         </button>
         <button
-          className={`${styles.ottgenreButton} ${selected.includes("fantasy") ? styles.selected : ""}`}
+          className={`${styles.ottgenreBtn} ${selected.includes("fantasy") ? styles.selected : ""}`}
           onClick={() => handleClick("fantasy")}
         >
           판타지
         </button>
         <button
-          className={`${styles.ottgenreButton} ${selected.includes("sciencefiction") ? styles.selected : ""}`}
+          className={`${styles.ottgenreBtn} ${selected.includes("sciencefiction") ? styles.selected : ""}`}
           onClick={() => handleClick("sciencefiction")}
         >
           SF

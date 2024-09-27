@@ -23,7 +23,9 @@ const RecommendationHome = () => {
           <img src={homeIcon} alt="homebutton" className={styles.homebutton} />
         </button>
       </header>
-      <h2 className={styles.h2}>추천을 받고 싶은 항목을<br />선택해 주세요!</h2>
+      <div className={styles.question}>
+        <p className={styles.p}>추천을 받고 싶은 항목을<br />선택해 주세요!</p>
+      </div>
       <div className={styles.buttonWrapper}>
         <div className={styles.optionsGrid}>
           <div className={styles.column1}>
