@@ -48,11 +48,11 @@ const Question1_2 = () => {
         <div className={styles.line}>
           <img src={line} alt="line" className={styles.line} />
         </div>
-        <div className={styles.smallcircle1}> </div>
+        <div className={styles.smallcircle}> </div>
         <div className={styles.activePage}>Step 2</div>
-        <div className={styles.midcircle1}> </div>
-        <div className={styles.smallcircle2}> </div>
-        <div className={styles.midcircle2}> </div>
+        <div className={styles.midcircle}> </div>
+        <div className={styles.smallcircle}> </div>
+        <div className={styles.midcircle}> </div>
         <div className={styles.bigcircle}>7</div>
       </div>
       <div className={styles.question}>

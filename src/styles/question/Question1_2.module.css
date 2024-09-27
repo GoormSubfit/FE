@@ -103,7 +103,7 @@ body {
   z-index: 2;
 }
 
-.midcircle1, .midcircle2{
+.midcircle{
   background-color: #d9d9d9;
   border-radius: 100%;
   width: 20px;
@@ -114,7 +114,7 @@ body {
   z-index: 2;
 }
 
-.smallcircle1, .smallcircle2{
+.smallcircle{
   background-color: #d9d9d9;
   border-radius: 100%;
   width: 15px;
@@ -145,7 +145,7 @@ body {
   
 .timeOptions {
   width: 100%;
-  margin-bottom: 22%;
+  margin-bottom: 20%;
   align-items: center; 
   display: flex;
   flex-direction: column; /* 버튼들을 세로로 나열 */

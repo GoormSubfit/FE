@@ -1,38 +1,39 @@
 import React, { useState, useEffect, useRef } from "react";
-import styles from '../../styles/question/Question1_3.module.css';
+import styles from '../../styles/question/Question1_5.module.css';
 import line from "/src/assets/images/question-line.svg";
 import backIcon from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import homeIcon from "/src/assets/images/home-button.svg";
+import Back from "../../components/Back";
 
-const Question1_3 = () => {
+const Question1_5 = () => {
   const [selected, setSelected] = useState([]);
-  const deviceOptionsRef = useRef(null);  // 스크롤 영역 참조
+  const prefOptionsRef = useRef(null);  // 스크롤 영역 참조
   const [isAtBottom, setIsAtBottom] = useState(false);  // 스크롤 상태
 
-  const handleClick = (ottdevice) => {
-    if (selected.includes(ottdevice)) {
-      setSelected(selected.filter((item) => item !== ottdevice));
+  const handleClick = (ottpref) => {
+    if (selected.includes(ottpref)) {
+      setSelected(selected.filter((item) => item !== ottpref));
     } else {
-      setSelected([...selected, ottdevice]);
+      setSelected([...selected, ottpref]);
     }
   };
 
   // 스크롤 이벤트를 통해 스크롤이 맨 아래에 도달했는지 감지
   const handleScroll = () => {
-    const scrollHeight = deviceOptionsRef.current.scrollHeight;
-    const scrollTop = deviceOptionsRef.current.scrollTop;
-    const clientHeight = deviceOptionsRef.current.clientHeight;
+    const scrollHeight = prefOptionsRef.current.scrollHeight;
+    const scrollTop = prefOptionsRef.current.scrollTop;
+    const clientHeight = prefOptionsRef.current.clientHeight;
 
     setIsAtBottom(scrollTop + clientHeight >= scrollHeight);
   };
 
   useEffect(() => {
-    const contentsOptionsEl = deviceOptionsRef.current;
-    contentsOptionsEl.addEventListener("scroll", handleScroll);
+    const prefOptionsEl = prefOptionsRef.current;
+    prefOptionsEl.addEventListener("scroll", handleScroll);
 
     return () => {
-      contentsOptionsEl.removeEventListener("scroll", handleScroll);
+      prefOptionsEl.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -51,35 +52,35 @@ const Question1_3 = () => {
           <img src={line} alt="line" className={styles.line} />
         </div>
         <div className={styles.smallcircle}> </div>
-        <div className={styles.activePage}>Step 3</div>
         <div className={styles.smallcircle}> </div>
         <div className={styles.smallcircle}> </div>
+        <div className={styles.activePage}>Step 5</div>
         <div className={styles.midcircle}> </div>
         <div className={styles.bigcircle}>7</div>
       </div>
       <div className={styles.question}>
-        <p className={styles.p}>동시 시청이 필요한 디바이스<br/> 수는 몇 대인가요?</p>
+        <p className={styles.p}>해외 콘텐츠(미국, 유럽, 일본 등)에<br/>대한 선호도는 어떤가요?</p>
       </div>
-      <div className={styles.deviceOptions} ref={deviceOptionsRef}>
+      <div className={styles.prefOptions} ref={prefOptionsRef}>
         <button
-          className={`${styles.ottdeviceBtn} ${selected.includes("one") ? styles.selected : ""}`}
-          onClick={() => handleClick("one")}
+          className={`${styles.ottprefBtn} ${selected.includes("hpref") ? styles.selected : ""}`}
+          onClick={() => handleClick("hpref")}
         >
-          1대
+          매우 선호
         </button>
         <button
-          className={`${styles.ottdeviceBtn} ${selected.includes("two") ? styles.selected : ""}`}
-          onClick={() => handleClick("two")}
+          className={`${styles.ottprefBtn} ${selected.includes("pref") ? styles.selected : ""}`}
+          onClick={() => handleClick("pref")}
         >
-          2대
+          선호
         </button>
         <button
-          className={`${styles.ottdeviceBtn} ${
-            selected.includes("threemore") ? styles.selected : ""
+          className={`${styles.ottprefBtn} ${
+            selected.includes("npref") ? styles.selected : ""
           }`}
-          onClick={() => handleClick("threemore")}
+          onClick={() => handleClick("npref")}
         >
-          3대 이상
+          선호하지 않음
         </button>
       </div>
       <div>
@@ -91,4 +92,4 @@ const Question1_3 = () => {
   );
 };
 
-export default Question1_3;
+export default Question1_5;

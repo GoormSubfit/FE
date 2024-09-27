@@ -6,11 +6,14 @@ import Question1_1 from './pages/question/Question1_1';
 import Question1_2 from './pages/question/Question1_2';
 import Question1_3 from './pages/question/Question1_3';
 import Question1_4 from './pages/question/Question1_4';
+import Question1_5 from './pages/question/Question1_5';
+import Question1_6 from './pages/question/Question1_6';
+import Question1_7 from './pages/question/Question1_7';
 
 function App() {
   return (
     <div>
-      < Question1_1/>
+      < Question1_5/>
     </div>
   );
 }

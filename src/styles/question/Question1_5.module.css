@@ -1,4 +1,4 @@
-/* Question1_1.module.css */
+/* Question1_5.module.css */
 body {
   display: flex;
   justify-content: center;  /* 가로 방향으로 중앙 정렬 */
@@ -143,7 +143,7 @@ body {
   color: #000000;
 }
   
-.deviceOptions {
+.prefOptions {
   width: 100%;
   margin-bottom: 20%;
   align-items: center; 
@@ -157,16 +157,16 @@ body {
 }
   
   
-.deviceOptions > button {
+.prefOptions > button {
   min-height: 57px; /* 버튼 최소 높이 설정 */
   flex-grow: 0; /* 버튼이 줄어들지 않도록 설정 */
 }
   
-.deviceOptions::-webkit-scrollbar {
+.prefOptions::-webkit-scrollbar {
   display: none; /* 크롬 및 사파리 브라우저에서 스크롤바 숨김 */
 }
     
-.ottdeviceBtn {
+.ottprefBtn {
   background-color: #d9d9d9;
   border-radius: 30px;
   font-weight: bold;
@@ -198,16 +198,16 @@ body {
 }
   
   
-:is(.ottdeviceBtn, .back, .home, .next):hover,
-:is(.ottdeviceBtn, .back, .home, .next):active,
-:is(.ottdeviceBtn, .back, .home, .next):focus,
+:is(.ottprefBtn, .back, .home, .next):hover,
+:is(.ottprefBtn, .back, .home, .next):active,
+:is(.ottprefBtn, .back, .home, .next):focus,
 .selected:active,
 .selected:focus{
   outline: none;
   border: none; 
 }
   
-:is(.ottdeviceBtn, .home, .next):hover{
+:is(.ottprefBtn, .home, .next):hover{
   transform: scale(1.02); 
 }
   

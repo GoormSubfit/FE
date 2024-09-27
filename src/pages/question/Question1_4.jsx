@@ -50,10 +50,10 @@ const Question1_4 = () => {
         <div className={styles.line}>
           <img src={line} alt="line" className={styles.line} />
         </div>
-        <div className={styles.smallcircle1}> </div>
-        <div className={styles.smallcircle2}> </div>
+        <div className={styles.smallcircle}> </div>
+        <div className={styles.smallcircle}> </div>
         <div className={styles.activePage}>Step 4</div>
-        <div className={styles.smallcircle3}> </div>
+        <div className={styles.smallcircle}> </div>
         <div className={styles.midcircle}> </div>
         <div className={styles.bigcircle}>7</div>
       </div>
