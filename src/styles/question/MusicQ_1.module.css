@@ -1,4 +1,4 @@
-/* Question1_1.module.css */
+/* MusicQ_1.module.css */
 body {
   display: flex;
   justify-content: center;  /* 가로 방향으로 중앙 정렬 */
@@ -26,17 +26,17 @@ body {
   display: flex;
   justify-content: space-between;
   width: 93%;
-  padding: 1vh;
-  margin-top: 5%;
-  margin-bottom: 16%;
+  margin-top: 6%;
+  margin-bottom: 18%;
 }
 
 .back {
   background-color: transparent; 
   width: 36px;
   height: 36px;
+  height: 36px;
   display: inline-flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center; 
   cursor: pointer;
   transition: transform 0.2s, background-color 0.3s ease;  
@@ -60,7 +60,6 @@ body {
   display: flex;
   justify-content: space-between;
   width: 90%;
-  padding: 0;
   gap: 26px;
   margin-bottom: 35%;
   position: relative; /* 부모 요소에 상대 위치 */
@@ -80,7 +79,7 @@ body {
   background-color: #b4ff33;
   color:#000000;
   font-weight: bold;
-  border-radius: 3vh;
+  border-radius: 30px;
   width: 93px;
   height: 37px;
   display: inline-flex;
@@ -143,7 +142,7 @@ body {
   color: #000000;
 }
   
-.deviceOptions {
+.genreOptions {
   width: 100%;
   margin-bottom: 20%;
   align-items: center; 
@@ -157,20 +156,20 @@ body {
 }
   
   
-.deviceOptions > button {
+.genreOptions > button {
   min-height: 57px; /* 버튼 최소 높이 설정 */
   flex-grow: 0; /* 버튼이 줄어들지 않도록 설정 */
 }
   
-.deviceOptions::-webkit-scrollbar {
+.genreOptions::-webkit-scrollbar {
   display: none; /* 크롬 및 사파리 브라우저에서 스크롤바 숨김 */
 }
     
-.ottdeviceBtn {
+.musicgenreBtn {
   background-color: #d9d9d9;
   border-radius: 30px;
   font-weight: bold;
-  padding: 1vh; 
+  padding: 2%; 
   font-size: 24px;
   text-align: center;
   width: 276px;
@@ -187,7 +186,7 @@ body {
   grid-column: span 2; /* 마지막 줄에 버튼이 2열을 차지하도록 설정 */
   width: 276px;
   height: 57px;
-  padding: auto;
+  padding-top: 3px;
   margin-bottom: 20%;
   display: inline-flex;
   align-items: center; 
@@ -198,16 +197,16 @@ body {
 }
   
   
-:is(.ottdeviceBtn, .back, .home, .next):hover,
-:is(.ottdeviceBtn, .back, .home, .next):active,
-:is(.ottdeviceBtn, .back, .home, .next):focus,
+:is(.musicgenreBtn, .back, .home, .next):hover,
+:is(.musicgenreBtn, .back, .home, .next):active,
+:is(.musicgenreBtn, .back, .home, .next):focus,
 .selected:active,
 .selected:focus{
   outline: none;
   border: none; 
 }
   
-:is(.ottdeviceBtn, .home, .next):hover{
+:is(.musicgenreBtn, .home, .next):hover{
   transform: scale(1.02); 
 }
   

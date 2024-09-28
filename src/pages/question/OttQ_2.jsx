@@ -1,38 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
-import styles from '../../styles/question/Question1_2.module.css';
+import React, { useState, useRef } from "react";
+import styles from '../../styles/question/OttQ_2.module.css';
 import line from "/src/assets/images/question-line.svg";
 import backIcon from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import homeIcon from "/src/assets/images/home-button.svg";
 
-const Question1_2 = () => {
-  const [selected, setSelected] = useState([]);
+const OttQ_2 = () => {
+  const [selected, setSelected] = useState("");
   const timeOptionsRef = useRef(null);  // 스크롤 영역 참조
-  const [isAtBottom, setIsAtBottom] = useState(false);  // 스크롤 상태
 
   const handleClick = (otttime) => {
-    if (selected.includes(otttime)) {
-      setSelected(selected.filter((item) => item !== otttime));
+    if (selected === otttime) {
+      setSelected(""); // 선택 해제
     } else {
-      setSelected([...selected, otttime]);
+      setSelected(otttime); // 클릭된 버튼을 선택
     }
   };
-
-  const handleScroll = () => {
-    const scrollHeight = timeOptionsRef.current.scrollHeight;
-    const scrollTop = timeOptionsRef.current.scrollTop;
-    const clientHeight = timeOptionsRef.current.clientHeight;
-    setIsAtBottom(scrollTop + clientHeight >= scrollHeight);
-  };
-
-  useEffect(() => {
-    const timeOptionsEl = timeOptionsRef.current;
-    timeOptionsEl.addEventListener("scroll", handleScroll);
-
-    return () => {
-      timeOptionsEl.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <div className={styles.container}>
@@ -87,4 +70,4 @@ const Question1_2 = () => {
   );
 };
 
-export default Question1_2;
+export default OttQ_2;
