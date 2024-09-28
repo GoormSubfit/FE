@@ -1,13 +1,17 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom'; // useNavigate 가져오기
 import styles from '../../styles/question/CloudQ2.module.css';
 import line from "/src/assets/images/question-line.svg";
-import backIcon from "/src/assets/images/back-button.svg";
+import backBtn from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
-import homeIcon from "/src/assets/images/home-button.svg";
+import homeBtn from "/src/assets/images/home-button.svg";
+import Back from "../../components/Back";
+import Home from "../../components/Home";
 
 const CloudQ2 = () => {
   const [selected, setSelected] = useState("");
   const storageOptionsRef = useRef(null);  // 스크롤 영역 참조
+  const navigate = useNavigate(); // useNavigate를 사용하여 navigate 함수 생성
 
   const handleClick = (cloudStorage) => {
     if (selected === cloudStorage) {
@@ -17,14 +21,26 @@ const CloudQ2 = () => {
     }
   };
 
+  const goNext = () => {
+    if (selected) {
+      navigate('/cloudq3');
+    } else {
+      alert('옵션을 선택해주세요.');
+    }
+  };
+
+  const goBack = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <button className={styles.back}>
-            <img src={backIcon} alt="backbutton" className={styles.backbutton} />
+        <button className={styles.back} onClick={goBack}>
+            <img src={backBtn} alt="backBtn" className={styles.backBtn} />
         </button>
         <button className={styles.home}>
-          <img src={homeIcon} alt="homebtn" className={styles.homebtn} />
+          <img src={homeBtn} alt="homebtn" className={styles.homebtn} />
         </button>
       </div>
       <div className={styles.questionStep}>
@@ -62,7 +78,7 @@ const CloudQ2 = () => {
         </button>
       </div>
       <div>
-        <button className={styles.next}>
+        <button className={styles.next} onClick={goNext}>
           <img src={arrowIcon} alt="arrow" className={styles.arrow} />
         </button>
       </div>

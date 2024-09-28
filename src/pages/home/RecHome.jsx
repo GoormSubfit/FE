@@ -1,11 +1,13 @@
-// src/pages/home/RecommendationHome.jsx
+// src/pages/home/RecHome.jsx
 import React, { useState } from "react";
-import styles from "../../styles/home/RecommendationHome.module.css";
+import { useNavigate } from 'react-router-dom'; // 라우팅을 위한 훅 가져오기
+import styles from "../../styles/home/RecHome.module.css";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import homeIcon from "/src/assets/images/home-button.svg";
 
-const RecommendationHome = () => {
+const RecHome = () => {
   const [selected, setSelected] = useState(""); // 단일 선택 상태 관리 (문자열)
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
 
   const handleClick = (buttonName) => {
     // 클릭된 버튼이 현재 선택된 버튼과 같다면 선택 해제
@@ -16,8 +18,23 @@ const RecommendationHome = () => {
     }
   };
 
+  // '다음' 버튼 클릭 시 CloudQ1 페이지로 이동
+  const goNext = () => {
+    if (selected === "cloud") {
+      navigate('/cloudq1'); // 클라우드 버튼 선택 시 CloudQ1 페이지로 이동
+    } else if (selected === "ebook") {
+      navigate('/ebookq1'); // ebook 버튼 선택 시 EbookQ1 페이지로 이동
+    } else if (selected === "music") {
+      navigate('/musicq1'); // 음악 버튼 선택 시 MusicQ1 페이지로 이동
+    } else if (selected === "ott") {
+      navigate('/ottq1'); // OTT 버튼 선택 시 OttQ1 페이지로 이동
+    } else if (selected === "delivery") {
+      navigate('/deliveryq1'); // 배송 버튼 선택 시 DeliveryQ1 페이지로 이동
+    }
+  };
+
   return (
-    <div className={styles.homeContainer}>
+    <div className={styles.container}>
       <header className={styles.header}>
         <button className={styles.home}>
           <img src={homeIcon} alt="homebutton" className={styles.homebutton} />
@@ -74,7 +91,7 @@ const RecommendationHome = () => {
             </button>
           </div>
         </div>
-        <button className={styles.next}>
+        <button className={styles.next} onClick={goNext}>
           <img src={arrowIcon} alt="arrow" className={styles.arrow} />
         </button>
       </div>
@@ -82,4 +99,4 @@ const RecommendationHome = () => {
   );
 };
 
-export default RecommendationHome;
+export default RecHome;

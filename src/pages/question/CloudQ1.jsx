@@ -1,14 +1,18 @@
+// src/pages/question/CloudQ1.jsx
 import React, { useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
 import styles from '../../styles/question/CloudQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
-import backIcon from "/src/assets/images/back-button.svg";
+import backBtn from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
-import homeIcon from "/src/assets/images/home-button.svg";
+import homeBtn from "/src/assets/images/home-button.svg";
 import Back from "../../components/Back";
+import Home from "../../components/Home";
 
 const CloudQ1 = () => {
   const [selected, setSelected] = useState("");
   const useOptionsRef = useRef(null);  // 스크롤 영역 참조
+  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
 
   const handleClick = (cloudUse) => {
     if (selected === cloudUse) {
@@ -18,14 +22,28 @@ const CloudQ1 = () => {
     }
   };
 
+  // '다음' 버튼 클릭 시 CloudQ2로 이동
+  const goNext = () => {
+    if (selected) {
+      navigate('/cloudq2'); // CloudQ2 페이지로 이동
+    } else {
+      alert('옵션을 선택해주세요.'); // 선택하지 않았을 경우 경고 메시지
+    }
+  };
+
+  // 'Back' 버튼 클릭 시 RecHome으로 이동
+  const goBack = () => {
+    navigate(-1); // RecHome 페이지로 이동
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.back}>
-          <img src={backIcon} alt="backbutton" className={styles.backbutton} />
+        <button className={styles.back} onClick={goBack}>
+          <img src={backBtn} alt="backbutton" className={styles.backbutton} />
         </button>
         <button className={styles.home}>
-          <img src={homeIcon} alt="homebutton" className={styles.homebutton} />
+          <img src={homeBtn} alt="homebutton" className={styles.homebutton} />
         </button>
       </header>
       <div className={styles.questionStep}>
@@ -65,7 +83,7 @@ const CloudQ1 = () => {
         </button>
       </div>
       <div>
-        <button className={styles.next}>
+        <button className={styles.next} onClick={goNext}>
           <img src={arrowIcon} alt="arrow" className={styles.arrow} />
         </button>
       </div>

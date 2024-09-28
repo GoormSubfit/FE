@@ -3,37 +3,62 @@ body {
   display: flex;
   justify-content: center;  /* 가로 방향으로 중앙 정렬 */
   align-items: center;  /* 세로 방향으로 중앙 정렬 */
-  height: 100vh;  /* 화면 전체 높이 사용 */
-  margin: 0;  /* 기본 여백 제거 */
+  height: 100%;  /* 화면 전체 높이 사용 */
+  padding: 0;
   background-color: white; /* 배경을 흰색으로 */
   font-family: "Inter", sans-serif;
 }
 
-.homeContainer {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 95vh;
+  width: 100%;
+  min-width: 390px;
+  max-width: 430px;
+  height: 100%;
+  min-height: 844px;
+  max-height: 932px;
   text-align: center;
 }
 
 .header {
   display: flex;
   justify-content: flex-end;  /* 오른쪽 정렬 */
-  align-items: center; /* 홈 버튼을 오른쪽 위로 이동 */
-  width: 95%;
-  padding: 1vh;
-  margin-bottom: 0.5vh;
-  margin-left: 5vh;
+  width: 93%;
+  margin-top: 6%;
+  margin-bottom: 5%;
+}
+
+.home {
+  background-color: transparent;
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; 
+  cursor: pointer; 
+  transition: transform 0.2s, background-color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.question{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 15%;
 }
 
 .p{
-  width: 100%;
+  font-family: "Inter", sans-serif;
   font-weight: bolder;
   font-size: 24px;
+  height: 50px;
+  text-align: center;
   color: #000000;
-  margin-bottom: 3vh;
 }
 
 .buttonWrapper {
@@ -41,21 +66,22 @@ body {
   flex-direction: column;  /* 세로로 나열 */
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .optionsGrid {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5vh;  /* 버튼 사이의 간격 */
-  margin-bottom: 1.2vh;
+  gap: 12px;  /* 버튼 사이의 간격 */
+  margin-bottom: 8%;
 }
 
 .column1, .column2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2vh;
+  gap: 14px;
 }
 
 .ebook, .ott, .delivery, .cloud, .music {
@@ -74,13 +100,12 @@ body {
 
 .next {
   background-color: #528DFF; 
-  border-radius: 5vh; 
-  grid-column: span 2; 
-  width: 33vh;
-  height: 6.5vh;
-  padding: auto;
-  margin-top: 1vh;
-  margin-bottom: 6vh;
+  border-radius: 30px; 
+  grid-column: span 2; /* 마지막 줄에 버튼이 2열을 차지하도록 설정 */
+  width: 276px;
+  height: 57px;
+  padding-top: 3px;
+  margin-bottom: 20%;
   display: inline-flex;
   align-items: center; 
   justify-content: center; 
@@ -89,27 +114,14 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.home {
-  background-color: transparent;
-  width: 4vh;
-  height: 4vh;
-  margin-right: 1vh;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center; 
-  cursor: pointer; 
-  transition: transform 0.2s, background-color 0.3s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
 .homebutton {
-  width: 4vh; 
-  height: 4vh; 
+  width: 36px; 
+  height: 36px; 
 }
-
+  
 .arrow {
-  width: 8vh; 
-  height: 7vh; 
+  width: 71px; 
+  height: 38px; 
 }
 
 .ebook span, .ott span, .delivery span, .cloud span, .music span {
