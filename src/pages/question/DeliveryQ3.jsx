@@ -2,9 +2,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from '../../styles/question/DeliveryQ3.module.css';
 import line from "/src/assets/images/question-line.svg";
-import backIcon from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
-import homeIcon from "/src/assets/images/home-button.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
 
@@ -31,14 +29,8 @@ const DeliveryQ3 = () => {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <button className={styles.back}>
-          <img src={backIcon} alt="backbutton" className={styles.backbutton} />
-        </button>
-        <button className={styles.home}>
-          <img src={homeIcon} alt="homebutton" className={styles.homebutton} />
-        </button>
-      </header>
+      <Back/>
+      <Home/>
       <div className={styles.questionStep}>
         <div className={styles.line}>
           <img src={line} alt="line" className={styles.line} />

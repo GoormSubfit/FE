@@ -22,33 +22,13 @@ body {
   text-align: center;
 }
 
-.header {
-  display: flex;
-  justify-content: flex-end;  /* 오른쪽 정렬 */
-  width: 93%;
-  margin-top: 6%;
-  margin-bottom: 5%;
-}
-
-.home {
-  background-color: transparent;
-  width: 36px;
-  height: 36px;
-  margin-right: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center; 
-  cursor: pointer; 
-  transition: transform 0.2s, background-color 0.3s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
 .question{
   display: flex;
   align-items: center; 
   justify-content: center;
   width: 90%;
   height: 40px;
+  margin-top: 20%;
   margin-bottom: 15%;
 }
 

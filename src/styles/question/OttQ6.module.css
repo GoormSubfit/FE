@@ -22,45 +22,13 @@ body {
   max-height: 932px;
   text-align: center;
 }
-  
-.header {
-  display: flex;
-  justify-content: space-between;
-  width: 93%;
-  margin-top: 6%;
-  margin-bottom: 18%;
-}
 
-.back {
-  background-color: transparent; 
-  width: 36px;
-  height: 36px;
-  display: inline-flex;
-  align-items: center; 
-  justify-content: center; 
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.3s ease;  
-  -webkit-tap-highlight-color: transparent;
-}
-  
-.home {
-  background-color: transparent;
-  width: 36px;
-  height: 36px;
-  margin-right: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center; 
-  cursor: pointer; 
-  transition: transform 0.2s, background-color 0.3s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-  
 .questionStep {
   display: flex;
   justify-content: space-between;
   width: 90%;
   gap: 26px;
+  margin-top: 33%;
   margin-bottom: 35%;
   position: relative; /* 부모 요소에 상대 위치 */
   align-items: center;

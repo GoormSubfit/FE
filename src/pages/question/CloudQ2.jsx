@@ -2,9 +2,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom'; // useNavigate 가져오기
 import styles from '../../styles/question/CloudQ2.module.css';
 import line from "/src/assets/images/question-line.svg";
-import backBtn from "/src/assets/images/back-button.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
-import homeBtn from "/src/assets/images/home-button.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
 
@@ -29,20 +27,10 @@ const CloudQ2 = () => {
     }
   };
 
-  const goBack = () => {
-    navigate(-1); // 이전 페이지로 이동
-  };
-
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <button className={styles.back} onClick={goBack}>
-            <img src={backBtn} alt="backBtn" className={styles.backBtn} />
-        </button>
-        <button className={styles.home}>
-          <img src={homeBtn} alt="homebtn" className={styles.homebtn} />
-        </button>
-      </div>
+      <Back/>
+      <Home/>
       <div className={styles.questionStep}>
         <div className={styles.line}>
           <img src={line} alt="line" className={styles.line} />

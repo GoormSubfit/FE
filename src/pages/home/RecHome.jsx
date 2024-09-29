@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'; // 라우팅을 위한 훅 가져오기
 import styles from "../../styles/home/RecHome.module.css";
 import arrowIcon from "/src/assets/images/arrow.svg";
-import homeIcon from "/src/assets/images/home-button.svg";
+import Home from "../../components/Home";
 
 const RecHome = () => {
   const [selected, setSelected] = useState(""); // 단일 선택 상태 관리 (문자열)
@@ -35,11 +35,7 @@ const RecHome = () => {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <button className={styles.home}>
-          <img src={homeIcon} alt="homebutton" className={styles.homebutton} />
-        </button>
-      </header>
+      <Home/>
       <div className={styles.question}>
         <p className={styles.p}>추천을 받고 싶은 항목을<br />선택해 주세요!</p>
       </div>

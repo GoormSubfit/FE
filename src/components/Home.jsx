@@ -9,6 +9,6 @@ export default function Home() {
     }
 
     return (
-            <img onClick={goHome} src={homeBtn} style={{position:"absolute", zIndex:"1000", top:"20px",right: "20px", margin:"20px 0 0 0px"}}/>
+            <img onClick={goHome} src={homeBtn} style={{position:"absolute", zIndex:"1000", top:"2px",right: "24px", margin:"20px 0 0 0px"}}/>
     );
 }
