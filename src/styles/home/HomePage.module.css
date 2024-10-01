@@ -54,31 +54,11 @@ body {
   align-items: center;
   background-color: #F3F3F3;
   border-radius: 25px;
-  gap: 20px;
+  gap: 10px;
   width: 363px;
   height: 112px;
   padding: 0;
   margin-bottom: 4%;
-}
-
-.sumDate{
-  display: flex;
-  justify-content:center;
-  flex-direction: column;
-  align-items: center;
-  width: 80px;
-  height: 100px;
-  margin: 0 0 0 10px;
-  font-weight: 500;
-}
-
-.sumMonth{
-  color: #000000;
-  font-size: 20px;
-}
-.sumDay{
-  color: #000000;
-  font-size: 12px;
 }
 
 .sumState{
@@ -179,7 +159,7 @@ body {
   margin: 0px 0 0 25px;
 }
 
-.Svc{
+.mySvc{
   display: flex;
   flex-direction: column; 
   align-items: flex-start; 
@@ -187,7 +167,7 @@ body {
   margin: 10px 0 0 0;
 }
 
-.secSvc{
+.secMySvc{
   display: flex;
   flex-direction: column; 
   align-items: flex-start; 
@@ -198,7 +178,7 @@ body {
   margin: 0 0 0 15px;
 }
 
-.svcBox {
+.mySvcBox {
   position: relative;
   display: flex;
   justify-content: center;
@@ -236,7 +216,7 @@ body {
   margin: 0 0 0 60px;
 }
 
-.svcName{
+.mySvcName{
   color: #5C5C5C;
   font-size: 13px;
   font-weight: 500;
@@ -245,14 +225,14 @@ body {
 
 }
 
-.svcPrice{
+.mySvcPrice{
   color: #5C5C5C;
   font-size: 13px;
   font-weight: 600;
   margin: 0;
 }
 
-.svcDday{
+.mySvcDday{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,7 +244,7 @@ body {
   margin: 0 5px 0 60px;
 }
 
-.svcDetail{
+.mySvcDetail{
   background-color: transparent;
   display: flex;
   justify-content: center;
@@ -301,8 +281,9 @@ body {
   position: fixed;
   right: 0px;
   bottom: 90px;
-  width: 158px;
+  width: 90px;
   height: 51px;
+  border-radius: 50%;
   cursor: pointer;
   z-index: 5;
   -webkit-tap-highlight-color: transparent;
@@ -355,7 +336,43 @@ button:focus
   cursor: pointer;
 }  
 
-.modalContainer {
+/* 슬라이드 애니메이션 */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.addModalPage1 {
+  text-align: center;
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out; 
+}
+
+.page2 {
+  transform: translateX(-100%); /* 두 번째 페이지로 전환 */
+}
+
+.addModalPage2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #F3F3F3;
+  color:#595959;
+  height: 92%;
+  z-index: 6;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  animation: slideUp 0.5s ease-in-out;
+}
+
+.addModalContainer, .editModalContainer {
   display: flex;
   align-items: flex-start;
   position: fixed;
@@ -372,7 +389,12 @@ button:focus
   animation: slideUp 0.5s ease-in-out;
 }
 
-.addBack{
+.editModalPageHeader{
+  display: flex;
+
+}
+
+.Back{
   background-color: transparent;
   display: flex;
   justify-content: center;
@@ -394,44 +416,7 @@ button:focus
   height: 24px;
 }
 
-
-/* 슬라이드 애니메이션 */
-@keyframes slideUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.addFirstPage {
-  text-align: center;
-  width: 100%; /* 전체 너비를 차지하도록 설정 */
-  height: 100%;
-  overflow: hidden;
-  transition: transform 0.5s ease-in-out; 
-}
-
-.page2 {
-  transform: translateX(-100%); /* 두 번째 페이지로 전환 */
-}
-
-.addSecondPage {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #F3F3F3;
-  color:#595959;
-  height: 92%;
-  z-index: 6;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  animation: slideUp 0.5s ease-in-out;
-}
-
-.addOkay{
+.addOkay, .exitBtn{
   position: absolute;
   top:20px;
   right: 10px;
@@ -441,10 +426,9 @@ button:focus
   font-weight: 600;
 }
 
-.addSecondPageCnt{
+.editModalPage1Content, .editModalPage2Content{
   display: flex;
   flex-direction: column;
-
   align-items: center;
   position: fixed;
   bottom: 0;
@@ -455,70 +439,36 @@ button:focus
   z-index: 6;
 }
 
-.serviceLogo {
-  width: 104px;
-  height: 104px;
-  border-radius: 50%; /* 100%도 가능하지만, 50%로도 원형을 만듭니다 */
-  overflow: hidden; /* 이미지가 컨테이너 바깥으로 나가지 않도록 */
-}
-
-.serviceLogo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* 이미지를 컨테이너에 맞추어 잘라냅니다 */
-}
-
-.inputGroup{
+.editSvcInfo{
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 17px;
+  margin: 7% 0 0 0;
 }
 
-.addSvsInput {
-  background-color: #ffffff;
-  color: #8F8F8F;
-  width: 336px;
-  height: 67px;
-  border-radius: 25px; /* 모서리를 둥글게 */
-  border: none;
-  padding-left: 20px;
-  font-size: 17px; /* 글자 크기 */
-  font-weight: 500;
-  outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
+.editSvcName{
+  color: #000000;
+  font-size: 22px;
+  font-weight: 600;
 }
 
-.addSvsInputSelect{
-  background-color: #ffffff;
-  color: #8F8F8F;
-  width: 358px;
-  height: 69px;
-  border-radius: 25px; /* 모서리를 둥글게 */
-  border: none;
-  padding-left: 20px;
-  font-size: 17px; /* 글자 크기 */
-  font-weight: 500;
-  text-align: left;
-  outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
+.editSvcPrice{
+  color: #595959;
+  font-size: 17px;
 }
 
-.addFpd {
-  width: 328px;
-  height: 69px;
-  background-color: #ffffff; /* 배경색 설정 */
-  border-radius: 25px; /* 모서리를 둥글게 */
+.addModalPage2Content{
   display: flex;
-  align-items: center; /* 세로 중앙 정렬 */
-  justify-content: space-between; /* 가로로 처음 결제일과 DateSelector를 양 끝에 배치 */
-  padding: 0 15px; /* 좌우 여백 설정 */
-  font-size: 17px; /* 텍스트 크기 */
-  color: #8F8F8F; /* 텍스트 색상 */
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 83%;
+  margin: 0 0 0 0;
+  z-index: 6;
 }
-
-.addDoc{
-}
-
 
 .addCatBtns {
   display: flex;
@@ -632,6 +582,70 @@ button:focus
   white-space: nowrap;
   color: #5C5C5C;
   cursor: pointer;
+}
+
+.serviceLogo, .editSvcLogo {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%; /* 100%도 가능하지만, 50%로도 원형을 만듭니다 */
+  overflow: hidden; /* 이미지가 컨테이너 바깥으로 나가지 않도록 */
+}
+
+.serviceLogo img, .editSvcLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지를 컨테이너에 맞추어 잘라냅니다 */
+}
+
+.inputGroup{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+}
+
+.addSvsInput {
+  background-color: #ffffff;
+  color: #8F8F8F;
+  width: 336px;
+  height: 67px;
+  border-radius: 25px; /* 모서리를 둥글게 */
+  border: none;
+  padding-left: 20px;
+  font-size: 17px; /* 글자 크기 */
+  font-weight: 500;
+  outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
+}
+
+.addSvsInputSelect{
+  background-color: #ffffff;
+  color: #8F8F8F;
+  width: 358px;
+  height: 69px;
+  border-radius: 25px; /* 모서리를 둥글게 */
+  border: none;
+  padding-left: 20px;
+  font-size: 17px; /* 글자 크기 */
+  font-weight: 500;
+  text-align: left;
+  outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
+}
+
+.addFpd {
+  width: 328px;
+  height: 69px;
+  background-color: #ffffff; /* 배경색 설정 */
+  border-radius: 25px; /* 모서리를 둥글게 */
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: space-between; /* 가로로 처음 결제일과 DateSelector를 양 끝에 배치 */
+  padding: 0 15px; /* 좌우 여백 설정 */
+  font-size: 17px; /* 텍스트 크기 */
+  color: #8F8F8F; /* 텍스트 색상 */
+}
+
+.addDoc{
 }
 
 

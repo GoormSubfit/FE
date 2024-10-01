@@ -41,7 +41,7 @@ import kyoboBookBtn from "../../assets/images/serviceBtn/KyoboBook.svg";
 import DateSelector from "../../components/DateSelector/DateSelector"
 import backBtn from "../../assets/images/back-button.svg"
 import detailBtn from "../../assets/images/DetailBtn.svg"
-
+import DateCycle from '../../components/DateCycle';
 const HomePage = () => {
   // 상태 관리
   const [userData, setUserData] = useState({
@@ -51,10 +51,10 @@ const HomePage = () => {
     subDay: 14,
     subState: "구독 중",
     subList: [
-      { date: "9월 14일", price: 9500, state: "구독 중", dueDate: "오늘", logo: "netflix-logo", svc: "넷플릭스", period: "1개월" },
-      { date: "9월 23일", price: 4830, state: "구독 해지", dueDate: "9일 뒤", logo: "flo-logo", svc: "FLO", period: "1개월" },
-      { date: "9월 25일", price: 10000, state: "구독 중", dueDate: "11일 뒤", logo: "spotify-logo", svc: "Spotify", period: "1개월" },
-      { date: "9월 27일", price: 12000, state: "구독 중", dueDate: "13일 뒤", logo: "amazon-logo", svc: "Amazon Prime", period: "1개월" }
+      { date: "9월 14일", price: 9500, state: "구독 중", dueDate: "오늘", svc: "넷플릭스", period: "1개월" },
+      { date: "9월 23일", price: 4830, state: "구독 해지", dueDate: "9일 뒤", svc: "플로", period: "1개월" },
+      { date: "9월 25일", price: 10000, state: "구독 중", dueDate: "11일 뒤", svc: "스포티파이", period: "1개월" },
+      { date: "9월 27일", price: 12000, state: "구독 중", dueDate: "13일 뒤", svc: "배민 클럽", period: "1개월" }
     ]
   });
 
@@ -63,9 +63,12 @@ const HomePage = () => {
   const [activeCat, setActiveCat] = useState('');
   const [plusBtnActive, setPlusBtnActive] = useState(false);
   const [CatSelected, setCatSelected] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [currentModalPage, setCurrentModalPage] = useState(1);
-  const [selectedService, setSelectedService] = useState('');
+  const [isEditModal, setIsEditModal] = useState(false);
+  const [editPage, setEditPage] = useState(1);
+  const [selectedMySvc, setSelectedMySvc] = useState('');
+  const [isAddModal, setIsAddModal] = useState(false);
+  const [addPage, setAddPage] = useState(1);
+  const [selectedSvc, setSelectedSvc] = useState('');
   const [newSubName, setNewSubName] = useState('');
   const [newSubPrice, setNewSubPrice] = useState(null);
 
@@ -86,59 +89,78 @@ const HomePage = () => {
   const cat = () => {
     setShowCat(prevState => !prevState);
     setPlusBtnActive(prevState => !prevState);
-    if (CatSelected) setShowModal(true);
+    if (CatSelected) setIsAddModal(true);
   };
 
   const catClick = (category) => {
     setActiveCat(category);
     setCatSelected(true);
-    setShowModal(true);
+    setIsAddModal(true);
   };
 
     // 서비스 선택 및 모달 조작
   const serviceClick = (serviceName) => {
-    setSelectedService(serviceName);
+    setSelectedSvc(serviceName);
   };
 
   const selectClick = () => {
-    if (selectedService) {  // selectedService가 null 또는 빈 값이 아닐 때만 실행
-      setCurrentModalPage(2);
+    if (selectedSvc) {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
+      setAddPage(2);
     } else {
       alert("서비스를 먼저 선택해주세요.");  // 서비스가 선택되지 않았을 때 알림
-      setCurrentModalPage(1);
+      setAddPage(1);
     }
   };
 
-  const backModal = () => {
-    setCurrentModalPage(1);
+  const backAddModal = () => {
+    setAddPage(1);
   }
 
-  const closeModal = () => {  // selectedService가 null 또는 빈 값이 아닐 때만 실행
-      setShowModal(false);
-      setCurrentModalPage(1);  
+  const closeAddModal = () => {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
+      setIsAddModal(false);
+      setAddPage(1);  
       setShowCat(false);
       setPlusBtnActive(false);
       setActiveCat(''); // 선택된 카테고리 초기화
       setCatSelected(false); // 카테고리 선택 상태 초기화
-      setSelectedService('');
+      setSelectedSvc('');
   }
-  const saveModal = () => {
-    if (newSubName.trim() && newSubPrice) {  // selectedService가 null 또는 빈 값이 아닐 때만 실행
-      setShowModal(false);
-      setCurrentModalPage(1);  
+  const saveAddModal = () => {
+    if (newSubName.trim() && newSubPrice) {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
+      setIsAddModal(false);
+      setAddPage(1);  
       setShowCat(false);
       setPlusBtnActive(false);
       setActiveCat(''); // 선택된 카테고리 초기화
       setCatSelected(false); // 카테고리 선택 상태 초기화
-      setSelectedService('');
+      setSelectedSvc('');
       setNewSubName('');
       setNewSubPrice(null);
     } else {
       alert("내용을 작성해주세요");  // 서비스가 선택되지 않았을 때 알림
-      setCurrentModalPage(2);
+      setAddPage(2);
     }
   };
 
+  const myServiceClick = (myService) => {
+    setSelectedMySvc(myService);
+  };
+
+  const openEditModal = () => {
+    setIsEditModal(true);
+  }
+
+  const editStart = () => {
+    setEditPage(2);
+  }
+
+  const backEditModal = () => {
+    setEditPage(1);
+  }
+
+  const closeEditModal = () => {
+    setIsEditModal(false);
+  }
   // 서비스 이미지 맵핑 (카테고리별 이미지 표시)
   const renderServiceImage = () => {
     const serviceImageMap = {
@@ -176,165 +198,284 @@ const HomePage = () => {
       '교보문고 sam': kyoboBookBtn,
       '예스24 ebook': yes24Btn
     };
-    return serviceImageMap[selectedService] ? <img src={serviceImageMap[selectedService]} alt={`${selectedService} Button`} className={styles.serviceImage} /> : null;
+    return (
+      <>
+        {/* selectedMySvc에 따른 이미지 렌더링 */}
+        {serviceImageMap[selectedMySvc?.svc] && (
+          <img src={serviceImageMap[selectedMySvc?.svc]} alt={`${selectedMySvc?.svc} Button`} className={styles.serviceImage} />
+        )}
+        
+        {/* selectedSvc에 따른 이미지 렌더링 */}
+        {serviceImageMap[selectedSvc] && (
+          <img src={serviceImageMap[selectedSvc]} alt={`${selectedSvc} Button`} className={styles.serviceImage} />
+        )}
+      </>
+    );
   };
 
   return (
     <div className={styles.homeContainer}>
       {plusBtnActive && <div className={styles.overlay}></div>}
-      
-      {/* 모달 */}
-      {showModal && (
-        <div className={styles.modalContainer}>
-          <div className={`${styles.addFirstPage} ${currentModalPage === 2 ? styles.page2 : ''}`}>
-            <button className={styles.addBack} onClick={closeModal}>
-              <img src={backBtn} alt="back Button" className={styles.backBtn} />
-            </button>
-              <div className={styles.addCatBtns}>
-                <button className={`${styles.addCatBtn} ${activeCat === 'OTT' ? styles.activeCat : ''}`} onClick={() => catClick('OTT')}>OTT</button>
-                <button className={`${styles.addCatBtn} ${activeCat === 'Music' ? styles.activeCat : ''}`} onClick={() => catClick('Music')}>Music</button>
-                <button className={`${styles.addCatBtn} ${activeCat === 'Delivery' ? styles.activeCat : ''}`} onClick={() => catClick('Delivery')}>Delivery</button>
-                <button className={`${styles.addCatBtn} ${activeCat === 'Cloud' ? styles.activeCat : ''}`} onClick={() => catClick('Cloud')}>Cloud</button>
-                <button className={`${styles.addCatBtn} ${activeCat === 'E-book' ? styles.activeCat : ''}`} onClick={() => catClick('E-book')}>E-book</button>
+      {/* 사용자 정보 및 구독 정보 */}
+      <div className={styles.container}>
+        <div className={styles.userProfile}>
+          <h2 className={styles.userName}>{userData.name}님</h2>
+          <p className={styles.userJob}>{userData.jobTitle}</p>
+        </div>
+        <div className={styles.Summary}>
+          <DateCycle/>
+          <div className={styles.sumState}><div className={styles.sumStatus}>{userData.subState}</div><div className={styles.sumCount}>{userData.subList.length}개</div></div>
+          <div className={styles.sumTotalExp}><div className={styles.labelTotalExp}>지출 총액</div><div className={styles.valueTotalExp}>{totalSpent.toLocaleString()} 원</div></div>
+        </div>
+        
+        {/* 구독 알림 */}
+        <div className={styles.Notif}>
+          <p className={styles.secNotif}>알림</p>
+          <div className={styles.subNotifBox}>
+            {userData.subList
+              .filter(item => item.state === "구독 중")
+              .sort((a, b) => parseDueDate(a.dueDate) - parseDueDate(b.dueDate))
+              .slice(0, 2)
+              .map((item, index) => (
+                <div key={index} className={styles.notifBox}>
+                  <p className={styles.notifDate}>{item.date}</p>
+                  <p className={styles.notifPrice}>{item.price.toLocaleString()} 원</p>
+                  <p className={styles.notifMsg}>{item.dueDate === "오늘" ? "오늘이 결제일이예요!" : item.dueDate}</p>
+                </div>
+              ))}
+          </div>
+        </div>
+
+        {/* 구독 서비스 목록 */}
+        <div className={styles.mySvc}>
+          <p className={styles.secMySvc}>나의 구독 서비스</p>
+          {userData.subList.map((item, index) => (
+            <button key={index} className={styles.mySvcBox} onClick={() => {
+              myServiceClick(item);
+              openEditModal();
+            }}>
+              <div className={styles.subInfo}>
+                <p className={styles.mySvcName} onChange={(e) => setNewSubPrice(e.target.value)}>{item.svc}</p>
+                <p className={styles.mySvcPrice}>{item.price.toLocaleString()} 원 / {item.period}</p>
               </div>
-              <div className={styles.addSvc}>
-                {/* 카테고리별 서비스 버튼 */}
-                {activeCat === 'OTT' && (
+              <p className={styles.mySvcDday} style={{ backgroundColor: item.dueDate === "오늘" ? '#FF594F' : '#528DFF', color: 'white' }}>{item.dueDate}</p>
+              <div className={styles.mySvcDetail}>
+                <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {isEditModal && (
+        <div className={styles.editModalContainer}>
+          {editPage === 1 && (
+            <div className={`${styles.editModalPage1} ${editPage === 2 ? styles.page2 : ''}`}>
+              <div className={styles.editModalPageHeader}>
+                <button className={styles.Back} onClick={closeEditModal}>
+                  <img src={backBtn} alt="back Button" className={styles.backBtn} />
+                </button>
+                <button className={styles.exitBtn} onClick={editStart}>편집</button>
+                <div className={styles.editModalPage1Content}>
+                  <div className={styles.editSvcInfo}>
+                    <div className={styles.editSvcLogo}>{renderServiceImage()}</div>
+                    <div className={styles.editSvcName}>{selectedMySvc?.svc}</div>                
+                    <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.period}</div>                
+                  </div>
+                </div>
+              </div>
+            </div>
+          )};
+
+          {editPage === 2 && (
+            <div className={styles.editModalPage2}>
+              <div className={styles.editModalPageHeader}>
+                <button className={styles.Back} onClick={backEditModal}>
+                  <img src={backBtn} alt="back Button" className={styles.backBtn} />
+                </button>
+                <div className={styles.editModalPage2Content}>
+
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 카테고리 선택 버튼 */}
+      <div className={styles.addButtonContainer}>
+        <button className={`${styles.addButton} ${plusBtnActive ? styles.activePlusButton : ''}`} onClick={cat}>
+          <img src={plusBtnActive ? subplusBtn : plusBtn} alt={plusBtnActive ? "subplus" : "plus"} className={plusBtnActive ? styles.subPlusBtn : styles.plusBtn} />
+        </button>
+        {showCat && (
+          <div className={styles.catBtns}>
+            <button className={`${styles.catBtn} ${activeCat === 'E-book' ? styles.activeCat : ''}`} onClick={() => catClick('E-book')}>E-book</button>
+            <button className={`${styles.catBtn} ${activeCat === 'Cloud' ? styles.activeCat : ''}`} onClick={() => catClick('Cloud')}>Cloud</button>
+            <button className={`${styles.catBtn} ${activeCat === 'Delivery' ? styles.activeCat : ''}`} onClick={() => catClick('Delivery')}>Delivery</button>
+            <button className={`${styles.catBtn} ${activeCat === 'Music' ? styles.activeCat : ''}`} onClick={() => catClick('Music')}>Music</button>
+            <button className={`${styles.catBtn} ${activeCat === 'OTT' ? styles.activeCat : ''}`} onClick={() => catClick('OTT')}>OTT</button>
+          </div>
+        )}
+        <div className={styles.Bar}>
+          <button className={styles.profile}><img src={profBtn} alt="Profile Button" className={styles.profBtn}/></button>
+          <button className={styles.calendar}><img src={calBtn} alt="Calendar Button" className={styles.calBtn}/></button>
+          <button className={styles.question}><img src={qBtn} alt="Question Button" className={styles.qBtn}/></button>
+        </div>
+      </div>
+
+      {/* 모달 */}
+      {isAddModal && (
+        <div className={styles.addModalContainer}>
+          {addPage === 1 && (
+            <div className={`${styles.addModalPage1} ${addPage === 2 ? styles.page2 : ''}`}>
+              <button className={styles.Back} onClick={closeAddModal}>
+                <img src={backBtn} alt="back Button" className={styles.backBtn} />
+              </button>
+                <div className={styles.addCatBtns}>
+                  <button className={`${styles.addCatBtn} ${activeCat === 'OTT' ? styles.activeCat : ''}`} onClick={() => catClick('OTT')}>OTT</button>
+                  <button className={`${styles.addCatBtn} ${activeCat === 'Music' ? styles.activeCat : ''}`} onClick={() => catClick('Music')}>Music</button>
+                  <button className={`${styles.addCatBtn} ${activeCat === 'Delivery' ? styles.activeCat : ''}`} onClick={() => catClick('Delivery')}>Delivery</button>
+                  <button className={`${styles.addCatBtn} ${activeCat === 'Cloud' ? styles.activeCat : ''}`} onClick={() => catClick('Cloud')}>Cloud</button>
+                  <button className={`${styles.addCatBtn} ${activeCat === 'E-book' ? styles.activeCat : ''}`} onClick={() => catClick('E-book')}>E-book</button>
+                </div>
+                <div className={styles.addSvc}>
+                  {/* 카테고리별 서비스 버튼 */}
+                  {activeCat === 'OTT' && (
+                    <div className={styles.addSvcBtns}>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('넷플릭스')}>
+                        <img src={netflixBtn} alt="Netflix Button" className={styles.netflixBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('디즈니플러스')}>
+                        <img src={disneyPlusBtn} alt="DisneyPlus Button" className={styles.disneyPlusBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('티빙')}>
+                        <img src={tvingBtn} alt="Tving Button" className={styles.tvingBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('웨이브')}>
+                        <img src={wavveBtn} alt="Wavve Button" className={styles.wavveBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('애플TV')}>
+                        <img src={appleTvBtn} alt="Apple TV Button" className={styles.appleTvBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('프라임비디오')}>
+                        <img src={primeVideoBtn} alt="PrimeVideo Button" className={styles.primeVideoBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('유튜브 프리미엄')}>
+                        <img src={youtubePremiumBtn} alt="YouTube Premium Button" className={styles.youtubePremiumBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('쿠팡플레이')}>
+                        <img src={coupangPlayBtn} alt="Coupang Play Button" className={styles.coupangPlayBtn} />
+                      </button>
+                      <button className={styles.addSvcBtn} onClick={() => serviceClick('시리즈온')}>
+                        <img src={seriesOnBtn} alt="Series On Button" className={styles.seriesOnBtn} />
+                      </button>
+                    </div>
+                  )}
+                
+                  {activeCat === 'Music' && (
                   <div className={styles.addSvcBtns}>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('넷플릭스')}>
-                      <img src={netflixBtn} alt="Netflix Button" className={styles.netflixBtn} />
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('스포티파이')}>
+                      <img src={spotifyBtn} alt="Spotify Button" className={styles.spotifyBtn} />
                     </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('디즈니플러스')}>
-                      <img src={disneyPlusBtn} alt="DisneyPlus Button" className={styles.disneyPlusBtn} />
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('애플 뮤직')}>
+                      <img src={appleMusicBtn} alt="Apple Music Button" className={styles.appleMusicBtn} />
                     </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('티빙')}>
-                      <img src={tvingBtn} alt="Tving Button" className={styles.tvingBtn} />
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('벅스')}>
+                      <img src={bugsBtn} alt="Bugs Button" className={styles.bugsBtn} />
                     </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('웨이브')}>
-                      <img src={wavveBtn} alt="Wavve Button" className={styles.wavveBtn} />
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('플로')}>
+                      <img src={floBtn} alt="Flo Button" className={styles.floBtn} />
                     </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('애플TV')}>
-                      <img src={appleTvBtn} alt="Apple TV Button" className={styles.appleTvBtn} />
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('지니뮤직')}>
+                      <img src={genieBtn} alt="Genie Button" className={styles.genieBtn} />
                     </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('프라임비디오')}>
-                      <img src={primeVideoBtn} alt="PrimeVideo Button" className={styles.primeVideoBtn} />
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('멜론')}>
+                      <img src={melonBtn} alt="Melon Button" className={styles.melonBtn} />
                     </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('유튜브 프리미엄')}>
-                      <img src={youtubePremiumBtn} alt="YouTube Premium Button" className={styles.youtubePremiumBtn} />
-                    </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('쿠팡플레이')}>
-                      <img src={coupangPlayBtn} alt="Coupang Play Button" className={styles.coupangPlayBtn} />
-                    </button>
-                    <button className={styles.addSvcBtn} onClick={() => serviceClick('시리즈온')}>
-                      <img src={seriesOnBtn} alt="Series On Button" className={styles.seriesOnBtn} />
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('유튜브 뮤직')}>
+                      <img src={youtubeMusicBtn} alt="YouTube Music Button" className={styles.youtubeMusicBtn} />
                     </button>
                   </div>
                 )}
-              
-                {activeCat === 'Music' && (
-                <div className={styles.addSvcBtns}>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('스포티파이')}>
-                    <img src={spotifyBtn} alt="Spotify Button" className={styles.spotifyBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('애플 뮤직')}>
-                    <img src={appleMusicBtn} alt="Apple Music Button" className={styles.appleMusicBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('벅스')}>
-                    <img src={bugsBtn} alt="Bugs Button" className={styles.bugsBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('플로')}>
-                    <img src={floBtn} alt="Flo Button" className={styles.floBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('지니뮤직')}>
-                    <img src={genieBtn} alt="Genie Button" className={styles.genieBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('멜론')}>
-                    <img src={melonBtn} alt="Melon Button" className={styles.melonBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('유튜브 뮤직')}>
-                    <img src={youtubeMusicBtn} alt="YouTube Music Button" className={styles.youtubeMusicBtn} />
-                  </button>
-                </div>
-              )}
 
-              {activeCat === 'Delivery' && (
-                <div className={styles.addSvcBtns}>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('배민 클럽')}>
-                    <img src={baeminBtn} alt="Baemin Button" className={styles.baeminBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('요기패스')}>
-                    <img src={yogiyoBtn} alt="Yogiyo Button" className={styles.yogiyoBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('쿠팡이츠')}>
-                    <img src={coupangEatsBtn} alt="Coupang Eats Button" className={styles.coupangEatsBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('신세계 유니버스')}>
-                    <img src={shinsegaeUniverseBtn} alt="Shinsegae Universe Button" className={styles.shinsegaeUniverseBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('마켓컬리')}>
-                    <img src={kurlyBtn} alt="Kurly Button" className={styles.kurlyBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('네이버 플러스')}>
-                    <img src={naverPlusBtn} alt="Naver Plus Button" className={styles.naverPlusBtn} />
-                  </button>
-                </div>
-              )}
+                {activeCat === 'Delivery' && (
+                  <div className={styles.addSvcBtns}>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('배민 클럽')}>
+                      <img src={baeminBtn} alt="Baemin Button" className={styles.baeminBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('요기패스')}>
+                      <img src={yogiyoBtn} alt="Yogiyo Button" className={styles.yogiyoBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('쿠팡이츠')}>
+                      <img src={coupangEatsBtn} alt="Coupang Eats Button" className={styles.coupangEatsBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('신세계 유니버스')}>
+                      <img src={shinsegaeUniverseBtn} alt="Shinsegae Universe Button" className={styles.shinsegaeUniverseBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('마켓컬리')}>
+                      <img src={kurlyBtn} alt="Kurly Button" className={styles.kurlyBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('네이버 플러스')}>
+                      <img src={naverPlusBtn} alt="Naver Plus Button" className={styles.naverPlusBtn} />
+                    </button>
+                  </div>
+                )}
 
-              {activeCat === 'Cloud' && (
-                <div className={styles.addSvcBtns}>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('네이버 클라우드')}>
-                    <img src={naverCloudBtn} alt="Naver Cloud Button" className={styles.naverCloudBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('아이클라우드')}>
-                    <img src={iCloudBtn} alt="iCloud Button" className={styles.iCloudBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('카카오 드라이브')}>
-                    <img src={kakaoDriveBtn} alt="Kakao Drive Button" className={styles.kakaoDriveBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('구글 드라이브')}>
-                    <img src={googleDriveBtn} alt="Google Drive Button" className={styles.googleDriveBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('드롭박스')}>
-                    <img src={dropBoxBtn} alt="Dropbox Button" className={styles.dropBoxBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('원드라이브')}>
-                    <img src={oneDriveBtn} alt="OneDrive Button" className={styles.oneDriveBtn} />
-                  </button>
+                {activeCat === 'Cloud' && (
+                  <div className={styles.addSvcBtns}>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('네이버 클라우드')}>
+                      <img src={naverCloudBtn} alt="Naver Cloud Button" className={styles.naverCloudBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('아이클라우드')}>
+                      <img src={iCloudBtn} alt="iCloud Button" className={styles.iCloudBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('카카오 드라이브')}>
+                      <img src={kakaoDriveBtn} alt="Kakao Drive Button" className={styles.kakaoDriveBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('구글 드라이브')}>
+                      <img src={googleDriveBtn} alt="Google Drive Button" className={styles.googleDriveBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('드롭박스')}>
+                      <img src={dropBoxBtn} alt="Dropbox Button" className={styles.dropBoxBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('원드라이브')}>
+                      <img src={oneDriveBtn} alt="OneDrive Button" className={styles.oneDriveBtn} />
+                    </button>
+                  </div>
+                )}
+                {activeCat === 'E-book' && (
+                  <div className={styles.addSvcBtns}>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('밀리의 서재')}>
+                      <img src={millieBtn} alt="Millie Button" className={styles.millieBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('리디북스')}>
+                      <img src={ridiBooksBtn} alt="RidiBooks Button" className={styles.ridiBooksBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('오디언')}>
+                      <img src={audienBtn} alt="Audien Button" className={styles.audienBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('교보문고 sam')}>
+                      <img src={kyoboBookBtn} alt="Kyobo Book Button" className={styles.kyoboBookBtn} />
+                    </button>
+                    <button className={styles.addSvcBtn} onClick={() => serviceClick('예스24 ebook')}>
+                      <img src={yes24Btn} alt="Yes24 Button" className={styles.yes24Btn} />
+                    </button>
+                  </div>
+                )}
                 </div>
-              )}
-              {activeCat === 'E-book' && (
-                <div className={styles.addSvcBtns}>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('밀리의 서재')}>
-                    <img src={millieBtn} alt="Millie Button" className={styles.millieBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('리디북스')}>
-                    <img src={ridiBooksBtn} alt="RidiBooks Button" className={styles.ridiBooksBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('오디언')}>
-                    <img src={audienBtn} alt="Audien Button" className={styles.audienBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('교보문고 sam')}>
-                    <img src={kyoboBookBtn} alt="Kyobo Book Button" className={styles.kyoboBookBtn} />
-                  </button>
-                  <button className={styles.addSvcBtn} onClick={() => serviceClick('예스24 ebook')}>
-                    <img src={yes24Btn} alt="Yes24 Button" className={styles.yes24Btn} />
-                  </button>
-                </div>
-              )}
-              </div>
 
-            {/* 선택 버튼 */}
-            <button className={styles.selectButton} onClick={selectClick}>선택</button>
-          </div>
-
+              {/* 선택 버튼 */}
+              <button className={styles.selectButton} onClick={selectClick}>선택</button>
+            </div>
+          )};
           {/* 모달 2 페이지 */}
-          {currentModalPage === 2 && (
-            <div className={styles.addSecondPage}>
-              <button className={styles.addBack} onClick={backModal}>
+          {addPage === 2 && (
+            <div className={styles.addModalPage2}>
+              <button className={styles.Back} onClick={backAddModal}>
                 <img src={backBtn} alt="back Button" className={styles.backBtn} />
               </button>
-              <button className={styles.addOkay} onClick={saveModal}>완료</button>
-              <div className={styles.addSecondPageCnt}>
+              <button className={styles.addOkay} onClick={saveAddModal}>완료</button>
+              <div className={styles.addModalPage2Content}>
                 <div className={styles.serviceLogo}>{renderServiceImage()}</div>
                 <p className={styles.addDoc}>작성일<br/>{userData.subMonth}월 {userData.subDay}일</p>
                 
@@ -373,78 +514,9 @@ const HomePage = () => {
               </div>
             </div>
           )}
-
         </div>
       )}
-
-      {/* 사용자 정보 및 구독 정보 */}
-      <div className={styles.container}>
-        <div className={styles.userProfile}>
-          <h2 className={styles.userName}>{userData.name}님</h2>
-          <p className={styles.userJob}>{userData.jobTitle}</p>
-        </div>
-        <div className={styles.Summary}>
-          <div className={styles.sumDate}><div className={styles.sumMonth}>{userData.subMonth}월</div><div className={styles.sumDay}>{userData.subDay}일</div></div>
-          <div className={styles.sumState}><div className={styles.sumStatus}>{userData.subState}</div><div className={styles.sumCount}>{userData.subList.length}개</div></div>
-          <div className={styles.sumTotalExp}><div className={styles.labelTotalExp}>지출 총액</div><div className={styles.valueTotalExp}>{totalSpent.toLocaleString()} 원</div></div>
-        </div>
-        
-        {/* 구독 알림 */}
-        <div className={styles.Notif}>
-          <p className={styles.secNotif}>알림</p>
-          <div className={styles.subNotifBox}>
-            {userData.subList
-              .filter(item => item.state === "구독 중")
-              .sort((a, b) => parseDueDate(a.dueDate) - parseDueDate(b.dueDate))
-              .slice(0, 2)
-              .map((item, index) => (
-                <div key={index} className={styles.notifBox}>
-                  <p className={styles.notifDate}>{item.date}</p>
-                  <p className={styles.notifPrice}>{item.price.toLocaleString()} 원</p>
-                  <p className={styles.notifMsg}>{item.dueDate === "오늘" ? "오늘이 결제일이예요!" : item.dueDate}</p>
-                </div>
-              ))}
-          </div>
-        </div>
-
-        {/* 구독 서비스 목록 */}
-        <div className={styles.Svc}>
-          <p className={styles.secSvc}>나의 구독 서비스</p>
-          {userData.subList.map((item, index) => (
-            <button key={index} className={styles.svcBox} /*onClick={backModal}*/>
-              <div className={styles.subInfo}>
-                <p className={styles.svcName}>{item.svc}</p>
-                <p className={styles.svcPrice}>{item.price.toLocaleString()} 원 / {item.period}</p>
-              </div>
-              <p className={styles.svcDday} style={{ backgroundColor: item.dueDate === "오늘" ? '#FF594F' : '#528DFF', color: 'white' }}>{item.dueDate}</p>
-              <div className={styles.svcDetail}>
-                <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* 카테고리 선택 버튼 */}
-      <div className={styles.addButtonContainer}>
-        <button className={`${styles.addButton} ${plusBtnActive ? styles.activePlusButton : ''}`} onClick={cat}>
-          <img src={plusBtnActive ? subplusBtn : plusBtn} alt={plusBtnActive ? "subplus" : "plus"} className={plusBtnActive ? styles.subPlusBtn : styles.plusBtn} />
-        </button>
-        {showCat && (
-          <div className={styles.catBtns}>
-            <button className={`${styles.catBtn} ${activeCat === 'E-book' ? styles.activeCat : ''}`} onClick={() => catClick('E-book')}>E-book</button>
-            <button className={`${styles.catBtn} ${activeCat === 'Cloud' ? styles.activeCat : ''}`} onClick={() => catClick('Cloud')}>Cloud</button>
-            <button className={`${styles.catBtn} ${activeCat === 'Delivery' ? styles.activeCat : ''}`} onClick={() => catClick('Delivery')}>Delivery</button>
-            <button className={`${styles.catBtn} ${activeCat === 'Music' ? styles.activeCat : ''}`} onClick={() => catClick('Music')}>Music</button>
-            <button className={`${styles.catBtn} ${activeCat === 'OTT' ? styles.activeCat : ''}`} onClick={() => catClick('OTT')}>OTT</button>
-          </div>
-        )}
-        <div className={styles.Bar}>
-          <button className={styles.profile}><img src={profBtn} alt="Profile Button" className={styles.profBtn}/></button>
-          <button className={styles.calendar}><img src={calBtn} alt="Calendar Button" className={styles.calBtn}/></button>
-          <button className={styles.question}><img src={qBtn} alt="Question Button" className={styles.qBtn}/></button>
-        </div>
-      </div>
+      
     </div>
   );
 };
