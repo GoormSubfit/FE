@@ -1,0 +1,642 @@
+body {
+  display: flex;
+  justify-content: center;  /* 가로 방향으로 중앙 정렬 */
+  align-items: center;  /* 세로 방향으로 중앙 정렬 */
+  height: 100%;  /* 화면 전체 높이 사용 */
+  width: 100%;
+  background-color: white; /* 배경을 흰색으로 */
+  font-family: "Inter", sans-serif;
+}
+
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 390px;
+  max-width: 430px;
+  height: 100%;
+  min-height: 844px;
+  max-height: 932px;
+  text-align: center;
+  overflow-y: auto; 
+  padding-bottom: 17%;
+  scroll-behavior: smooth; 
+  overflow-x: hidden; 
+}
+
+.userProfile {
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  width: 100%;
+  gap: 0;
+  margin: 15% 0 8% 70px;
+}
+
+.userName{
+  color: #000000;
+  font-size: 20px;
+  font-weight: bolder;
+  height: 0px;
+}
+
+.userJob{
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
+  height: 0px;
+}
+
+.Summary {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  background-color: #F3F3F3;
+  border-radius: 25px;
+  gap: 20px;
+  width: 363px;
+  height: 112px;
+  padding: 0;
+  margin-bottom: 4%;
+}
+
+.sumDate{
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  height: 100px;
+  margin: 0 0 0 10px;
+  font-weight: 500;
+}
+
+.sumMonth{
+  color: #000000;
+  font-size: 20px;
+}
+.sumDay{
+  color: #000000;
+  font-size: 12px;
+}
+
+.sumState{
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+  height: 100px;
+  font-weight: 500;
+}
+
+.sumStatus{
+  color: #528DFF;
+  font-size: 12px;
+}
+
+.sumCount{
+  color: #528DFF;
+  font-size: 20px;
+}
+
+.sumTotalExp{
+  display: flex;
+  justify-content:center;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+  height: 100px;
+  font-weight: 500;
+}
+
+.labelTotalExp{
+  color: #000000;
+  font-size: 12px;
+}
+
+.valueTotalExp{
+  color: #000000;
+  font-size: 20px;
+}
+
+.Notif{
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 15px;
+  margin-bottom: 2%;
+}
+
+.secNotif{
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  color:#757575;
+  font-size: 15px;
+  font-weight: 900;
+  height: 10px;
+  margin: 0 0 0 15px;
+}
+
+.subNotifBox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  gap: 7px;
+}
+
+.notifBox{
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  background-color: #E8F0FF;
+  color: #5C5C5C;
+  border-radius: 25px;
+  width: 179px;
+  height: 113px;
+}
+
+.notifDate{
+  font-size: 12px;
+  font-weight: bold;
+  color: #5C5C5C;
+  margin: 16px 0 0 25px;
+}
+
+.notifPrice{
+  font-size: 20px;
+  font-weight: bold;
+  color: #5C5C5C;
+  margin: 0px 0 0 25px;
+}
+
+.notifMsg{
+  font-size: 10px;
+  font-weight: bolder;
+  color: #5C5C5C;
+  margin: 0px 0 0 25px;
+}
+
+.Svc{
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 15px;
+  margin: 10px 0 0 0;
+}
+
+.secSvc{
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  color:#757575;
+  font-size: 15px;
+  font-weight: 900;
+  height: 10px;
+  margin: 0 0 0 15px;
+}
+
+.svcBox {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F3F3F3;
+  border-radius: 25px;
+  width: 363px;
+  height: 112px;
+  transition: transform 0.3s ease;
+  z-index: 2; /* deleteBtn 위에 위치하도록 설정 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background-color: red;
+  color: white;
+  padding: 10px;
+  width: 112px;
+  height: 112px;
+  border-radius: 25px;
+  border: none;
+  font-size: 16px;
+  transition: transform 0.3s ease; /* 부드러운 이동 효과 */
+  z-index: 1; /* svcBox 뒤에 위치 */
+}
+
+.subInfo{
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  gap: 0px;
+  margin: 0 0 0 100px;
+}
+
+.svcName{
+  color: #5C5C5C;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 0px;
+  margin-bottom: 5px;
+
+}
+
+.svcPrice{
+  color: #5C5C5C;
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.svcDday{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;  
+  border-radius: 40px;
+  width: 54px;
+  height: 26px;
+  margin-right: 40px;
+}
+
+.Bar{
+  display: flex;
+  justify-content:space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+}
+
+.addButtonContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.addButton {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-end;
+  position: fixed;
+  right: 0px;
+  bottom: 90px;
+  width: 158px;
+  height: 51px;
+  cursor: pointer;
+  z-index: 5;
+  -webkit-tap-highlight-color: transparent;
+  border: none; 
+  outline: none; 
+}
+
+.plusBtn{
+  width: 51px;
+  height: 51px;
+}
+
+.subplusBtn{
+  width: 158px;
+  height: 51px;
+}
+
+button:focus 
+, button:active
+, button:hover{
+  outline: none !important; /* 포커스 시 외곽선 강제로 제거 */
+  box-shadow: none !important; /* 포커스 시 그림자 강제로 제거 */
+}
+
+.catBtns {
+  position: fixed;
+  right: 20px;
+  bottom: 160px; /* 플러스 버튼 위로 배치 */
+  display: flex;
+  flex-direction: column;
+  align-items:flex-end;
+  gap: 10px;
+  z-index: 5; /* 플러스 버튼보다 위에 위치 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.catBtn{
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  background-color: #F3F3F3;
+  border: none;
+  width: 83px;
+  height: 38px;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #595959;
+  cursor: pointer;
+}  
+
+.modalContainer {
+  display: flex;
+  align-items: flex-start;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #F3F3F3;
+  height: 92%;
+  z-index: 6;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  animation: slideUp 0.5s ease-in-out;
+}
+
+/* 슬라이드 애니메이션 */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.addFirstPage {
+  text-align: center;
+  width: 100%; /* 전체 너비를 차지하도록 설정 */
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.5s ease-in-out; 
+}
+
+.page2 {
+  transform: translateX(-100%); /* 두 번째 페이지로 전환 */
+}
+
+.addSecondPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #F3F3F3;
+  color:#595959;
+  height: 92%;
+  z-index: 6;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  animation: slideUp 0.5s ease-in-out;
+}
+
+.addOkay{
+  position: absolute;
+  top:20px;
+  right: 10px;
+  background-color: transparent;
+  color: #528DFF;
+  font-size: 20px;
+}
+
+.addSecondPageCnt{
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 83%;
+  margin: 0 0 0 0;
+  z-index: 6;
+}
+
+.serviceLogo {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%; /* 100%도 가능하지만, 50%로도 원형을 만듭니다 */
+  overflow: hidden; /* 이미지가 컨테이너 바깥으로 나가지 않도록 */
+}
+
+.serviceLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지를 컨테이너에 맞추어 잘라냅니다 */
+}
+
+.inputGroup{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+}
+
+.addSvsInput {
+  background-color: #ffffff;
+  color: #8F8F8F;
+  width: 336px;
+  height: 67px;
+  border-radius: 25px; /* 모서리를 둥글게 */
+  border: none;
+  padding-left: 20px;
+  font-size: 17px; /* 글자 크기 */
+  font-weight: 500;
+  outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
+}
+
+.addSvsInputSelect{
+  background-color: #ffffff;
+  color: #8F8F8F;
+  width: 358px;
+  height: 69px;
+  border-radius: 25px; /* 모서리를 둥글게 */
+  border: none;
+  padding-left: 20px;
+  font-size: 17px; /* 글자 크기 */
+  font-weight: 500;
+  text-align: left;
+  outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
+}
+
+.addFpd {
+  width: 328px;
+  height: 69px;
+  background-color: #ffffff; /* 배경색 설정 */
+  border-radius: 25px; /* 모서리를 둥글게 */
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: space-between; /* 가로로 처음 결제일과 DateSelector를 양 끝에 배치 */
+  padding: 0 15px; /* 좌우 여백 설정 */
+  font-size: 17px; /* 텍스트 크기 */
+  color: #8F8F8F; /* 텍스트 색상 */
+}
+
+.addDoc{
+}
+
+
+.addCatBtns {
+  display: flex;
+  justify-content: flex-start; /* 버튼들을 왼쪽부터 나열 */
+  gap: 10px; /* 버튼 사이 간격 */
+  overflow-x: auto; 
+  white-space: nowrap;
+  scroll-behavior: smooth; 
+  overflow-y: hidden; 
+  padding: 10px;
+  margin: 27% 0 10% 30px;
+  flex-shrink: 0;
+}
+
+.modalCatBtns::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 엣지에서 스크롤바 숨기기 */
+}
+
+.addCatBtns {
+  -ms-overflow-style: none;  /* IE, Edge에서 스크롤바 숨기기 */
+  scrollbar-width: none;  /* 파이어폭스에서 스크롤바 숨기기 */
+}
+
+.addCatBtn {
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  background-color: #F3F3F3;
+  border: 1px solid black;
+  color: #595959;
+  border-radius: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  white-space: nowrap;
+  width: 83px;
+  height: 38px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.addSvcBtns{
+  display: flex;
+  justify-content: space-around; /* 버튼들을 왼쪽부터 나열 */
+  align-items: center;
+  gap: 15px; /* 버튼 사이 간격 */
+  overflow-x: auto; 
+  white-space: nowrap;
+  scroll-behavior: smooth; 
+  overflow-y: hidden; 
+  height: 130px;
+  margin: 0 0 0 0;
+  flex-shrink: 0;
+}
+
+.addSvcBtn{
+  background-color: transparent;
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  border-radius: 25px;
+  font-size: 15px;
+  white-space: nowrap;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  transition: transform 0.5s, background-color 0.3s ease; 
+  -webkit-tap-highlight-color: transparent;
+}
+
+.addSvcBtn:focus{
+  transform: scale(1.02); 
+}
+
+.netflixBtn, .disneyPlusBtn, .primeVideoBtn, .tvingBtn, .wavveBtn, 
+.appleTvBtn, .coupangPlayBtn, .spotifyBtn, .youtubePremiumBtn, .seriesOnBtn,
+.appleMusicBtn, .bugsBtn, .floBtn, .genieBtn, .melonBtn, .youtubeMusicBtn,
+.baeminBtn, .coupangEatsBtn, .kurlyBtn, .naverPlusBtn, .shinsegaeUniverseBtn, .yogiyoBtn,
+.oneDriveBtn, .dropBoxBtn, .googleDriveBtn, .kakaoDriveBtn, .iCloudBtn, .naverCloudBtn,
+.audienBtn, .ridiBooksBtn, .millieBtn, .yes24Btn, .kyoboBookBtn
+{
+  width: 120px;
+  height: 120px;
+  border-radius: 25px;
+}
+
+.selectButton {
+  margin-top: 20px;
+  background-color: #528DFF;
+  color: white;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  width: 276px;
+  height: 57px;
+  padding: 10px 20px;
+  border-radius: 37.5px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.activeCat{
+  display: flex; /* Flexbox 사용 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  background-color: #CFFF46;
+  border: none;
+  width: 83px;
+  height: 38px;
+  border-radius: 25px;
+  font-size: 15px;
+  white-space: nowrap;
+  color: #5C5C5C;
+  cursor: pointer;
+}
+
+
+/* 오버레이 스타일 추가 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* 어두운 반투명 배경 */
+  z-index: 4; /* + 버튼과 카테고리 버튼 뒤에 위치 */
+}
+
+.Bar{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  height: 66px;
+  z-index: 3;
+}
+
+.profile, .calendar, .question{
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+  border: none; 
+  outline: none; 
+}
+
+
+
