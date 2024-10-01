@@ -201,7 +201,7 @@ body {
 .svcBox {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: #F3F3F3;
   border-radius: 25px;
@@ -233,7 +233,7 @@ body {
   flex-direction: column; 
   align-items: flex-start; 
   gap: 0px;
-  margin: 0 0 0 100px;
+  margin: 0 0 0 60px;
 }
 
 .svcName{
@@ -248,7 +248,7 @@ body {
 .svcPrice{
   color: #5C5C5C;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0;
 }
 
@@ -261,15 +261,27 @@ body {
   border-radius: 40px;
   width: 54px;
   height: 26px;
-  margin-right: 40px;
+  margin: 0 5px 0 60px;
 }
 
-.Bar{
+.svcDetail{
+  background-color: transparent;
   display: flex;
-  justify-content:space-evenly;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 70px;
+  width: 21px;
+  height: 21px;
+  margin: 0 0 0 0;
+  cursor: pointer;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+  border: none; 
+  outline: none;
+}
+
+.detailBtn{
+  width: 21px;
+  height: 21px;
 }
 
 .addButtonContainer {
@@ -360,6 +372,29 @@ button:focus
   animation: slideUp 0.5s ease-in-out;
 }
 
+.addBack{
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:35px;
+  left: 20px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+  border: none; 
+  outline: none;
+}
+
+.backBtn{
+  width: 24px;
+  height: 24px;
+}
+
+
 /* 슬라이드 애니메이션 */
 @keyframes slideUp {
   from {
@@ -403,6 +438,7 @@ button:focus
   background-color: transparent;
   color: #528DFF;
   font-size: 20px;
+  font-weight: 600;
 }
 
 .addSecondPageCnt{
@@ -637,6 +673,5 @@ button:focus
   border: none; 
   outline: none; 
 }
-
 
 
