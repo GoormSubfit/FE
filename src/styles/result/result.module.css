@@ -9,3 +9,17 @@
     background-repeat: no-repeat;
     background-size: 100vw;
   }
+  
+  .top-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+
+  .comment-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
