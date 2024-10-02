@@ -6,9 +6,7 @@ function App() {
   const [selectedCards, setSelectedCards] = useState([]);
 
   const cards = [
-    '삼성카드', '현대카드', '국민카드', '신한카드',
-    'BC카드', '우리카드', '롯데카드', '농협카드', '씨티카드',
-    '하나카드', '전북카드', '광주카드', '수협카드', '제주카드', 'IBK카드'
+    'SKT','KT','LG'
   ];
 
   const handleCardClick = (card) => {
@@ -22,7 +20,7 @@ function App() {
   return (
     <div className={styles["app-container"]}>
       <p className={styles["title"]}>회원가입</p>
-      <h2 className={styles["q1"]}>사용중인 카드를 선택해 주세요</h2>
+      <h2 className={styles["q1"]}>사용중인 통신사를 선택해 주세요</h2>
       <div className={styles["q-container"]}>
         {cards.map(card => (
           <div
