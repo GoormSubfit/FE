@@ -58,9 +58,15 @@
     bottom: 25%;
     color: #ffffff;
     font-weight:bolder;
+    font-size:25px;
 }
 
 .login-button{
     position: absolute;
-    bottom: 20%;
+    bottom: 15%;
+    width: 280px;
+    height: 60px;
+    border-radius: 30px;
+    font-size:25px;
+    
 }

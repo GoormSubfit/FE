@@ -6,15 +6,19 @@ function useCheckUsername() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const checkUsername = async (username) => {
+  const checkUsername = async (userId) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axios.get(`https://api.example.com/check-username?username=${username}`);
+      const response = await axios.get(`http://15.164.28.108:8080/users/check-userid?userId=${userId}`);
       setIsDuplicate(response.data.exists); 
     } catch (err) {
-      setError(err);
+      if (err.response && err.response.status === 409) {
+        setIsDuplicate(true);
+      } else {
+        setError(err); 
+      }
     } finally {
       setLoading(false);
     }

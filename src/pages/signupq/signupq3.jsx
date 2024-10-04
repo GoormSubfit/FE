@@ -1,41 +1,58 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; // useNavigate 훅 추가
 import Arrow from '../../assets/images/signupq/arrow.svg';
 import styles from '../../styles/signupq/signupq3.module.css';
+import useSignupForm3 from '../../hooks/useSignupForm3'; // useSignupForm3 훅 사용
 
 function App() {
-  const [selectedBanks, setSelectedBanks] = useState([]);
+  const navigate = useNavigate(); // navigate 함수 사용
+  const { card, setCard, allFieldsFilled, handleSubmit } = useSignupForm3(); // 훅에서 필요한 값 가져오기
 
-  const banks = [
-    '카카오뱅크', '토스뱅크', '우리은행', '국민은행', '신한은행', '기업은행',
-    'SC제일은행', '씨티은행', 'K뱅크', '지역농협', '우체국', '수협은행',
-    '산업은행', '대구은행', '부산은행', '광주은행', '제주은행', '전북은행',
-    '새마을금고', 'NH농협은행', '신협은행', 'SBI저축은행', '산림조합은행', '상호저축은행'
+  const cards = [
+    '삼성카드', '현대카드', '국민카드', '신한카드', 'BC카드', '우리카드',
+    '롯데카드', '농협카드', '씨티카드', '하나카드', '전북카드', '광주카드',
+    '수협카드', '제주카드', 'IBK카드'
   ];
 
-  const handleBankClick = (bank) => {
-    if (selectedBanks.includes(bank)) {
-      setSelectedBanks(selectedBanks.filter(b => b !== bank));
+  const handleCardClick = (selectedCard) => {
+    if (card === selectedCard) {
+      setCard(''); 
     } else {
-      setSelectedBanks([...selectedBanks, bank]);
+      setCard(selectedCard); 
+    }
+  };
+
+  const handleButtonClick = () => {
+    if (allFieldsFilled()) {
+      handleSubmit(); 
+      navigate('/profile'); 
     }
   };
 
   return (
     <div className={styles["app-container"]}>
       <p className={styles["title"]}>회원가입</p>
-      <h2 className={styles["q1"]}>이용 중인 은행을 선택해 주세요</h2>
+      <h2 className={styles["q1"]}>이용 중인 카드를 선택해 주세요</h2>
       <div className={styles["q-container"]}>
-        {banks.map(bank => (
+        {cards.map((cardItem) => (
           <div
-            key={bank}
-            className={`${styles["bank-button"]} ${selectedBanks.includes(bank) ? styles["selected"] : ""}`}
-            onClick={() => handleBankClick(bank)}
+            key={cardItem}
+            className={`${styles["card-button"]} ${card === cardItem ? styles["selected"] : ""}`} // 선택된 카드 강조
+            onClick={() => handleCardClick(cardItem)}
           >
-            {bank}
+            {cardItem}
           </div>
         ))}
       </div>
-      <button className={styles["bottom-button"]}>
+      <button
+        className={styles["bottom-button"]}
+        onClick={handleButtonClick} 
+        disabled={!allFieldsFilled()} 
+        style={{
+          backgroundColor: allFieldsFilled() ? '#528DFF' : '#D9D9D9', 
+          cursor: allFieldsFilled() ? 'pointer' : 'not-allowed' 
+        }}
+      >
         <img src={Arrow} alt="Arrow Icon" className={styles["arrow-icon"]} />
       </button>
     </div>

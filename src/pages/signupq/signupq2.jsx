@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import Arrow from '../../assets/images/signupq/arrow.svg';
 import styles from '../../styles/signupq/signupq2.module.css';
+import useSignupForm2 from '../../hooks/useSignupForm2'; 
 
 function App() {
-  const [selectedCards, setSelectedCards] = useState([]);
+  const navigate = useNavigate(); 
+  const { mobile, setMobile, allFieldsFilled, handleSubmit } = useSignupForm2(); 
 
-  const cards = [
-    'SKT','KT','LG'
-  ];
+  const cards = ['SKT', 'KT', 'LG'];
 
   const handleCardClick = (card) => {
-    if (selectedCards.includes(card)) {
-      setSelectedCards(selectedCards.filter(c => c !== card));
-    } else {
-      setSelectedCards([...selectedCards, card]);
+    setMobile(card);
+  };
+
+  const handleButtonClick = () => {
+    if (allFieldsFilled()) {
+      handleSubmit(); 
+      navigate('/signupq3'); 
     }
   };
 
@@ -25,15 +29,23 @@ function App() {
         {cards.map(card => (
           <div
             key={card}
-            className={`${styles["card-button"]} ${selectedCards.includes(card) ? styles["selected"] : ""}`}
-            onClick={() => handleCardClick(card)}
+            className={`${styles["card-button"]} ${mobile === card ? styles["selected"] : ""}`}
+            onClick={() => handleCardClick(card)} 
           >
             {card}
           </div>
         ))}
       </div>
-      <button className={styles["bottom-button"]}>
-      <img src={Arrow} alt="Arrow Icon" className={styles["arrow-icon"]} />
+      <button
+        className={styles["bottom-button"]}
+        onClick={handleButtonClick} 
+        disabled={!allFieldsFilled()} 
+        style={{
+          backgroundColor: allFieldsFilled() ? '#528DFF' : '#D9D9D9', 
+          cursor: allFieldsFilled() ? 'pointer' : 'not-allowed', 
+        }}
+      >
+        <img src={Arrow} alt="Arrow Icon" className={styles["arrow-icon"]} />
       </button>
     </div>
   );

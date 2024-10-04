@@ -1,9 +1,13 @@
+import { useState, useRef } from 'react';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'; 
 import React from 'react';
 import Background from '../../assets/images/login/background.svg'
 import Icon from '../../assets/images/login/icon.svg'
 import styles from '../../styles/login/login.module.css'
 
 function App() {
+  const navigate = useNavigate();
+  
     return (
       <div className={styles["app-container"]}>
         <img src={Icon} className={styles["icon"]} alt="Icon" />
@@ -20,9 +24,9 @@ function App() {
            구독 플랫폼은?
         </h1>
         <p className={styles["comment5"]}>
-          간편로그인 후 이용이 가능합니다.
+          간편로그인 후 <br/><br/>이용이 가능합니다.
         </p>
-        <button className={styles["login-button"]}>
+        <button className={styles["login-button"]}  onClick={() => navigate('/login_s')}>
       로그인
     </button>
       </div>
