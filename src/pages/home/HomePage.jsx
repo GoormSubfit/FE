@@ -68,7 +68,7 @@ const HomePage = () => {
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [selectedDay, setSelectedDay] = useState(1);
   const [selectedDate, setSelectedDate] = useState('');
-  const allowedCycles = ["1개월", "1년"]; 
+
   // 상태 관리
   const [userData, setUserData] = useState({
     name: "김서현",
@@ -219,7 +219,7 @@ const HomePage = () => {
   };
 
    // 년도 목록 생성
-   const years = Array.from({ length: 10 }, (_, index) => currentYear + index);
+   const years = Array.from({ length: 10 }, (_, index) => currentYear - 3 + index);
 
    // 월 목록 생성
    const months = Array.from({ length: 12 }, (_, index) => index + 1);
