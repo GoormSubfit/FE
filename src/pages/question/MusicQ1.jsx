@@ -45,21 +45,21 @@ const MusicQ1 = () => {
       <div className={styles.question}>
         <p className={styles.p}>주로 듣는 음악 장르는 무엇인가요?</p>
       </div>
-      <div className={styles.genreOptions} ref={genreOptionsRef}>
+      <div className={styles.options} ref={genreOptionsRef}>
         <button
-          className={`${styles.musicGenreBtn} ${selected.includes("pop") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("pop") ? styles.selected : ""}`}
           onClick={() => handleClick("pop")}
         >
           팝
         </button>
         <button
-          className={`${styles.musicGenreBtn} ${selected.includes("hiphop") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("hiphop") ? styles.selected : ""}`}
           onClick={() => handleClick("hiphop")}
         >
           힙합
         </button>
         <button
-          className={`${styles.musicGenreBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("classic") ? styles.selected : ""
           }`}
           onClick={() => handleClick("classic")}
@@ -67,7 +67,7 @@ const MusicQ1 = () => {
           클래식
         </button>
         <button
-          className={`${styles.musicGenreBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("jazz") ? styles.selected : ""
           }`}
           onClick={() => handleClick("jazz")}
@@ -75,7 +75,7 @@ const MusicQ1 = () => {
           재즈
         </button>
         <button
-          className={`${styles.musicGenreBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("k-pop") ? styles.selected : ""
           }`}
           onClick={() => handleClick("k-pop")}
@@ -83,7 +83,7 @@ const MusicQ1 = () => {
           K-pop
         </button>
         <button
-          className={`${styles.musicGenreBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("edm") ? styles.selected : ""
           }`}
           onClick={() => handleClick("edm")}

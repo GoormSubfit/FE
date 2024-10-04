@@ -45,21 +45,21 @@ const DeliveryQ3 = () => {
       <div className={styles.question}>
         <p className={styles.p}>주로 배달 음식을 몇 명이 함께 먹나요?</p>
       </div>
-      <div className={styles.peoplecntOptions} ref={peoplecntOptionsRef}>
+      <div className={styles.options} ref={peoplecntOptionsRef}>
       <button
-          className={`${styles.deliveryPeoplecntBtn} ${selected.includes("aloneGroup") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("aloneGroup") ? styles.selected : ""}`}
           onClick={() => handleClick("aloneGroup")}
         >
           혼자
         </button>
         <button
-          className={`${styles.deliveryPeoplecntBtn} ${selected.includes("group2to6") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("group2to6") ? styles.selected : ""}`}
           onClick={() => handleClick("group2to6")}
         >
           2-6명
         </button>
         <button
-          className={`${styles.deliveryPeoplecntBtn} ${selected.includes("largeGroup") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("largeGroup") ? styles.selected : ""}`}
           onClick={() => handleClick("largeGroup")}
         >
           6명 이상(단체)

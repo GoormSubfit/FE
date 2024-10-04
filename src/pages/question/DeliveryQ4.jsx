@@ -44,15 +44,15 @@ const DeliveryQ4 = () => {
       <div className={styles.question}>
         <p className={styles.p}> 결제 시 포인트 적립이나 할인 혜택을<br/>자주 사용하시나요?</p>
       </div>
-      <div className={styles.useDpOptions} ref={useDpOptionsRef}>
+      <div className={styles.options} ref={useDpOptionsRef}>
       <button
-          className={`${styles.deliveryUseDpBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.deliveryUseDpBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

@@ -45,21 +45,21 @@ const OttQ2 = () => {
       <div className={styles.question}>
         <p className={styles.p}>하루 평균 시청 시간은 어느 정도인가요?</p>
       </div>
-      <div className={styles.timeOptions} ref={timeOptionsRef}>
+      <div className={styles.options} ref={timeOptionsRef}>
         <button
-          className={`${styles.ottTimeBtn} ${selected.includes("onehourmore") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("onehourmore") ? styles.selected : ""}`}
           onClick={() => handleClick("onehourmore")}
         >
           1시간 이상
         </button>
         <button
-          className={`${styles.ottTimeBtn} ${selected.includes("onehourtothreehours") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("onehourtothreehours") ? styles.selected : ""}`}
           onClick={() => handleClick("onehourtothreehours")}
         >
           1~3시간
         </button>
         <button
-          className={`${styles.ottTimeBtn} ${selected.includes("threehoursmore") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("threehoursmore") ? styles.selected : ""}`}
           onClick={() => handleClick("threehoursmore")}
         >
           3시간 이상

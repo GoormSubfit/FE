@@ -45,15 +45,15 @@ const CloudQ6 = () => {
       <div className={styles.question}>
         <p className={styles.p}>협업 도구(문서 편집, 댓글, 실시간 편집)<br/>기능을 자주 사용하시나요?</p>
       </div>
-      <div className={styles.ctoolsOptions} ref={ctoolsOptionsRef}>
+      <div className={styles.options} ref={ctoolsOptionsRef}>
         <button
-          className={`${styles.cloudCToolsBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.cloudCToolsBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

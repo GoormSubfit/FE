@@ -45,15 +45,15 @@ const EbookQ5 = () => {
       <div className={styles.question}>
         <p className={styles.p}>외국어 도서(영어, 일본어 등)를 자주<br/>읽으시나요?</p>
       </div>
-      <div className={styles.flbooksOptions} ref={flbooksOptionsRef}>
+      <div className={styles.options} ref={flbooksOptionsRef}>
       <button
-          className={`${styles.ebookFlbooksBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.ebookFlbooksBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

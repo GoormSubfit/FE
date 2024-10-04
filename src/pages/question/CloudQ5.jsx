@@ -45,15 +45,15 @@ const CloudQ5 = () => {
       <div className={styles.question}>
         <p className={styles.p}>파일을 다른 사람과 자주 공유하시나요?</p>
       </div>
-      <div className={styles.shareOptions} ref={shareOptionsRef}>
+      <div className={styles.options} ref={shareOptionsRef}>
       <button
-          className={`${styles.cloudShareBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.cloudShareBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

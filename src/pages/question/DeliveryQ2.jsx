@@ -45,21 +45,21 @@ const DeliveryQ2 = () => {
       <div className={styles.question}>
         <p className={styles.p}>배달 음식의 평균 가격대는 얼마인가요?</p>
       </div>
-      <div className={styles.fdcostOptions} ref={fdcostOptionsRef}>
+      <div className={styles.options} ref={fdcostOptionsRef}>
         <button
-          className={`${styles.deliveryFdcostBtn} ${selected.includes("lte10000") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("lte10000") ? styles.selected : ""}`}
           onClick={() => handleClick("lte10000")}
         >
           10,000원 이하
         </button>
         <button
-          className={`${styles.deliveryFdcostBtn} ${selected.includes("10000to20000") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("10000to20000") ? styles.selected : ""}`}
           onClick={() => handleClick("10000to20000")}
         >
           10,000원~20,000원
         </button>
         <button
-          className={`${styles.deliveryFdcostBtn} ${selected.includes(" gte20000") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes(" gte20000") ? styles.selected : ""}`}
           onClick={() => handleClick(" gte20000")}
         >
           20,000원 이상

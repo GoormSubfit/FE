@@ -47,21 +47,21 @@ const CloudQ1 = () => {
       <div className={styles.question}>
         <p className={styles.p}>클라우드를 주로 어떤 용도로<br/>사용하시나요?</p>
       </div>
-      <div className={styles.useOptions} ref={useOptionsRef}>
+      <div className={styles.options} ref={useOptionsRef}>
         <button
-          className={`${styles.cloudUseBtn} ${selected.includes("FB") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("FB") ? styles.selected : ""}`}
           onClick={() => handleClick("FB")}
         >
           파일 백업
         </button>
         <button
-          className={`${styles.cloudUseBtn} ${selected.includes("DS") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("DS") ? styles.selected : ""}`}
           onClick={() => handleClick("DS")}
         >
           문서 공유
         </button>
         <button
-          className={`${styles.cloudUseBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("PVS") ? styles.selected : ""
           }`}
           onClick={() => handleClick("PVS")}

@@ -12,12 +12,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   width: 100%;
   min-width: 390px;
   max-width: 430px;
   height: 100%;
-  min-height: 844px;
-  max-height: 932px;
   text-align: center;
   overflow-y: auto; 
   padding-bottom: 17%;
@@ -128,6 +127,7 @@ body {
 }
 
 .notifBox{
+  position: relative;
   display: flex;
   flex-direction: column; 
   align-items: flex-start; 
@@ -159,6 +159,24 @@ body {
   margin: 0px 0 0 25px;
 }
 
+.notifLogo{
+  background-color: #CFFF46;
+  width: 31px;
+  height: 31px;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 50%;
+  margin: 0 0 0 0;
+  overflow: hidden;
+}
+
+.notifLogo img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지를 컨테이너에 맞추어 잘라냅니다 */
+}
+
 .mySvc{
   display: flex;
   flex-direction: column; 
@@ -187,6 +205,7 @@ body {
   border-radius: 25px;
   width: 363px;
   height: 112px;
+  padding: 0 0 0 0;
   transition: transform 0.3s ease;
   z-index: 2; /* deleteBtn 위에 위치하도록 설정 */
   -webkit-tap-highlight-color: transparent;
@@ -208,12 +227,29 @@ body {
   z-index: 1; /* svcBox 뒤에 위치 */
 }
 
-.subInfo{
+.mySvcLogo{
+  position: absolute;
+  left: 30px;
+  background-color: #528DFF;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%; /* 100%도 가능하지만, 50%로도 원형을 만듭니다 */
+  overflow: hidden;
+}
+
+.mySvcLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지를 컨테이너에 맞추어 잘라냅니다 */
+}
+
+.mySvcInfo{
   display: flex;
   flex-direction: column; 
   align-items: flex-start; 
+  position: absolute;
+  left: 110px;
   gap: 0px;
-  margin: 0 0 0 60px;
 }
 
 .mySvcName{
@@ -236,12 +272,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  right: 50px;
   font-size: 10px;
   font-weight: 700;  
   border-radius: 40px;
   width: 54px;
   height: 26px;
-  margin: 0 5px 0 60px;
 }
 
 .mySvcDetail{
@@ -249,9 +286,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  right: 20px;
   width: 21px;
   height: 21px;
-  margin: 0 0 0 0;
   cursor: pointer;
   z-index: 3;
   -webkit-tap-highlight-color: transparent;
@@ -346,52 +384,31 @@ button:focus
   }
 }
 
-.addModalPage1 {
-  text-align: center;
-  width: 100%; /* 전체 너비를 차지하도록 설정 */
-  height: 100%;
-  overflow: hidden;
-  transition: transform 0.5s ease-in-out; 
+.modal-open {
+  overflow: hidden; /* 스크롤을 비활성화 */
 }
 
 .page2 {
   transform: translateX(-100%); /* 두 번째 페이지로 전환 */
 }
 
-.addModalPage2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #F3F3F3;
-  color:#595959;
-  height: 92%;
-  z-index: 6;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  animation: slideUp 0.5s ease-in-out;
-}
-
 .addModalContainer, .editModalContainer {
   display: flex;
+  justify-content: center;
   align-items: flex-start;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: #F3F3F3;
-  height: 92%;
+  width: 100%;
+  height: 93%;
   z-index: 6;
   justify-content: center;
   align-items: center;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   animation: slideUp 0.5s ease-in-out;
-}
-
-.editModalPageHeader{
-  display: flex;
-
 }
 
 .Back{
@@ -405,7 +422,7 @@ button:focus
   width: 24px;
   height: 24px;
   cursor: pointer;
-  z-index: 3;
+  z-index: 7;
   -webkit-tap-highlight-color: transparent;
   border: none; 
   outline: none;
@@ -430,12 +447,12 @@ button:focus
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 83%;
-  margin: 0 0 0 0;
+  height: 92%;
+  margin: 20px 0 0 0;
   z-index: 6;
 }
 
@@ -443,7 +460,7 @@ button:focus
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 7% 0 0 0;
+  margin: 5% 0 0 0;
 }
 
 .editSvcName{
@@ -452,24 +469,149 @@ button:focus
   font-weight: 600;
 }
 
-.editSvcPrice{
+.editSvcPrice {
   color: #595959;
-  font-size: 17px;
+  font-size: 15px;
+}
+
+.editSvcPayDateBox{
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+  position: relative;
+  width: 329px;
+  height: 170px;
+  border-radius: 25px;
+  margin: 25% 0 0 0;
+}
+
+.editSvcDday{
+  color: #000000;
+  font-size: 15px;
+  font-weight: 900;
+  margin: 30px 0 4px 30px;
+}
+
+.editSvcMessage{
+  color: #595959;
+  font-size: 15px;
+  margin: 0 0 0 30px;
+}
+
+.editSvcCircle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 260px;
+  height: 60px;
+  margin: 10px 0 0 30px;
+}
+
+.line{
+  position: absolute;  /* 부모 요소의 상대 위치를 기반으로 절대 위치 지정 */
+  transform: translateX(10%);
+  width: 93%;
+  top: 50%; /* 부모 요소의 중앙에 점선을 배치 */
+  right: 10%;
+}
+
+.editCircle1{
+  background-color: #595959;
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items:center;
+  position: absolute;
+  left: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.editCircle2{
+  background-color: #595959;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 100px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.editCircle3{
+  background-color: #528DFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+}
+
+.month, .nextMonth{
+  color: #ffffff;
+  font-size: 10px;
+  transform: translateY(3px);
+}
+
+.day{
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.nextDay{
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.updated, .created{
+  color: #595959;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.updatedAt, .createdAt{
+  color: #595959;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+
+.addModalPage1Content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  margin: 0 0 0 0;
+  z-index: 6;
 }
 
 .addModalPage2Content{
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 83%;
-  margin: 0 0 0 0;
+  height: 92%;
+  margin: 20px 0 0 0;
   z-index: 6;
 }
-
 .addCatBtns {
   display: flex;
   justify-content: flex-start; /* 버튼들을 왼쪽부터 나열 */
@@ -477,19 +619,10 @@ button:focus
   overflow-x: auto; 
   white-space: nowrap;
   scroll-behavior: smooth; 
-  overflow-y: hidden; 
-  padding: 10px;
-  margin: 27% 0 10% 30px;
+  overflow-y: hidden;
+  width: 360px; 
+  margin: 120px 0 30px 30px;
   flex-shrink: 0;
-}
-
-.modalCatBtns::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리, 엣지에서 스크롤바 숨기기 */
-}
-
-.addCatBtns {
-  -ms-overflow-style: none;  /* IE, Edge에서 스크롤바 숨기기 */
-  scrollbar-width: none;  /* 파이어폭스에서 스크롤바 숨기기 */
 }
 
 .addCatBtn {
@@ -518,8 +651,9 @@ button:focus
   white-space: nowrap;
   scroll-behavior: smooth; 
   overflow-y: hidden; 
+  width: 390px;
   height: 130px;
-  margin: 0 0 0 0;
+  margin: 0 2px 0 2px;
   flex-shrink: 0;
 }
 
@@ -538,6 +672,15 @@ button:focus
   -webkit-tap-highlight-color: transparent;
 }
 
+:is(.addCatBtns, .addSvcBtns, .homeContainer)::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 엣지에서 스크롤바 숨기기 */
+}
+
+.addCatBtns, .addSvcBtns, .homeContainer{
+  -ms-overflow-style: none;  /* IE, Edge에서 스크롤바 숨기기 */
+  scrollbar-width: none;  /* 파이어폭스에서 스크롤바 숨기기 */
+}
+
 .addSvcBtn:focus{
   transform: scale(1.02); 
 }
@@ -549,8 +692,8 @@ button:focus
 .oneDriveBtn, .dropBoxBtn, .googleDriveBtn, .kakaoDriveBtn, .iCloudBtn, .naverCloudBtn,
 .audienBtn, .ridiBooksBtn, .millieBtn, .yes24Btn, .kyoboBookBtn
 {
-  width: 120px;
-  height: 120px;
+  width: 115px;
+  height: 115px;
   border-radius: 25px;
 }
 
@@ -584,14 +727,15 @@ button:focus
   cursor: pointer;
 }
 
-.serviceLogo, .editSvcLogo {
-  width: 104px;
-  height: 104px;
+.addSvcLogo, .editSvcLogo {
+  width: 86px;
+  height: 86px;
   border-radius: 50%; /* 100%도 가능하지만, 50%로도 원형을 만듭니다 */
   overflow: hidden; /* 이미지가 컨테이너 바깥으로 나가지 않도록 */
+  margin: 8% 0 0 0;
 }
 
-.serviceLogo img, .editSvcLogo img {
+.addSvcLogo img, .editSvcLogo img {
   width: 100%;
   height: 100%;
   object-fit: cover; /* 이미지를 컨테이너에 맞추어 잘라냅니다 */
@@ -603,9 +747,10 @@ button:focus
   justify-content: center;
   align-items: center;
   gap: 17px;
+  margin: 5% 0 0 0;
 }
 
-.addSvsInput {
+.svsInput {
   background-color: #ffffff;
   color: #8F8F8F;
   width: 336px;
@@ -618,7 +763,7 @@ button:focus
   outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
 }
 
-.addSvsInputSelect{
+.svsInputSelect{
   background-color: #ffffff;
   color: #8F8F8F;
   width: 358px;
@@ -632,7 +777,7 @@ button:focus
   outline: none; /* 클릭했을 때 생기는 기본 외곽선 제거 */
 }
 
-.addFpd {
+.payDateInput {
   width: 328px;
   height: 69px;
   background-color: #ffffff; /* 배경색 설정 */
@@ -644,10 +789,6 @@ button:focus
   font-size: 17px; /* 텍스트 크기 */
   color: #8F8F8F; /* 텍스트 색상 */
 }
-
-.addDoc{
-}
-
 
 /* 오버레이 스타일 추가 */
 .overlay {

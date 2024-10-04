@@ -46,15 +46,15 @@ const CloudQ3 = () => {
         <p className={styles.p}>사진 및 동영상 저장을 위한 자동 백업<br/>기능이 필요하신가요?
         </p>
       </div>
-      <div className={styles.backupOptions} ref={backupOptionsRef}>
+      <div className={styles.options} ref={backupOptionsRef}>
       <button
-          className={`${styles.cloudBackupBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.cloudBackupBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

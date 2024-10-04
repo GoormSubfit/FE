@@ -45,21 +45,21 @@ const OttQ5 = () => {
       <div className={styles.question}>
         <p className={styles.p}>해외 콘텐츠(미국, 유럽, 일본 등)에<br/>대한 선호도는 어떤가요?</p>
       </div>
-      <div className={styles.prefOptions} ref={prefOptionsRef}>
+      <div className={styles.options} ref={prefOptionsRef}>
         <button
-          className={`${styles.ottPrefBtn} ${selected === "hpref" ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected === "hpref" ? styles.selected : ""}`}
           onClick={() => handleClick("hpref")}
         >
           매우 선호
         </button>
         <button
-          className={`${styles.ottPrefBtn} ${selected === "pref" ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected === "pref" ? styles.selected : ""}`}
           onClick={() => handleClick("pref")}
         >
           선호
         </button>
         <button
-          className={`${styles.ottPrefBtn} ${selected === "npref" ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected === "npref" ? styles.selected : ""}`}
           onClick={() => handleClick("npref")}
         >
           선호하지 않음

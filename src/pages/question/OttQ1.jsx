@@ -45,21 +45,21 @@ const OttQ1 = () => {
       <div className={styles.question}>
         <p className={styles.p}>주로 시청하는 콘텐츠 유형은 무엇인가요?</p>
       </div>
-      <div className={styles.contentsOptions} ref={contentsOptionsRef}>
+      <div className={styles.options} ref={contentsOptionsRef}>
         <button
-          className={`${styles.ottContentsBtn} ${selected.includes("movie") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("movie") ? styles.selected : ""}`}
           onClick={() => handleClick("movie")}
         >
           영화
         </button>
         <button
-          className={`${styles.ottContentsBtn} ${selected.includes("drama") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("drama") ? styles.selected : ""}`}
           onClick={() => handleClick("drama")}
         >
           드라마
         </button>
         <button
-          className={`${styles.ottContentsBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("documentary") ? styles.selected : ""
           }`}
           onClick={() => handleClick("documentary")}
@@ -67,7 +67,7 @@ const OttQ1 = () => {
           다큐멘터리
         </button>
         <button
-          className={`${styles.ottContentsBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("animation") ? styles.selected : ""
           }`}
           onClick={() => handleClick("animation")}
@@ -75,7 +75,7 @@ const OttQ1 = () => {
           애니메이션
         </button>
         <button
-          className={`${styles.ottContentsBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("sports") ? styles.selected : ""
           }`}
           onClick={() => handleClick("sports")}

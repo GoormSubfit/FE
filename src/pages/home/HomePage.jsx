@@ -42,22 +42,10 @@ import DateSelector from "../../components/DateSelector/DateSelector"
 import backBtn from "../../assets/images/back-button.svg"
 import detailBtn from "../../assets/images/DetailBtn.svg"
 import DateCycle from '../../components/DateCycle';
-const HomePage = () => {
-  // 상태 관리
-  const [userData, setUserData] = useState({
-    name: "김서현",
-    jobTitle: "Marketing Coordinator",
-    subMonth: 9,
-    subDay: 14,
-    subState: "구독 중",
-    subList: [
-      { date: "9월 14일", price: 9500, state: "구독 중", dueDate: "오늘", svc: "넷플릭스", period: "1개월" },
-      { date: "9월 23일", price: 4830, state: "구독 해지", dueDate: "9일 뒤", svc: "플로", period: "1개월" },
-      { date: "9월 25일", price: 10000, state: "구독 중", dueDate: "11일 뒤", svc: "스포티파이", period: "1개월" },
-      { date: "9월 27일", price: 12000, state: "구독 중", dueDate: "13일 뒤", svc: "배민 클럽", period: "1개월" }
-    ]
-  });
+import line from "/src/assets/images/DateLine.svg";
 
+
+const HomePage = () => {
   const [totalSpent, setTotalSpent] = useState(0);
   const [showCat, setShowCat] = useState(false);
   const [activeCat, setActiveCat] = useState('');
@@ -72,18 +60,120 @@ const HomePage = () => {
   const [newSubName, setNewSubName] = useState('');
   const [newSubPrice, setNewSubPrice] = useState(null);
 
+  // 상태 관리
+  const [userData, setUserData] = useState({
+    name: "김서현",
+    jobTitle: "Marketing Coordinator",
+    subState: "구독 중",
+    subList: [
+        {name: "넷플릭스", price: 9500, cycle: "1개월", logoUrl: "", createdAt: "9월 04일", updatedAt: "9월 14일", subscribeDate: "2024-09-04"},
+        {name: "플로", price: 4830, cycle: "1개월", logoUrl: "", createdAt: "9월 23일", updatedAt: "9월 23일", subscribeDate: "2024-01-30"},
+        {name: "스포티파이", price: 10000, cycle: "1개월", logoUrl: "", createdAt: "9월 25일", updatedAt: "9월 25일", subscribeDate: "2024-07-30"},
+        {name: "배민 클럽", price: 12000, cycle: "1개월", logoUrl: "", createdAt: "9월 27일", updatedAt: "9월 27일", subscribeDate: "2024-09-17"}
+    ]    
+  });
+
+  const today = new Date();
+  // 날짜에서 월과 일을 추출하는 함수
+  const getMonthAndDate = (date) => {
+    return {
+      month: date.getMonth() + 1, // 월은 0부터 시작하므로 +1
+      date: date.getDate(),
+    };
+  };
+  
+  // 날짜를 "9월 30일" 형식으로 변환하는 함수
+  const koreanDate = (date, option = "both") => {
+    const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+
+    switch (option) {
+      case "month":
+          return month; // 월만 반환
+      case "day":
+          return day; // 일만 반환
+      case "both":
+      default:
+          return `${month} ${day}일`; // 월과 일 모두 반환
+    }
+  };
+
+  const subscribeDate = new Date('2024-09-07'); // subscribeDate를 Date 객체로 변환
+
+  const monthsDifference = (today, subscribeDate) => {
+    const yearsDiff = today.getFullYear() - subscribeDate.getFullYear();
+    const monthsDiff = today.getMonth() - subscribeDate.getMonth();
+    
+    return yearsDiff * 12 + monthsDiff; // 총 몇 개월 차이인지 계산
+  };
+
+  // 날짜 파싱 함수
+  const calculateDday = (subscribeDate, today) => {
+    // 두 날짜가 같은 날인지 비교
+    if (subscribeDate.toDateString() === today.toDateString()) {
+      return '오늘';
+    }
+    else{
+    // 두 날짜의 차이를 계산 (일 단위)
+    const diffTime = subscribeDate.getTime() - today.getTime(); // 밀리초 차이 계산
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); // 밀리초를 일로 변환한 값
+    
+    // 음수를 방지하고 X일 뒤 반환
+    return diffDays > 0 ? `${diffDays}일 뒤` : '오늘';
+    }
+  };
+
+
+  // 처음 결제일로부터 다음 결제일을 계산하는 함수
+  const calculateNextPayDate = (subscribeDate) => {
+    const { month: subscribeMonth, date: subscribeDay } = getMonthAndDate(subscribeDate);
+    let previousPayDate = new Date(subscribeDate);
+  
+    // 이전 결제일 계산
+    while (previousPayDate < today) {
+      previousPayDate.setMonth(previousPayDate.getMonth() + 1);
+    }
+
+    // 이전 결제일이 오늘보다 크다면 한 달 빼기
+    if (previousPayDate > today) {
+      previousPayDate.setMonth(previousPayDate.getMonth() - 1);
+    }
+
+    // 다음 결제일 계산
+    const nextPayDate = new Date(previousPayDate);
+    nextPayDate.setMonth(nextPayDate.getMonth() + 1);
+
+    // 그 달의 마지막 일을 넘지 않도록 조정 (예: 31일이 없을 경우 마지막 날짜로 설정)
+    if (nextPayDate.getDate() !== subscribeDay) {
+      nextPayDate.setDate(0); // 그 달의 마지막 날짜로 설정
+    }
+
+    return {
+      subscribeDate,           // 처음 결제일
+      previousPayDate,      // 이전 결제일
+      nextPayDate           // 다음 결제일
+    };
+  };
+
+  const getPreviousAndNextPayDates = (subscribeDate, option = "both") => {
+    const { previousPayDate, nextPayDate } = calculateNextPayDate(new Date(subscribeDate));
+  
+    const formatPreviousPayDate = koreanDate(previousPayDate, option);
+    const formatNextPayDate = koreanDate(nextPayDate, option);
+  
+    return {
+      formatPreviousPayDate,
+      formatNextPayDate
+    };
+  };
+
+  
   // 구독 금액 계산
   useEffect(() => {
     const totalPrice = userData.subList.reduce((acc, item) => acc + item.price, 0);
     setTotalSpent(totalPrice);
   }, [userData.subList]);
-
-  // 날짜 파싱 함수
-  const parseDueDate = (dueDate) => {
-    if (dueDate.includes("오늘")) return 0;
-    const match = dueDate.match(/(\d+)일 뒤/);
-    return match ? parseInt(match[1], 10) : Infinity;
-  };
 
   // 카테고리 버튼 클릭
   const cat = () => {
@@ -95,6 +185,7 @@ const HomePage = () => {
   const catClick = (category) => {
     setActiveCat(category);
     setCatSelected(true);
+    document.body.classList.add('modal-open');
     setIsAddModal(true);
   };
 
@@ -111,12 +202,13 @@ const HomePage = () => {
       setAddPage(1);
     }
   };
-
+    
   const backAddModal = () => {
     setAddPage(1);
   }
 
   const closeAddModal = () => {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
+      document.body.classList.remove('modal-open');
       setIsAddModal(false);
       setAddPage(1);  
       setShowCat(false);
@@ -161,6 +253,20 @@ const HomePage = () => {
   const closeEditModal = () => {
     setIsEditModal(false);
   }
+
+  const saveEditModal = () => {
+    if (newSubName.trim() && newSubPrice) {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
+      setIsEditModal(false);
+      setEditPage(1);  
+      setSelectedMySvc('');
+      setNewSubName('');
+      setNewSubPrice(null);
+    } else {
+      alert("내용을 작성해주세요");  // 서비스가 선택되지 않았을 때 알림
+      setAddPage(2);
+    }
+  };
+
   // 서비스 이미지 맵핑 (카테고리별 이미지 표시)
   const renderServiceImage = () => {
     const serviceImageMap = {
@@ -198,19 +304,18 @@ const HomePage = () => {
       '교보문고 sam': kyoboBookBtn,
       '예스24 ebook': yes24Btn
     };
-    return (
-      <>
-        {/* selectedMySvc에 따른 이미지 렌더링 */}
-        {serviceImageMap[selectedMySvc?.svc] && (
-          <img src={serviceImageMap[selectedMySvc?.svc]} alt={`${selectedMySvc?.svc} Button`} className={styles.serviceImage} />
-        )}
-        
-        {/* selectedSvc에 따른 이미지 렌더링 */}
-        {serviceImageMap[selectedSvc] && (
-          <img src={serviceImageMap[selectedSvc]} alt={`${selectedSvc} Button`} className={styles.serviceImage} />
-        )}
-      </>
-    );
+    // selectedMySvc의 logo 이미지가 있으면 우선적으로 표시
+    if (selectedMySvc?.name && serviceImageMap[selectedMySvc?.name]) {
+      return <img src={serviceImageMap[selectedMySvc?.name]} alt={`${selectedMySvc?.name} Button`} className={styles.serviceImage} />;
+    }
+
+    // selectedSvc의 logo 이미지가 있으면 표시
+    if (selectedSvc && serviceImageMap[selectedSvc]) {
+      return <img src={serviceImageMap[selectedSvc]} alt={`${selectedSvc} Button`} className={styles.serviceImage} />;
+    }
+
+    // 로고 이미지가 없으면 null 반환
+    return null;
   };
 
   return (
@@ -227,74 +332,155 @@ const HomePage = () => {
           <div className={styles.sumState}><div className={styles.sumStatus}>{userData.subState}</div><div className={styles.sumCount}>{userData.subList.length}개</div></div>
           <div className={styles.sumTotalExp}><div className={styles.labelTotalExp}>지출 총액</div><div className={styles.valueTotalExp}>{totalSpent.toLocaleString()} 원</div></div>
         </div>
-        
-        {/* 구독 알림 */}
-        <div className={styles.Notif}>
-          <p className={styles.secNotif}>알림</p>
-          <div className={styles.subNotifBox}>
-            {userData.subList
-              .filter(item => item.state === "구독 중")
-              .sort((a, b) => parseDueDate(a.dueDate) - parseDueDate(b.dueDate))
-              .slice(0, 2)
-              .map((item, index) => (
-                <div key={index} className={styles.notifBox}>
-                  <p className={styles.notifDate}>{item.date}</p>
-                  <p className={styles.notifPrice}>{item.price.toLocaleString()} 원</p>
-                  <p className={styles.notifMsg}>{item.dueDate === "오늘" ? "오늘이 결제일이예요!" : item.dueDate}</p>
-                </div>
-              ))}
-          </div>
-        </div>
+      </div>
 
-        {/* 구독 서비스 목록 */}
-        <div className={styles.mySvc}>
-          <p className={styles.secMySvc}>나의 구독 서비스</p>
-          {userData.subList.map((item, index) => (
-            <button key={index} className={styles.mySvcBox} onClick={() => {
-              myServiceClick(item);
-              openEditModal();
-            }}>
-              <div className={styles.subInfo}>
-                <p className={styles.mySvcName} onChange={(e) => setNewSubPrice(e.target.value)}>{item.svc}</p>
-                <p className={styles.mySvcPrice}>{item.price.toLocaleString()} 원 / {item.period}</p>
+      {/* 구독 알림 */}
+      // 구독 알림 부분
+      <div className={styles.Notif}>
+        <p className={styles.secNotif}>알림</p>
+        <div className={styles.subNotifBox}>
+          {userData.subList
+            .filter(item => item.cycle === "1개월")  // 필터링 조건
+            .map(item => {
+              const nextPayDate = calculateNextPayDate(new Date(item.subscribeDate)).nextPayDate; 
+              const dueDateMessage = calculateDday(nextPayDate, today); // 남은 일수 또는 "오늘" 반환
+              return {
+                ...item,
+                dueDateMessage, // 남은 일 또는 "오늘" 반환된 값 저장
+                nextPayDate
+              };
+            })
+            .sort((a, b) => new Date(a.nextPayDate) - new Date(b.nextPayDate))  // 날짜 기준으로 정렬
+            .slice(0, 2)  // 상위 2개 항목만 표시
+            .map((item, index) => (
+              <div key={index} className={styles.notifBox}>
+                {/* 다음 결제일을 포맷에 맞게 표시 */}
+                <p className={styles.notifDate}>{koreanDate(new Date(item.nextPayDate))}</p>
+                <p className={styles.notifPrice}>{item.price.toLocaleString()} 원</p>
+                <p className={styles.notifMsg}>
+                  {item.dueDateMessage === '오늘' ? '오늘이 결제일이예요!' : item.dueDateMessage}
+                </p>
+                <div className={styles.notifLogo}>
+                  {item.logoUrl && <img src={item.logoUrl} alt={`${item.name} logo`} />}
+                </div>
               </div>
-              <p className={styles.mySvcDday} style={{ backgroundColor: item.dueDate === "오늘" ? '#FF594F' : '#528DFF', color: 'white' }}>{item.dueDate}</p>
-              <div className={styles.mySvcDetail}>
-                <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
+            ))}
+        </div>
+      </div>
+
+
+
+
+      {/* 구독 서비스 목록 */}
+      <div className={styles.mySvc}>
+        <p className={styles.secMySvc}>나의 구독 서비스</p>
+        {userData.subList.map((item, index) => {
+          const nextPayDate = calculateNextPayDate(new Date(item.subscribeDate)).nextPayDate; // 각 항목마다 다음 결제일 계산
+          const dDayMessage = calculateDday(nextPayDate, today); // 남은 일수 메시지 계산
+
+          return (
+           <button key={index} className={styles.mySvcBox} onClick={() => {
+            myServiceClick(item);  // 서비스 클릭 시 선택된 서비스를 처리
+            openEditModal();  // 편집 모달 열기
+          }}>
+            <div className={styles.mySvcLogo}></div>
+            <div className={styles.mySvcInfo}>
+            <p className={styles.mySvcName}>{item.name}</p>
+            <p className={styles.mySvcPrice}>{item.price.toLocaleString()} 원 / {item.cycle}</p>
+            </div>
+            <p className={styles.mySvcDday} style={{ backgroundColor: dDayMessage === '오늘' ? '#FF594F' : '#528DFF' }}>
+              {dDayMessage}
+            </p>
+            <div className={styles.mySvcDetail}>
+              <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
               </div>
             </button>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
       {isEditModal && (
         <div className={styles.editModalContainer}>
           {editPage === 1 && (
             <div className={`${styles.editModalPage1} ${editPage === 2 ? styles.page2 : ''}`}>
-              <div className={styles.editModalPageHeader}>
-                <button className={styles.Back} onClick={closeEditModal}>
-                  <img src={backBtn} alt="back Button" className={styles.backBtn} />
-                </button>
-                <button className={styles.exitBtn} onClick={editStart}>편집</button>
-                <div className={styles.editModalPage1Content}>
+              <button className={styles.Back} onClick={closeEditModal}>
+                <img src={backBtn} alt="back Button" className={styles.backBtn} />
+              </button>
+              <button className={styles.exitBtn} onClick={editStart}>편집</button>    
+              <div className={styles.editModalPage1Content}>
                   <div className={styles.editSvcInfo}>
                     <div className={styles.editSvcLogo}>{renderServiceImage()}</div>
-                    <div className={styles.editSvcName}>{selectedMySvc?.svc}</div>                
-                    <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.period}</div>                
+                    <div className={styles.editSvcName}>{selectedMySvc?.name}</div>
+                    <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.cycle}</div>
                   </div>
-                </div>
+                  <div className={styles.editSvcPayDateBox}>
+                      <p className={styles.editSvcDday}>오늘 결제</p>
+                      <p className={styles.editSvcMessage}>{monthsDifference(today, new Date(selectedMySvc?.subscribeDate))}달 전에 구독을 시작했어요</p>
+                      <div className={styles.editSvcCircle}> 
+                        <div className={styles.line}>
+                          <img src={line} alt="line" className={styles.line} />
+                        </div>
+                        <div className={styles.editCircle1}>
+                          <div className={styles.month}>{koreanDate(new Date(selectedMySvc?.subscribeDate),"month")}</div>
+                          <div className={styles.day}>{koreanDate(new Date(selectedMySvc?.subscribeDate),"day")}</div>
+                        </div>
+                        <div className={styles.editCircle2}>
+                          <div className={styles.month}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "month").formatPreviousPayDate}</div>
+                          <div className={styles.day}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "day").formatPreviousPayDate}</div>
+                        </div>
+                        <div className={styles.editCircle3}>
+                            <div className={styles.nextMonth}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "month").formatNextPayDate}</div>
+                            <div className={styles.nextDay}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "day").formatNextPayDate}</div>
+                        </div>
+                      </div>
+                  </div>
               </div>
             </div>
-          )};
+          )}
 
           {editPage === 2 && (
             <div className={styles.editModalPage2}>
-              <div className={styles.editModalPageHeader}>
-                <button className={styles.Back} onClick={backEditModal}>
-                  <img src={backBtn} alt="back Button" className={styles.backBtn} />
-                </button>
-                <div className={styles.editModalPage2Content}>
-
+              <button className={styles.Back} onClick={backEditModal}>
+                <img src={backBtn} alt="back Button" className={styles.backBtn} />
+              </button>
+              <button className={styles.addOkay} onClick={saveEditModal}>완료</button>
+              <div className={styles.editModalPage2Content}>
+                <div className={styles.editSvcLogo}>{renderServiceImage()}</div>
+                <p className={styles.updated}>마지막 작성일
+                  <div className={styles.updatedAt}>
+                    {selectedMySvc?.updatedAt}
+                  </div>
+                </p>                
+                <div className={styles.inputGroup}>
+                  <label>
+                    <input 
+                      className={styles.svsInput} 
+                      type="text"
+                      placeholder="이름" 
+                      value={newSubName}
+                      onChange={(e) => setNewSubName(e.target.value)} 
+                      required 
+                    />
+                  </label>
+                  <label>
+                    <input 
+                      className={styles.svsInput} 
+                      type="number" 
+                      placeholder="금액" 
+                      value={newSubPrice}
+                      onChange={(e) => setNewSubPrice(e.target.value)} 
+                      required 
+                    />
+                  </label>
+                  <label>
+                    <select className={styles.svsInputSelect}>
+                      <option className={styles.addSvsInputPerOption} value="1month">1달</option>
+                      <option className={styles.addSvsInputPerOption} value="1year">1년</option>
+                    </select>
+                  </label>
+                  <div className={styles.payDateInput}>
+                    처음<br/>결제일 <DateSelector />
+                  </div>
                 </div>
               </div>
             </div>
@@ -331,6 +517,7 @@ const HomePage = () => {
               <button className={styles.Back} onClick={closeAddModal}>
                 <img src={backBtn} alt="back Button" className={styles.backBtn} />
               </button>
+              <div className={styles.addModalPage1Content}>
                 <div className={styles.addCatBtns}>
                   <button className={`${styles.addCatBtn} ${activeCat === 'OTT' ? styles.activeCat : ''}`} onClick={() => catClick('OTT')}>OTT</button>
                   <button className={`${styles.addCatBtn} ${activeCat === 'Music' ? styles.activeCat : ''}`} onClick={() => catClick('Music')}>Music</button>
@@ -463,11 +650,11 @@ const HomePage = () => {
                   </div>
                 )}
                 </div>
-
-              {/* 선택 버튼 */}
-              <button className={styles.selectButton} onClick={selectClick}>선택</button>
+                {/* 선택 버튼 */}
+                <button className={styles.selectButton} onClick={selectClick}>선택</button>
+              </div>
             </div>
-          )};
+          )}
           {/* 모달 2 페이지 */}
           {addPage === 2 && (
             <div className={styles.addModalPage2}>
@@ -476,15 +663,17 @@ const HomePage = () => {
               </button>
               <button className={styles.addOkay} onClick={saveAddModal}>완료</button>
               <div className={styles.addModalPage2Content}>
-                <div className={styles.serviceLogo}>{renderServiceImage()}</div>
-                <p className={styles.addDoc}>작성일<br/>{userData.subMonth}월 {userData.subDay}일</p>
+                <div className={styles.addSvcLogo}>{renderServiceImage()}</div>
+                <p className={styles.created}>작성일
+                  <div className={styles.createdAt}>{koreanDate(today)}</div>
+                </p>
                 
                 {/* 이름과 금액 입력 필드 추가 */}
                 <div className={styles.inputGroup}>
                   <label>
                     <input 
-                      className={styles.addSvsInput} 
-                      type="text" 
+                      className={styles.svsInput} 
+                      type="text"
                       placeholder="이름" 
                       value={newSubName}
                       onChange={(e) => setNewSubName(e.target.value)} 
@@ -493,7 +682,7 @@ const HomePage = () => {
                   </label>
                   <label>
                     <input 
-                      className={styles.addSvsInput} 
+                      className={styles.svsInput} 
                       type="number" 
                       placeholder="금액" 
                       value={newSubPrice}
@@ -502,12 +691,12 @@ const HomePage = () => {
                     />
                   </label>
                   <label>
-                    <select className={styles.addSvsInputSelect}>
+                    <select className={styles.svsInputSelect}>
                       <option className={styles.addSvsInputPerOption} value="1month">1달</option>
                       <option className={styles.addSvsInputPerOption} value="1year">1년</option>
                     </select>
                   </label>
-                  <div className={styles.addFpd}>
+                  <div className={styles.payDateInput}>
                     처음<br/>결제일 <DateSelector />
                   </div>
                 </div>

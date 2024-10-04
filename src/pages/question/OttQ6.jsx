@@ -46,15 +46,15 @@ const OttQ6 = () => {
         <p className={styles.p}>즐겨보는 콘텐츠를 다운로드해서<br/>오프라인으로 시청하시나요?
         </p>
       </div>
-      <div className={styles.dwnldOptions} ref={dwnldOptionsRef}>
+      <div className={styles.options} ref={dwnldOptionsRef}>
         <button
-          className={`${styles.ottDwnldBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.ottDwnldBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

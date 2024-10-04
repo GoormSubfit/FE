@@ -44,15 +44,15 @@ const MusicQ5 = () => {
       <div className={styles.question}>
         <p className={styles.p}> 오프라인에서 음악을 듣는 기능이<br/> 필요하신가요?</p>
       </div>
-      <div className={styles.opOptions} ref={opOptionsRef}>
+      <div className={styles.options} ref={opOptionsRef}>
       <button
-          className={`${styles.musicOpBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.musicOpBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

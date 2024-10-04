@@ -46,15 +46,15 @@ const MusicQ6 = () => {
         <p className={styles.p}>음악 외에 팟캐스트나 오디오북도<br/> 자주 들으시나요?
         </p>
       </div>
-      <div className={styles.paqOptions} ref={paqOptionsRef}>
+      <div className={styles.options} ref={paqOptionsRef}>
         <button
-          className={`${styles.musicPaqBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.musicPaqBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

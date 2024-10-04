@@ -46,21 +46,21 @@ const OttQ3 = () => {
       <div className={styles.question}>
         <p className={styles.p}>동시 시청이 필요한 디바이스<br/> 수는 몇 대인가요?</p>
       </div>
-      <div className={styles.deviceOptions} ref={deviceOptionsRef}>
+      <div className={styles.options} ref={deviceOptionsRef}>
         <button
-          className={`${styles.ottDeviceBtn} ${selected.includes("one") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("one") ? styles.selected : ""}`}
           onClick={() => handleClick("one")}
         >
           1대
         </button>
         <button
-          className={`${styles.ottDeviceBtn} ${selected.includes("two") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("two") ? styles.selected : ""}`}
           onClick={() => handleClick("two")}
         >
           2대
         </button>
         <button
-          className={`${styles.ottDeviceBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("threemore") ? styles.selected : ""
           }`}
           onClick={() => handleClick("threemore")}

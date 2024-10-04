@@ -110,7 +110,7 @@ body {
   color: #000000;
 }
   
-.shareOptions {
+.options {
   width: 100%;
   margin-bottom: 20%;
   align-items: center; 
@@ -124,16 +124,16 @@ body {
 }
   
   
-.shareOptions > button {
+.options > button {
   min-height: 57px; /* 버튼 최소 높이 설정 */
   flex-grow: 0; /* 버튼이 줄어들지 않도록 설정 */
 }
   
-.shareOptions::-webkit-scrollbar {
+.options::-webkit-scrollbar {
   display: none; /* 크롬 및 사파리 브라우저에서 스크롤바 숨김 */
 }
     
-.cloudShareBtn {
+.optionBtn {
   background-color: #d9d9d9;
   border-radius: 30px;
   font-weight: bold;
@@ -165,16 +165,16 @@ body {
 }
   
   
-:is(.cloudShareBtn, .back, .home, .next):hover,
-:is(.cloudShareBtn, .back, .home, .next):active,
-:is(.cloudShareBtn, .back, .home, .next):focus,
+:is(.optionBtn, .back, .home, .next):hover,
+:is(.optionBtn, .back, .home, .next):active,
+:is(.optionBtn, .back, .home, .next):focus,
 .selected:active,
 .selected:focus{
   outline: none;
   border: none; 
 }
   
-:is(.cloudShareBtn, .home, .next):hover{
+:is(.optionBtn, .home, .next):hover{
   transform: scale(1.02); 
 }
   

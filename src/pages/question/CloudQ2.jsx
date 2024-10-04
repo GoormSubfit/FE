@@ -45,21 +45,21 @@ const CloudQ2 = () => {
       <div className={styles.question}>
         <p className={styles.p}>필요한 저장 용량은 얼마나 되나요?</p>
       </div>
-      <div className={styles.storageOptions} ref={storageOptionsRef}>
+      <div className={styles.options} ref={storageOptionsRef}>
         <button
-          className={`${styles.cloudStorageBtn} ${selected.includes("lte5GB") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("lte5GB") ? styles.selected : ""}`}
           onClick={() => handleClick("lte5GB")}
         >
           5GB 이하
         </button>
         <button
-          className={`${styles.cloudStorageBtn} ${selected.includes("lte50GB") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("lte50GB") ? styles.selected : ""}`}
           onClick={() => handleClick("lte50GB")}
         >
           50GB 이하
         </button>
         <button
-          className={`${styles.cloudStorageBtn} ${selected.includes("gte1TB") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("gte1TB") ? styles.selected : ""}`}
           onClick={() => handleClick("gte1TB")}
         >
           1TB 이상

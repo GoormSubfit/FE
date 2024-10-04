@@ -37,15 +37,15 @@ const OttQ7 = () => {
       <div className={styles.question}>
         <p className={styles.p}>광고가 포함된 요금제를<br/>받아들일 수 있나요?</p>
       </div>
-      <div className={styles.adOptions} ref={adOptionsRef}>
+      <div className={styles.options} ref={adOptionsRef}>
         <button
-          className={`${styles.ottAdBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.ottAdBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

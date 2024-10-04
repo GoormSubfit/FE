@@ -37,15 +37,15 @@ const EbookQ7 = () => {
       <div className={styles.question}>
         <p className={styles.p}>오프라인에서 읽는 기능이 필요하신가요?</p>
       </div>
-      <div className={styles.opOptions} ref={opOptionsRef}>
+      <div className={styles.options} ref={opOptionsRef}>
         <button
-          className={`${styles.ebookOpBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.ebookOpBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

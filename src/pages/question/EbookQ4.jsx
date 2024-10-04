@@ -44,27 +44,27 @@ const EbookQ4 = () => {
       <div className={styles.question}>
         <p className={styles.p}>주로 어떤 기기로 이북을 읽으시나요?</p>
       </div>
-      <div className={styles.deviceOptions} ref={deviceOptionsRef}>
+      <div className={styles.options} ref={deviceOptionsRef}>
         <button
-          className={`${styles.ebookDeviceBtn} ${selected.includes("smartphone") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("smartphone") ? styles.selected : ""}`}
           onClick={() => handleClick("smartphone")}
         >
           스마트폰
         </button>
         <button
-          className={`${styles.ebookDeviceBtn} ${selected.includes("tablet") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("tablet") ? styles.selected : ""}`}
           onClick={() => handleClick("tablet")}
         >
           태블릿
         </button>
         <button
-          className={`${styles.ebookDeviceBtn} ${selected.includes("ebookReader") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("ebookReader") ? styles.selected : ""}`}
           onClick={() => handleClick("ebookReader")}
         > 
           이북 리더기          
         </button>
         <button
-          className={`${styles.ebookDeviceBtn} ${selected.includes("pc") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("pc") ? styles.selected : ""}`}
           onClick={() => handleClick("pc")}
         >
           PC

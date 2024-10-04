@@ -37,15 +37,15 @@ const MusicQ7 = () => {
         <p className={styles.p}>친구나 가족과 계정을 공유하시나요?
         </p>
       </div>
-      <div className={styles.shareOptions} ref={shareOptionsRef}>
+      <div className={styles.options} ref={shareOptionsRef}>
         <button
-          className={`${styles.musicShareBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.musicShareBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

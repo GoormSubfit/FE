@@ -46,15 +46,15 @@ const MusicQ3 = () => {
         <p className={styles.p}>음악 추천 알고리즘을 자주 사용하시나요?
         </p>
       </div>
-      <div className={styles.recSysOptions} ref={recSysOptionsRef}>
+      <div className={styles.options} ref={recSysOptionsRef}>
       <button
-          className={`${styles.musicRecSysBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.musicRecSysBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

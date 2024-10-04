@@ -45,15 +45,15 @@ const CloudQ7 = () => {
       <div className={styles.question}>
         <p className={styles.p}>여러 플랫폼(윈도우, 맥, 안드로이드,<br/>iOS 등)에서 접근할 필요가 있나요?</p>
       </div>
-      <div className={styles.accessOptions} ref={accessOptionsRef}>
+      <div className={styles.options} ref={accessOptionsRef}>
         <button
-          className={`${styles.cloudAccessBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.cloudAccessBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

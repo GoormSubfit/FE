@@ -45,15 +45,15 @@ const DeliveryQ5 = () => {
       <div className={styles.question}>
         <p className={styles.p}>친환경 포장(일회용품 줄이기 등)에<br/>관심이 있으신가요?</p>
       </div>
-      <div className={styles.ecopkgOptions} ref={ecopkgOptionsRef}>
+      <div className={styles.options} ref={ecopkgOptionsRef}>
       <button
-          className={`${styles.deliveryEcopkgBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.deliveryEcopkgBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

@@ -45,21 +45,21 @@ const EbookQ1 = () => {
       <div className={styles.question}>
         <p className={styles.p}>하루 평균 독서 시간은 얼마나 되나요?</p>
       </div>
-      <div className={styles.timeOptions} ref={timeOptionsRef}>
+      <div className={styles.options} ref={timeOptionsRef}>
         <button
-          className={`${styles.ebookTimeBtn} ${selected.includes("lte1h") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("lte1h") ? styles.selected : ""}`}
           onClick={() => handleClick("lte1h")}
         >
           1시간 이하
         </button>
         <button
-          className={`${styles.ebookTimeBtn} ${selected.includes("2h") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("2h") ? styles.selected : ""}`}
           onClick={() => handleClick("2h")}
         >
           2시간
         </button>
         <button
-          className={`${styles.ebookTimeBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("gte3h") ? styles.selected : ""
           }`}
           onClick={() => handleClick("gte3h")}

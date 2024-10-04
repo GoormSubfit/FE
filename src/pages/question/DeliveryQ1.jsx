@@ -45,21 +45,21 @@ const DeliveryQ1 = () => {
       <div className={styles.question}>
         <p className={styles.p}>배달 음식을 얼마나 자주 주문하시나요?</p>
       </div>
-      <div className={styles.fdfreqOptions} ref={fdfreqOptionsRef}>
+      <div className={styles.options} ref={fdfreqOptionsRef}>
         <button
-          className={`${styles.deliveryFdfreqBtn} ${selected.includes(" dailyfreq") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes(" dailyfreq") ? styles.selected : ""}`}
           onClick={() => handleClick(" dailyfreq")}
         >
           매일
         </button>
         <button
-          className={`${styles.deliveryFdfreqBtn} ${selected.includes("weekly1to2") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("weekly1to2") ? styles.selected : ""}`}
           onClick={() => handleClick("weekly1to2")}
         >
           일주일에 1~2회
         </button>
         <button
-          className={`${styles.deliveryFdfreqBtn} ${
+          className={`${styles.optionBtn} ${
             selected.includes("monthly1to2") ? styles.selected : ""
           }`}
           onClick={() => handleClick("monthly1to2")}

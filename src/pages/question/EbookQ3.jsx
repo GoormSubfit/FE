@@ -45,39 +45,39 @@ const EbookQ3 = () => {
       <div className={styles.question}>
         <p className={styles.p}>선호하는 책의 장르는 무엇인가요?</p>
       </div>
-      <div className={styles.prefOptions} ref={prefOptionsRef}>
+      <div className={styles.options} ref={prefOptionsRef}>
       <button
-          className={`${styles.ebookPrefBtn} ${selected.includes("novel") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("novel") ? styles.selected : ""}`}
           onClick={() => handleClick("novel")}
         >
           소설
         </button>
         <button
-          className={`${styles.ebookPrefBtn} ${selected.includes("selfhelp") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("selfhelp") ? styles.selected : ""}`}
           onClick={() => handleClick("selfhelp")}
         >
           자기계발서
         </button>
         <button
-          className={`${styles.ebookPrefBtn} ${selected.includes("business") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("business") ? styles.selected : ""}`}
           onClick={() => handleClick("business")}
         >
           비즈니스
         </button>
         <button
-          className={`${styles.ebookPrefBtn} ${selected.includes("history") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("history") ? styles.selected : ""}`}
           onClick={() => handleClick("history")}
         >
           역사
         </button>
         <button
-          className={`${styles.ebookPrefBtn} ${selected.includes("science") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("science") ? styles.selected : ""}`}
           onClick={() => handleClick("science")}
         >
           과학
         </button>
         <button
-          className={`${styles.ebookPrefBtn} ${selected.includes("comics") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("comics") ? styles.selected : ""}`}
           onClick={() => handleClick("comics")}
         >
           만화

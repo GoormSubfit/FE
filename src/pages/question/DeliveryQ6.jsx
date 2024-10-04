@@ -45,15 +45,15 @@ const DeliveryQ6 = () => {
       <div className={styles.question}>
         <p className={styles.p}>정기적으로 주문하는 상품이 있나요?</p>
       </div>
-      <div className={styles.regprodOptions} ref={regprodOptionsRef}>
+      <div className={styles.options} ref={regprodOptionsRef}>
         <button
-          className={`${styles.deliveryRegprodBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.deliveryRegprodBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

@@ -37,15 +37,15 @@ const DeliveryQ7 = () => {
       <div className={styles.question}>
         <p className={styles.p}>신선 식품을 주문하실 계획이 있나요?</p>
       </div>
-      <div className={styles.ffOrderOptions} ref={ffOrderOptionsRef}>
+      <div className={styles.options} ref={ffOrderOptionsRef}>
         <button
-          className={`${styles.deliveryffOrderBtn} ${selected.includes("yes") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
           onClick={() => handleClick("yes")}
         >
           네
         </button>
         <button
-          className={`${styles.deliveryffOrderBtn} ${selected.includes("no") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
           onClick={() => handleClick("no")}
         >
           아니요

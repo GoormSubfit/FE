@@ -45,21 +45,21 @@ const EbookQ2 = () => {
       <div className={styles.question}>
         <p className={styles.p}>한 달에 몇 권 정도의 책을 읽으시나요?</p>
       </div>
-      <div className={styles.mbcountOptions} ref={mbcountOptionsRef}>
+      <div className={styles.options} ref={mbcountOptionsRef}>
         <button
-          className={`${styles.ebookMbcountBtn} ${selected.includes("lte1Book") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("lte1Book") ? styles.selected : ""}`}
           onClick={() => handleClick("lte1Book")}
         >
           1권 이하
         </button>
         <button
-          className={`${styles.ebookMbcountBtn} ${selected.includes("2to4Books") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("2to4Books") ? styles.selected : ""}`}
           onClick={() => handleClick("2to4Books")}
         >
           2~4권
         </button>
         <button
-          className={`${styles.ebookMbcountBtn} ${selected.includes("gte5Books") ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected.includes("gte5Books") ? styles.selected : ""}`}
           onClick={() => handleClick("gte5Books")}
         >
           5권 이상
