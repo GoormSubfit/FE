@@ -1,0 +1,40 @@
+/* .calendar-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.date-container {
+    width: 14%;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+}
+
+.date {
+    font-size: 16px;
+    position: relative;
+}
+
+.payment-date {
+    font-weight: bold;
+    position: relative;
+}
+
+.blue-circle {
+    width: 10px;
+    height: 10px;
+    background-color: blue;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.payment-description {
+    font-size: 12px;
+    color: gray;
+    margin-top: 5px;
+} */
