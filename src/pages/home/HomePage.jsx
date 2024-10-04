@@ -59,11 +59,20 @@ const HomePage = () => {
   const [selectedSvc, setSelectedSvc] = useState('');
   const [newSubName, setNewSubName] = useState('');
   const [newSubPrice, setNewSubPrice] = useState(null);
-
+  const [newSubCycle, setNewSubCycle] = useState('1개월');
+  const [editSubName, setEditSubName] = useState('');
+  const [editSubPrice, setEditSubPrice] = useState(null);
+  const [editSubCycle, setEditSubCycle] = useState('1개월');
+  const currentYear = new Date().getFullYear();
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(1);
+  const [selectedDay, setSelectedDay] = useState(1);
+  const [selectedDate, setSelectedDate] = useState('');
+  const allowedCycles = ["1개월", "1년"]; 
   // 상태 관리
   const [userData, setUserData] = useState({
     name: "김서현",
-    jobTitle: "Marketing Coordinator",
+    job: "Marketing Coordinator",
     subState: "구독 중",
     subList: [
         {name: "넷플릭스", price: 9500, cycle: "1개월", logoUrl: "", createdAt: "9월 04일", updatedAt: "9월 14일", subscribeDate: "2024-09-04"},
@@ -125,8 +134,17 @@ const HomePage = () => {
   };
 
 
+  // 처음 결제일로부터 다음 결제일을 주기에 따라 계산하는 함수 (1개월 또는 1년 주기 선택 가능)
+  const calculateNextPayDate = (subscribeDate, cycle = '1개월') => {
+    if (cycle === '1년') {
+      return calculateNextYearlyPayDate(subscribeDate); // 1년 주기 계산
+    } else {
+      return calculateNextMonthlyPayDate(subscribeDate); // 1개월 주기 계산
+    }
+  };
+
   // 처음 결제일로부터 다음 결제일을 계산하는 함수
-  const calculateNextPayDate = (subscribeDate) => {
+  const calculateNextMonthlyPayDate = (subscribeDate) => {
     const { month: subscribeMonth, date: subscribeDay } = getMonthAndDate(subscribeDate);
     let previousPayDate = new Date(subscribeDate);
   
@@ -156,6 +174,38 @@ const HomePage = () => {
     };
   };
 
+  // 처음 결제일로부터 다음 결제일을 1년 주기로 계산하는 함수
+  const calculateNextYearlyPayDate = (subscribeDate) => {
+    const { month: subscribeMonth, date: subscribeDay } = getMonthAndDate(subscribeDate);
+    let previousPayDate = new Date(subscribeDate);
+
+    // 이전 결제일 계산 (1년씩 증가)
+    while (previousPayDate < today) {
+      previousPayDate.setFullYear(previousPayDate.getFullYear() + 1);
+    }
+
+    // 이전 결제일이 오늘보다 크다면 1년 빼기
+    if (previousPayDate > today) {
+      previousPayDate.setFullYear(previousPayDate.getFullYear() - 1);
+    }
+
+    // 다음 결제일 계산
+    const nextPayDate = new Date(previousPayDate);
+    nextPayDate.setFullYear(nextPayDate.getFullYear() + 1);
+
+    // 그 달의 마지막 일을 넘지 않도록 조정 (예: 31일이 없을 경우 마지막 날짜로 설정)
+    if (nextPayDate.getDate() !== subscribeDay) {
+      nextPayDate.setDate(0); // 그 달의 마지막 날짜로 설정
+    }
+
+    return {
+      subscribeDate,           // 처음 결제일
+      previousPayDate,      // 이전 결제일
+      nextPayDate           // 다음 결제일
+    };
+  };
+
+
   const getPreviousAndNextPayDates = (subscribeDate, option = "both") => {
     const { previousPayDate, nextPayDate } = calculateNextPayDate(new Date(subscribeDate));
   
@@ -168,7 +218,51 @@ const HomePage = () => {
     };
   };
 
-  
+   // 년도 목록 생성
+   const years = Array.from({ length: 10 }, (_, index) => currentYear + index);
+
+   // 월 목록 생성
+   const months = Array.from({ length: 12 }, (_, index) => index + 1);
+ 
+   // 선택된 월에 따라 일 수를 결정하는 함수
+   const getDaysInMonth = (year, month) => {
+     return new Date(year, month, 0).getDate();  // 해당 월의 마지막 날짜를 반환
+   };
+ 
+   // 선택된 월에 맞춰 일 수를 설정
+   const days = Array.from({ length: getDaysInMonth(selectedYear, selectedMonth) }, (_, index) => index + 1);
+ 
+   // 선택된 월이나 년도가 변경될 때, 현재 선택된 일이 유효한지 확인
+   useEffect(() => {
+     if (selectedDay > getDaysInMonth(selectedYear, selectedMonth)) {
+       setSelectedDay(1); // 선택된 일이 유효하지 않으면 1일로 설정
+     }
+   }, [selectedYear, selectedMonth]);
+
+   // 선택된 날짜를 YYYY-MM-DD 형식으로 저장하는 함수
+  const formatSelectedDate = () => {
+    const formattedMonth = String(selectedMonth).padStart(2, '0'); // 월을 두 자리로 포맷
+    const formattedDay = String(selectedDay).padStart(2, '0'); // 일을 두 자리로 포맷
+    return `${selectedYear}-${formattedMonth}-${formattedDay}`;
+  };
+
+  useEffect(() => {
+    if (selectedMySvc && selectedMySvc.subscribeDate) {
+      const subscribeDate = new Date(selectedMySvc.subscribeDate);
+      setSelectedYear(subscribeDate.getFullYear());
+      setSelectedMonth(subscribeDate.getMonth() + 1); // 월은 0부터 시작하므로 +1
+      setSelectedDay(subscribeDate.getDate());
+    }
+  }, [selectedMySvc]);
+
+  useEffect(() => {
+    if (selectedMySvc) {
+      setNewSubName(selectedMySvc.name);
+      setNewSubPrice(selectedMySvc.price);
+      setNewSubCycle(selectedMySvc.cycle);
+    }
+  }, [selectedMySvc]);
+
   // 구독 금액 계산
   useEffect(() => {
     const totalPrice = userData.subList.reduce((acc, item) => acc + item.price, 0);
@@ -216,23 +310,52 @@ const HomePage = () => {
       setActiveCat(''); // 선택된 카테고리 초기화
       setCatSelected(false); // 카테고리 선택 상태 초기화
       setSelectedSvc('');
+      setSelectedYear(1);
+      setSelectedMonth(1);
+      setSelectedDay('');
   }
-  const saveAddModal = () => {
-    if (newSubName.trim() && newSubPrice) {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
-      setIsAddModal(false);
-      setAddPage(1);  
-      setShowCat(false);
-      setPlusBtnActive(false);
-      setActiveCat(''); // 선택된 카테고리 초기화
-      setCatSelected(false); // 카테고리 선택 상태 초기화
-      setSelectedSvc('');
-      setNewSubName('');
-      setNewSubPrice(null);
-    } else {
-      alert("내용을 작성해주세요");  // 서비스가 선택되지 않았을 때 알림
-      setAddPage(2);
-    }
+  // DateSelector에서 전달된 날짜 값을 설정하는 함수
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
   };
+
+  const saveAddModal = () => {
+    if (newSubName.trim() && newSubPrice && selectedSvc && formatSelectedDate()) {
+      // 새로운 구독 데이터를 subList에 추가
+      setUserData((newData) => ({
+        ...newData,
+        subList: [
+          ...newData.subList,
+          {
+            name: selectedSvc,
+            price: parseInt(newSubPrice),
+            cycle: newSubCycle,
+            logoUrl: "",
+            createdAt: koreanDate(today),
+            updatedAt: koreanDate(today),
+            subscribeDate: formatSelectedDate(),  // 선택된 날짜 사용
+          }
+        ],
+      }));
+
+    // 모달 상태 초기화
+    setIsAddModal(false);
+    setAddPage(1);
+    setShowCat(false);
+    setPlusBtnActive(false);
+    setActiveCat('');
+    setCatSelected(false);
+    setSelectedSvc('');
+    setNewSubName('');
+    setNewSubPrice(null);
+    setSelectedYear(currentYear);
+    setSelectedMonth(1); // 1월로 초기화
+    setSelectedDay(1);   // 1일로 초기화
+    setSelectedDate('');  // 선택된 날짜 초기화
+  } else {
+    alert("모든 내용을 입력해주세요.");
+  }
+};
 
   const myServiceClick = (myService) => {
     setSelectedMySvc(myService);
@@ -252,18 +375,40 @@ const HomePage = () => {
 
   const closeEditModal = () => {
     setIsEditModal(false);
+    setEditPage(1);  
+    setSelectedMySvc('');
+    setNewSubName('');
+    setNewSubPrice(null);
   }
 
   const saveEditModal = () => {
-    if (newSubName.trim() && newSubPrice) {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
+    if (newSubName.trim() && newSubPrice && formatSelectedDate()) {
+      // 기존 구독 데이터를 수정하여 덮어쓰기
+      setUserData((newData) => ({
+        ...newData,
+        subList: newData.subList.map((item) =>
+          item.name === selectedMySvc.name
+            ? {
+                ...item,  // 기존 항목의 나머지 정보를 유지
+                name: newSubName,  // 수정된 이름
+                price: parseInt(newSubPrice),  // 수정된 가격
+                cycle: newSubCycle,  // 수정된 구독 주기
+                logoUrl: "",  // (필요 시) 수정된 로고 URL
+                updatedAt: koreanDate(today),  // 업데이트 날짜
+                subscribeDate: formatSelectedDate(),  // 수정된 처음 결제일
+              }
+            : item // 이름이 일치하지 않으면 기존 항목 유지
+        ),
+      }));
       setIsEditModal(false);
       setEditPage(1);  
       setSelectedMySvc('');
       setNewSubName('');
       setNewSubPrice(null);
-    } else {
-      alert("내용을 작성해주세요");  // 서비스가 선택되지 않았을 때 알림
-      setAddPage(2);
+      setSelectedYear(currentYear);
+      setSelectedMonth(1); // 1월로 초기화
+      setSelectedDay(1);   // 1일로 초기화
+      setSelectedDate('');
     }
   };
 
@@ -325,7 +470,7 @@ const HomePage = () => {
       <div className={styles.container}>
         <div className={styles.userProfile}>
           <h2 className={styles.userName}>{userData.name}님</h2>
-          <p className={styles.userJob}>{userData.jobTitle}</p>
+          <p className={styles.userJob}>{userData.job}</p>
         </div>
         <div className={styles.Summary}>
           <DateCycle/>
@@ -335,15 +480,13 @@ const HomePage = () => {
       </div>
 
       {/* 구독 알림 */}
-      // 구독 알림 부분
       <div className={styles.Notif}>
         <p className={styles.secNotif}>알림</p>
         <div className={styles.subNotifBox}>
           {userData.subList
-            .filter(item => item.cycle === "1개월")  // 필터링 조건
-            .map(item => {
-              const nextPayDate = calculateNextPayDate(new Date(item.subscribeDate)).nextPayDate; 
-              const dueDateMessage = calculateDday(nextPayDate, today); // 남은 일수 또는 "오늘" 반환
+            .map((item) => {
+              const { nextPayDate } = calculateNextPayDate(new Date(item.subscribeDate), item.cycle || "1개월");
+              const dueDateMessage = calculateDday(nextPayDate, today);
               return {
                 ...item,
                 dueDateMessage, // 남은 일 또는 "오늘" 반환된 값 저장
@@ -369,35 +512,35 @@ const HomePage = () => {
       </div>
 
 
-
-
       {/* 구독 서비스 목록 */}
       <div className={styles.mySvc}>
         <p className={styles.secMySvc}>나의 구독 서비스</p>
         {userData.subList.map((item, index) => {
-          const nextPayDate = calculateNextPayDate(new Date(item.subscribeDate)).nextPayDate; // 각 항목마다 다음 결제일 계산
-          const dDayMessage = calculateDday(nextPayDate, today); // 남은 일수 메시지 계산
+          const { nextPayDate } = calculateNextPayDate(new Date(item.subscribeDate), item.cycle || "1개월");
+          const dDayMessage = calculateDday(nextPayDate, today);
 
           return (
-           <button key={index} className={styles.mySvcBox} onClick={() => {
-            myServiceClick(item);  // 서비스 클릭 시 선택된 서비스를 처리
-            openEditModal();  // 편집 모달 열기
-          }}>
-            <div className={styles.mySvcLogo}></div>
-            <div className={styles.mySvcInfo}>
-            <p className={styles.mySvcName}>{item.name}</p>
-            <p className={styles.mySvcPrice}>{item.price.toLocaleString()} 원 / {item.cycle}</p>
-            </div>
-            <p className={styles.mySvcDday} style={{ backgroundColor: dDayMessage === '오늘' ? '#FF594F' : '#528DFF' }}>
-              {dDayMessage}
-            </p>
-            <div className={styles.mySvcDetail}>
-              <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
+            <button key={index} className={styles.mySvcBox} onClick={() => {
+              myServiceClick(item);  // 서비스 클릭 시 선택된 서비스를 처리
+              openEditModal();  // 편집 모달 열기
+            }}>
+              <div className={styles.mySvcLogo}></div>
+              <div className={styles.mySvcInfo}>
+                <p className={styles.mySvcName}>{item.name}</p>
+                <p className={styles.mySvcPrice}>{item.price.toLocaleString()} 원 / {item.cycle}</p>
+              </div>
+              {/* 결제일에 따라 배경 색상 적용 */}
+              <p className={styles.mySvcDday} style={{ backgroundColor: dDayMessage === '오늘' ? '#FF594F' : '#528DFF' }}>
+                {dDayMessage}
+              </p>
+              <div className={styles.mySvcDetail}>
+                <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
               </div>
             </button>
           );
         })}
       </div>
+
 
       {isEditModal && (
         <div className={styles.editModalContainer}>
@@ -456,7 +599,6 @@ const HomePage = () => {
                     <input 
                       className={styles.svsInput} 
                       type="text"
-                      placeholder="이름" 
                       value={newSubName}
                       onChange={(e) => setNewSubName(e.target.value)} 
                       required 
@@ -466,20 +608,42 @@ const HomePage = () => {
                     <input 
                       className={styles.svsInput} 
                       type="number" 
-                      placeholder="금액" 
-                      value={newSubPrice}
+                      value={newSubPrice} 
                       onChange={(e) => setNewSubPrice(e.target.value)} 
                       required 
                     />
                   </label>
                   <label>
-                    <select className={styles.svsInputSelect}>
-                      <option className={styles.addSvsInputPerOption} value="1month">1달</option>
-                      <option className={styles.addSvsInputPerOption} value="1year">1년</option>
+                    <select
+                      className={styles.svsInputSelect}
+                      value={newSubCycle}
+                      onChange={(e) => setNewSubCycle(e.target.value)}
+                    >
+                      <option className={styles.addSvsInputPerOption} value="1개월">1달</option>
+                      <option className={styles.addSvsInputPerOption} value="1년">1년</option>
                     </select>
                   </label>
                   <div className={styles.payDateInput}>
-                    처음<br/>결제일 <DateSelector />
+                    처음<br/>결제일
+                    <div className={styles.dateSelector}>
+                      <select value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
+                        {years.map(year => (
+                          <option key={year} value={year}>{year}</option>
+                        ))}
+                      </select>
+                      
+                      <select value={selectedMonth} onChange={(e) => setSelectedMonth(Number(e.target.value))}>
+                        {months.map(month => (
+                          <option key={month} value={month}>{month}</option>
+                        ))}
+                      </select>
+
+                      <select value={selectedDay} onChange={(e) => setSelectedDay(Number(e.target.value))}>
+                        {days.map(day => (
+                          <option key={day} value={day}>{day}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -691,13 +855,32 @@ const HomePage = () => {
                     />
                   </label>
                   <label>
-                    <select className={styles.svsInputSelect}>
-                      <option className={styles.addSvsInputPerOption} value="1month">1달</option>
-                      <option className={styles.addSvsInputPerOption} value="1year">1년</option>
-                    </select>
+                  <select className={styles.svsInputSelect} onChange={(e) => setNewSubCycle(e.target.value)}>
+                    <option className={styles.addSvsInputPerOption} value="1개월">1달</option>
+                    <option className={styles.addSvsInputPerOption} value="1년">1년</option>
+                  </select>
                   </label>
                   <div className={styles.payDateInput}>
-                    처음<br/>결제일 <DateSelector />
+                    처음<br/>결제일
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                      <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+                        {years.map(year => (
+                          <option key={year} value={year}>{year}</option>
+                        ))}
+                      </select>
+                      
+                      <select value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
+                        {months.map(month => (
+                          <option key={month} value={month}>{month}</option>
+                        ))}
+                      </select>
+
+                      <select value={selectedDay} onChange={(e) => setSelectedDay(e.target.value)}>
+                        {days.map(day => (
+                          <option key={day} value={day}>{day}</option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
