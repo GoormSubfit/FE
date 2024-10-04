@@ -1,0 +1,190 @@
+html, body {
+  overflow: visible;
+  height: auto;
+}
+
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+    background-image: url('../../assets/images/result/background.svg');
+    background-size: 100vw;
+    overflow: visible;
+  }
+  
+  .top-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+
+  .top-comment{
+font-size:25px;
+color:#F3F3F3;
+font-weight: bold;
+margin-top:20%;
+  }
+
+  .middle-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+
+  .result {
+    position: relative;
+    display: inline-block;
+    margin-top: 10%;
+  }
+  
+  .outer-border {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    background-color: #94B8FE;
+    border-radius: 33px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; 
+  }
+  
+  .inner-border {
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    background-color: #E9F0FE;
+    border-radius: 33px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; 
+  }
+  
+  .netflix {
+    position: relative;
+    width: 180px; 
+    height: 180px;
+    z-index: 3; 
+    border-radius: 33px;
+  }
+
+  .comment-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin-top: 10%;
+  }
+
+.middle-comment1{
+    font-size: 20px;
+    color:#ffffff;
+}
+
+  .price{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    font-size: 50px;
+    color:#ffffff;
+    font-weight: bold;
+  }
+
+  .infomation{
+    font-size: 20px;
+    color:#ffffff;
+    font-weight: bold;
+  }
+
+  .image-container{
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;  
+    width: 100vw;
+  }
+
+
+.image-gallery {
+  display: flex;
+  justify-content: flex-start; 
+  margin-top: 5%;
+  overflow-x: auto; 
+  scroll-behavior: smooth;     
+  flex-grow: 1; 
+  max-width: none; 
+  width: 100%;
+  overflow-x: hidden
+}
+
+.gallery-image {
+  width: 100%;
+  height: 120px;
+  margin: 0 5px; 
+  cursor: pointer;
+  opacity: 0.6; 
+  transition: opacity 0.3s ease; 
+  margin-top: 5%;
+}
+
+
+.gallery-image.active {
+  opacity: 1; 
+}
+
+
+.description-box {
+  position: relative; 
+  width: 334px;
+  height: 136px;
+  border-radius: 31px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 7%;
+}
+
+.button-container{
+  position: relative; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin-top: 5%;
+  padding-bottom: 10%;
+}
+
+.button1{
+width: 280px;
+height: 60px;
+border-radius: 30px;
+background-color: #F3F3F3;
+font-size: 20;
+font-weight: bold;
+}
+
+.button2{
+  width: 280px;
+height: 60px;
+border-radius: 30px;
+color:#FFFFFF;
+  margin-top: 2%;
+  background-color: #528DFF;
+font-size: 20;
+font-weight: bold;
+}
