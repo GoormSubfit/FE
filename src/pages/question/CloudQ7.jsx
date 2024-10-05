@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styles from '../../styles/question/CloudQ7.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
-import Back from "../../components/Back";
+import Back from "../../components/back";
 import Home from "../../components/Home";
 
 const CloudQ7 = () => {

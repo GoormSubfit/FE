@@ -68,11 +68,9 @@ const HomePage = () => {
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [selectedDay, setSelectedDay] = useState(1);
   const [selectedDate, setSelectedDate] = useState('');
-  const swipeDragControls = useDragControls();  // 훅은 컴포넌트의 최상단에서 선언
-  const [itemX, setItemX] = useState(0); // 스와이프된 x 위치 상태
+  const swipeDragControls = useDragControls();
+  const [itemX, setItemX] = useState(0); 
 
-  
-  // 상태 관리
   const [userData, setUserData] = useState({
     name: "김서현",
     job: "Marketing Coordinator",
@@ -86,15 +84,15 @@ const HomePage = () => {
   });
 
   const today = new Date();
-  // 날짜에서 월과 일을 추출하는 함수
+  // 날짜에서 월과 일을 추출
   const getMonthAndDate = (date) => {
     return {
-      month: date.getMonth() + 1, // 월은 0부터 시작하므로 +1
+      month: date.getMonth() + 1,
       date: date.getDate(),
     };
   };
   
-  // 날짜를 "9월 30일" 형식으로 변환하는 함수
+  // 날짜를 "9월 30일" 형식으로 변환
   const koreanDate = (date, option = "both") => {
     const monthNames = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
     const month = monthNames[date.getMonth()];
@@ -102,51 +100,50 @@ const HomePage = () => {
 
     switch (option) {
       case "month":
-          return month; // 월만 반환
+          return month;
       case "day":
-          return day; // 일만 반환
+          return day;
       case "both":
       default:
-          return `${month} ${day}일`; // 월과 일 모두 반환
+          return `${month} ${day}일`;
     }
   };
 
   const subscribeDate = new Date('2024-09-07'); // subscribeDate를 Date 객체로 변환
 
+  //몇달 전 구독 시작인지 계산
   const monthsDifference = (today, subscribeDate) => {
     const yearsDiff = today.getFullYear() - subscribeDate.getFullYear();
     const monthsDiff = today.getMonth() - subscribeDate.getMonth();
     
-    return yearsDiff * 12 + monthsDiff; // 총 몇 개월 차이인지 계산
+    return yearsDiff * 12 + monthsDiff;
   };
 
-  // 날짜 파싱 함수
+  // 날짜 '~일뒤' 계산
   const calculateDday = (subscribeDate, today) => {
-    // 두 날짜가 같은 날인지 비교
     if (subscribeDate.toDateString() === today.toDateString()) {
       return '오늘';
     }
     else{
-    // 두 날짜의 차이를 계산 (일 단위)
+
     const diffTime = subscribeDate.getTime() - today.getTime(); // 밀리초 차이 계산
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); // 밀리초를 일로 변환한 값
     
-    // 음수를 방지하고 X일 뒤 반환
     return diffDays > 0 ? `${diffDays}일 뒤` : '오늘';
     }
   };
 
 
-  // 처음 결제일로부터 다음 결제일을 주기에 따라 계산하는 함수 (1개월 또는 1년 주기 선택 가능)
+  // [1개월 또는 1년 주기 선택 가능] 처음 결제일로부터 다음 결제일을 주기에 따라 계산하는 함수 
   const calculateNextPayDate = (subscribeDate, cycle = '1개월') => {
     if (cycle === '1년') {
-      return calculateNextYearlyPayDate(subscribeDate); // 1년 주기 계산
+      return calculateNextYearlyPayDate(subscribeDate);
     } else {
-      return calculateNextMonthlyPayDate(subscribeDate); // 1개월 주기 계산
+      return calculateNextMonthlyPayDate(subscribeDate);
     }
   };
 
-  // 처음 결제일로부터 다음 결제일을 계산하는 함수
+  // [1개월] 처음 결제일로부터 다음 결제일을 계산
   const calculateNextMonthlyPayDate = (subscribeDate) => {
     const { month: subscribeMonth, date: subscribeDay } = getMonthAndDate(subscribeDate);
     let previousPayDate = new Date(subscribeDate);
@@ -171,13 +168,13 @@ const HomePage = () => {
     }
 
     return {
-      subscribeDate,           // 처음 결제일
+      subscribeDate,        // 처음 결제일
       previousPayDate,      // 이전 결제일
       nextPayDate           // 다음 결제일
     };
   };
 
-  // 처음 결제일로부터 다음 결제일을 1년 주기로 계산하는 함수
+  // [1년] 처음 결제일로부터 다음 결제일을 계산
   const calculateNextYearlyPayDate = (subscribeDate) => {
     const { month: subscribeMonth, date: subscribeDay } = getMonthAndDate(subscribeDate);
     let previousPayDate = new Date(subscribeDate);
@@ -202,7 +199,7 @@ const HomePage = () => {
     }
 
     return {
-      subscribeDate,           // 처음 결제일
+      subscribeDate,        // 처음 결제일
       previousPayDate,      // 이전 결제일
       nextPayDate           // 다음 결제일
     };
@@ -221,10 +218,10 @@ const HomePage = () => {
     };
   };
 
-   // 년도 목록 생성
+   // [처음결제일 날짜 입력 목록] 연도
    const years = Array.from({ length: 10 }, (_, index) => currentYear - 3 + index);
 
-   // 월 목록 생성
+   // [처음결제일 날짜 입력 목록] 월
    const months = Array.from({ length: 12 }, (_, index) => index + 1);
  
    // 선택된 월에 따라 일 수를 결정하는 함수
@@ -279,6 +276,7 @@ const HomePage = () => {
     if (CatSelected) setIsAddModal(true);
   };
 
+  //카테고리 클릭 시 addModal open 
   const catClick = (category) => {
     setActiveCat(category);
     setCatSelected(true);
@@ -286,11 +284,12 @@ const HomePage = () => {
     setIsAddModal(true);
   };
 
-    // 서비스 선택 및 모달 조작
+    // 추가하고자 하는 구독 서비스 선택 후 정보저장
   const serviceClick = (serviceName) => {
     setSelectedSvc(serviceName);
   };
 
+  // 추가 하고자 하는 구독 서비스 선택시에만 addModalPage2로 전환
   const selectClick = () => {
     if (selectedSvc) {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
       setAddPage(2);
@@ -299,29 +298,33 @@ const HomePage = () => {
       setAddPage(1);
     }
   };
-    
+  
+  //addModalPage2 에서 backBtn -> addModalPage1으로 전환
   const backAddModal = () => {
     setAddPage(1);
   }
 
+  //addModalPage2 에서 backBtn -> addModal Close
   const closeAddModal = () => {  // selectedSvc가 null 또는 빈 값이 아닐 때만 실행
       document.body.classList.remove('modal-open');
       setIsAddModal(false);
       setAddPage(1);  
       setShowCat(false);
       setPlusBtnActive(false);
-      setActiveCat(''); // 선택된 카테고리 초기화
-      setCatSelected(false); // 카테고리 선택 상태 초기화
+      setActiveCat('');
+      setCatSelected(false);
       setSelectedSvc('');
       setSelectedYear(1);
       setSelectedMonth(1);
       setSelectedDay('');
   }
+
   // DateSelector에서 전달된 날짜 값을 설정하는 함수
   const handleDateSelect = (date) => {
     setSelectedDate(date);
   };
 
+  ////addModalPage2 에서 완료버튼 -> save & addModal Close
   const saveAddModal = () => {
     if (newSubName.trim() && newSubPrice && selectedSvc && formatSelectedDate()) {
       // 새로운 구독 데이터를 subList에 추가
@@ -352,14 +355,15 @@ const HomePage = () => {
     setNewSubName('');
     setNewSubPrice(null);
     setSelectedYear(currentYear);
-    setSelectedMonth(1); // 1월로 초기화
-    setSelectedDay(1);   // 1일로 초기화
-    setSelectedDate('');  // 선택된 날짜 초기화
+    setSelectedMonth(1); 
+    setSelectedDay(1);  
+    setSelectedDate(''); 
   } else {
     alert("모든 내용을 입력해주세요.");
   }
 };
 
+  //[나의 구독 서비스] 클릭한 버튼 정보저장
   const myServiceClick = (myService) => {
     setSelectedMySvc(myService);
   };
@@ -415,7 +419,28 @@ const HomePage = () => {
     }
   };  
 
-  const deleteService = (serviceName) => {
+  //스와이프해서 삭제버튼 활성화
+  const handleDragEnd = (event, info, index) => {
+    const swipeThreshold = -29; // 삭제 버튼 너비에 맞춤
+    const currentX = info.offset.x;
+  
+    if (currentX < swipeThreshold) {
+      event.target.closest(`.${styles.mySvcContainer}`).classList.add(styles.swiped);
+      setItemX((prev) => ({
+        ...prev,
+        [index]: swipeThreshold,  // 스와이프가 -70px로 고정됨
+      }));
+    } else {
+      event.target.closest(`.${styles.mySvcContainer}`).classList.remove(styles.swiped);
+      setItemX((prev) => ({
+        ...prev,
+        [index]: 0,  // 원래 위치로 돌아감
+      }));
+    }
+  };
+  
+  //[나의 구독 서비스] 삭제
+  const deleteService = (serviceName, index) => {
     setUserData((prevData) => {
       const updatedList = prevData.subList.filter((item) => item.name !== serviceName);
       console.log('Updated subList:', updatedList); // 상태 업데이트 확인용
@@ -424,27 +449,14 @@ const HomePage = () => {
         subList: updatedList,
       };
     });
+  
+    // 삭제 후 해당 항목의 x 위치를 0으로 초기화하여 원래 위치로 복원
+    setItemX((prev) => ({
+      ...prev,
+      [index]: 0,  // x 좌표를 초기화하여 원래 위치로 돌아가게 함
+    }));
   };
-
-  const handleDragEnd = (event, info, index) => {
-    const swipeThreshold = -29; // 스와이프 임계값
-    const currentX = info.offset.x; // 현재 스와이프된 x 위치
-
-    // 임계값을 넘으면 삭제 버튼이 보이도록 설정
-    if (currentX < swipeThreshold) {
-      event.target.closest(`.${styles.mySvcContainer}`).classList.add(styles.swiped);
-      setItemX((prev) => ({
-        ...prev,
-        [index]: swipeThreshold,  // 개별 항목의 x 위치를 업데이트
-      }));
-    } else {
-      event.target.closest(`.${styles.mySvcContainer}`).classList.remove(styles.swiped);
-      setItemX((prev) => ({
-        ...prev,
-        [index]: 0,  // 그렇지 않으면 원래 위치로 되돌림
-      }));
-    }
-  };
+  
 
   
 
@@ -587,9 +599,9 @@ const HomePage = () => {
               </motion.div>
               <motion.button
                 className={styles.deleteBtn}
-                onClick={() => deleteService(item.name)} // 이름을 전달하여 삭제
+                onClick={() => deleteService(item.name, index)}  // index를 전달하여 삭제 후 위치 복구
                 initial={{ opacity: 0 }}
-                animate={{ opacity: itemX[index] === -29 ? 1 : 0 }} // 삭제 버튼이 보이도록 설정
+                animate={{ opacity: itemX[index] === -29 ? 1 : 0 }}  // 삭제 버튼이 보이도록 설정
               >
                 삭제
               </motion.button>
@@ -598,9 +610,10 @@ const HomePage = () => {
         })}
       </div>
 
-
+      {/* 나의 구독 서비스 편집 Modal*/}
       {isEditModal && (
         <div className={styles.editModalContainer}>
+          {/* editModalPage1 */}
           {editPage === 1 && (
             <div className={`${styles.editModalPage1} ${editPage === 2 ? styles.page2 : ''}`}>
               <button className={styles.Back} onClick={closeEditModal}>
@@ -654,6 +667,7 @@ const HomePage = () => {
             </div>
           )}
 
+          {/* editModalPage2 */}
           {editPage === 2 && (
             <div className={styles.editModalPage2}>
               <button className={styles.Back} onClick={backEditModal}>
@@ -678,13 +692,18 @@ const HomePage = () => {
                     />
                   </label>
                   <label>
-                    <input 
-                      className={styles.svsInput} 
-                      type="number" 
-                      value={newSubPrice} 
-                      onChange={(e) => setNewSubPrice(e.target.value)} 
-                      required 
-                    />
+                  <input
+                    className={styles.svsInput}
+                    type="text"
+                    value={newSubPrice}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // 숫자만 입력되도록 필터링
+                      const filteredValue = value.replace(/[^0-9]/g, '');
+                      setNewSubPrice(filteredValue);
+                    }}
+                    required
+                  />
                   </label>
                   <label>
                     <select
@@ -746,9 +765,10 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* 모달 */}
+      {/* 구독 추가 Modal */}
       {isAddModal && (
         <div className={styles.addModalContainer}>
+          {/* addModalPage1 */}
           {addPage === 1 && (
             <div className={`${styles.addModalPage1} ${addPage === 2 ? styles.page2 : ''}`}>
               <button className={styles.Back} onClick={closeAddModal}>
@@ -887,12 +907,16 @@ const HomePage = () => {
                   </div>
                 )}
                 </div>
+                <div className={styles.addSvcName}>
+                  <div className={styles.nameBar}></div>
+                  {selectedSvc}
+                </div>
                 {/* 선택 버튼 */}
                 <button className={styles.selectButton} onClick={selectClick}>선택</button>
               </div>
             </div>
           )}
-          {/* 모달 2 페이지 */}
+          {/* addModalPage2 */}
           {addPage === 2 && (
             <div className={styles.addModalPage2}>
               <button className={styles.Back} onClick={backAddModal}>
@@ -918,14 +942,18 @@ const HomePage = () => {
                     />
                   </label>
                   <label>
-                    <input 
-                      className={styles.svsInput} 
-                      type="number" 
-                      placeholder="금액" 
-                      value={newSubPrice}
-                      onChange={(e) => setNewSubPrice(e.target.value)} 
-                      required 
-                    />
+                  <input
+                    className={styles.svsInput}
+                    type="text"
+                    placeholder="금액"
+                    value={newSubPrice}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const filteredValue = value.replace(/[^0-9]/g, ''); 
+                      setNewSubPrice(filteredValue); 
+                    }}
+                    required
+                  />
                   </label>
                   <label>
                   <select className={styles.svsInputSelect} onChange={(e) => setNewSubCycle(e.target.value)}>
