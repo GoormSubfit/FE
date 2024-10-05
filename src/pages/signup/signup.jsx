@@ -65,7 +65,7 @@ function App() {
 
   const handleSubmit = () => {
     if (isFormValid) {
-      navigate('/signupq'); // 폼 유효하면 '/signupq'로 이동
+      navigate('/signupq', { state: { userId: username, password } });
     }
   };
 

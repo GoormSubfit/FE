@@ -6,8 +6,8 @@ import useSignupForm2 from '../../hooks/useSignupForm2';
 
 function App() {
   const navigate = useNavigate(); 
-  const location = useLocation(); // signupq.jsx에서 전달된 state 받기
-  const { name, age, job } = location.state; // 전달된 상태
+  const location = useLocation(); 
+  const { name, age, job, gender, userId, password } = location.state; // gender 추가
 
   const { mobile, setMobile, allFieldsFilled } = useSignupForm2(); 
 
@@ -17,7 +17,8 @@ function App() {
 
   const handleButtonClick = () => {
     if (allFieldsFilled()) {
-      navigate('/signupq3', { state: { name, age, job, mobile } }); // signupq3로 상태 전달
+      // signupq3로 gender를 포함하여 상태 전달
+      navigate('/signupq3', { state: { name, age, job, gender, mobile, userId, password } });
     }
   };
 

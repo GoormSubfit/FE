@@ -1,16 +1,18 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useLocation } from 'react-router-dom'; // useLocation 추가
 import styles from '../../styles/signupq/signupq.module.css';
 import CustomDropdown from '../../components/dropdown'; // 성별 선택을 위한 컴포넌트
 import useSignupForm from '../../hooks/useSignupForm';
 
 function App() {
   const navigate = useNavigate(); 
+  const location = useLocation(); // useLocation 사용
+  const { userId, password } = location.state; // 전달된 userId와 password 받기
   const { name, setName, age, setAge, job, setJob, gender, setGender, allFieldsFilled } = useSignupForm();
 
   const handleButtonClick = () => {
     if (allFieldsFilled()) {
-      navigate('/signupq2', { state: { name, age, job, gender } }); // 성별(gender)도 함께 전달
+      navigate('/signupq2', { state: { name, age, job, gender, userId, password } }); // 성별(gender)도 함께 전달
     }
   };
 
