@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'; 
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import styles from '../../styles/login/login_signup.module.css'; 
 import EyeIcon from '../../assets/images/login_signup/eyeopened.svg';
 import EyeOffIcon from '../../assets/images/login_signup/eyeclosed.svg';
@@ -24,7 +24,12 @@ function App() {
   };
 
   const handleLogin = async () => {
-    await validateLogin(userId, password);
+    const success = await validateLogin(userId, password);
+    if (success) {
+      const token = success.token; // 서버로부터 받은 토큰
+      localStorage.setItem('token', token); // 토큰을 로컬 스토리지에 저장
+      navigate('/profile'); // 로그인 성공 시 /profile 페이지로 이동
+    }
   };
 
   return (
@@ -64,7 +69,7 @@ function App() {
         </div>
       </div>
 
-      {loginError && <p className={styles["error-message"]}>{loginError}</p>}
+      {loginError && <p className={styles["error-message"]}>{loginError}</p>} {/* 로그인 실패 시 에러 메시지 */}
 
       <div className={styles["find-container"]}>
         <a className={styles["find-id"]}>아이디 찾기</a>
@@ -72,12 +77,12 @@ function App() {
         <a className={styles["find-id"]}>비밀번호 찾기</a>
         <hr className={styles["divider"]} /> 
         <a 
-      className={styles["signup"]} 
-      href="#"
-      onClick={() => navigate('/signup')} // 회원가입 페이지로 이동
-    >
-      회원가입
-    </a>
+          className={styles["signup"]} 
+          href="#"
+          onClick={() => navigate('/signup')} // 회원가입 페이지로 이동
+        >
+          회원가입
+        </a>
       </div>
 
       <button 

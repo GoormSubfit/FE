@@ -1,26 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // useNavigate 추가
+import { useNavigate } from 'react-router-dom'; 
 import styles from '../../styles/signupq/signupq.module.css';
-import CustomDropdown from '../../components/dropdown';
+import CustomDropdown from '../../components/dropdown'; // 성별 선택을 위한 컴포넌트
 import useSignupForm from '../../hooks/useSignupForm';
 
 function App() {
-  const navigate = useNavigate(); // useNavigate 훅 사용
-  const {
-    name,
-    setName,
-    age,
-    setAge,
-    job,
-    setJob,
-    allFieldsFilled,
-    handleSubmit
-  } = useSignupForm(); 
+  const navigate = useNavigate(); 
+  const { name, setName, age, setAge, job, setJob, gender, setGender, allFieldsFilled } = useSignupForm();
 
   const handleButtonClick = () => {
     if (allFieldsFilled()) {
-      handleSubmit(); // 서버로 폼 데이터를 제출하는 로직 호출
-      navigate('/signupq2'); // 조건을 만족하면 페이지 이동
+      navigate('/signupq2', { state: { name, age, job, gender } }); // 성별(gender)도 함께 전달
     }
   };
 
@@ -34,7 +24,7 @@ function App() {
         <p className={styles["comment4"]}>몇 가지 간단한 질문이 있을 예정입니다.</p>
       </div>
       <div className={styles["q-container"]}>
-
+        {/* 이름 입력 필드 */}
         <div className={styles["container1"]}>
           <input
             className={`${styles["input-name"]} ${name.trim() ? styles["input-filled"] : ""}`}
@@ -50,9 +40,11 @@ function App() {
           />
           <p className={styles["comment-name"]}>8글자 이내 ex. 홍길동, 커피머신</p>
         </div>
+        
+        {/* 성별 선택 컴포넌트 */}
+        <CustomDropdown setGender={setGender} /> {/* setGender로 성별 값을 업데이트 */}
 
-        <CustomDropdown />
-
+        {/* 나이 입력 필드 */}
         <div className={styles["container2"]}>
           <input
             className={`${styles["input-age"]} ${age.trim() ? styles["input-filled"] : ""}`}
@@ -63,6 +55,7 @@ function App() {
           />
         </div>
 
+        {/* 직업 입력 필드 */}
         <div className={styles["container3"]}>
           <input
             className={`${styles["input-job"]} ${job.trim() ? styles["input-filled"] : ""}`}
@@ -79,12 +72,13 @@ function App() {
           <p className={styles["comment-job"]}>ex. 학생, 백수</p>
         </div>
 
+        {/* 다음 버튼 */}
         <button
           className={`${styles["q-start"]} ${allFieldsFilled() ? styles["active"] : ""}`}
-          disabled={!allFieldsFilled()} // 버튼 비활성화
-          onClick={handleButtonClick} // 조건이 만족되면 handleButtonClick 호출
+          disabled={!allFieldsFilled()}
+          onClick={handleButtonClick} // navigate 호출 시 gender도 함께 전달
           style={{
-            backgroundColor: allFieldsFilled() ? '#528DFF' : '#D9D9D9' // 조건에 따라 색상 변경
+            backgroundColor: allFieldsFilled() ? '#528DFF' : '#D9D9D9',
           }}
         >
           회원가입 질문 시작
