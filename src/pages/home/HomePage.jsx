@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, useDragControls } from 'framer-motion';  // Ensure you are using framer-motion or a similar library
 import styles from '../../styles/home/HomePage.module.css';
 import plusBtn from "../../assets/images/Plus.svg"; 
 import subplusBtn from "../../assets/images/subplus.svg"; 
@@ -38,7 +39,6 @@ import ridiBooksBtn from "../../assets/images/serviceBtn/RidiBooks.svg";
 import millieBtn from "../../assets/images/serviceBtn/Millie.svg";
 import yes24Btn from "../../assets/images/serviceBtn/Yes24.svg";
 import kyoboBookBtn from "../../assets/images/serviceBtn/KyoboBook.svg";
-import DateSelector from "../../components/DateSelector/DateSelector"
 import backBtn from "../../assets/images/back-button.svg"
 import detailBtn from "../../assets/images/DetailBtn.svg"
 import DateCycle from '../../components/DateCycle';
@@ -68,14 +68,17 @@ const HomePage = () => {
   const [selectedMonth, setSelectedMonth] = useState(1);
   const [selectedDay, setSelectedDay] = useState(1);
   const [selectedDate, setSelectedDate] = useState('');
+  const swipeDragControls = useDragControls();  // 훅은 컴포넌트의 최상단에서 선언
+  const [itemX, setItemX] = useState(0); // 스와이프된 x 위치 상태
 
+  
   // 상태 관리
   const [userData, setUserData] = useState({
     name: "김서현",
     job: "Marketing Coordinator",
     subState: "구독 중",
     subList: [
-        {name: "넷플릭스", price: 9500, cycle: "1개월", logoUrl: "", createdAt: "9월 04일", updatedAt: "9월 14일", subscribeDate: "2024-09-04"},
+        {name: "넷플릭스", price: 9290, cycle: "1개월", logoUrl: "", createdAt: "9월 04일", updatedAt: "9월 14일", subscribeDate: "2024-09-04"},
         {name: "플로", price: 4830, cycle: "1개월", logoUrl: "", createdAt: "9월 23일", updatedAt: "9월 23일", subscribeDate: "2024-01-30"},
         {name: "스포티파이", price: 10000, cycle: "1개월", logoUrl: "", createdAt: "9월 25일", updatedAt: "9월 25일", subscribeDate: "2024-07-30"},
         {name: "배민 클럽", price: 12000, cycle: "1개월", logoUrl: "", createdAt: "9월 27일", updatedAt: "9월 27일", subscribeDate: "2024-09-17"}
@@ -162,7 +165,7 @@ const HomePage = () => {
     const nextPayDate = new Date(previousPayDate);
     nextPayDate.setMonth(nextPayDate.getMonth() + 1);
 
-    // 그 달의 마지막 일을 넘지 않도록 조정 (예: 31일이 없을 경우 마지막 날짜로 설정)
+    // 그 달의 마지막 일을 넘지 않도록 조정 (예: 29일이 없을 경우 마지막 날짜로 설정)
     if (nextPayDate.getDate() !== subscribeDay) {
       nextPayDate.setDate(0); // 그 달의 마지막 날짜로 설정
     }
@@ -193,7 +196,7 @@ const HomePage = () => {
     const nextPayDate = new Date(previousPayDate);
     nextPayDate.setFullYear(nextPayDate.getFullYear() + 1);
 
-    // 그 달의 마지막 일을 넘지 않도록 조정 (예: 31일이 없을 경우 마지막 날짜로 설정)
+    // 그 달의 마지막 일을 넘지 않도록 조정 (예: 29일이 없을 경우 마지막 날짜로 설정)
     if (nextPayDate.getDate() !== subscribeDay) {
       nextPayDate.setDate(0); // 그 달의 마지막 날짜로 설정
     }
@@ -206,8 +209,8 @@ const HomePage = () => {
   };
 
 
-  const getPreviousAndNextPayDates = (subscribeDate, option = "both") => {
-    const { previousPayDate, nextPayDate } = calculateNextPayDate(new Date(subscribeDate));
+  const getPreviousAndNextPayDates = (subscribeDate, option = "both", cycle = "1개월") => {
+    const { previousPayDate, nextPayDate } = calculateNextPayDate(new Date(subscribeDate), cycle);
   
     const formatPreviousPayDate = koreanDate(previousPayDate, option);
     const formatNextPayDate = koreanDate(nextPayDate, option);
@@ -410,7 +413,40 @@ const HomePage = () => {
       setSelectedDay(1);   // 1일로 초기화
       setSelectedDate('');
     }
+  };  
+
+  const deleteService = (serviceName) => {
+    setUserData((prevData) => {
+      const updatedList = prevData.subList.filter((item) => item.name !== serviceName);
+      console.log('Updated subList:', updatedList); // 상태 업데이트 확인용
+      return {
+        ...prevData,
+        subList: updatedList,
+      };
+    });
   };
+
+  const handleDragEnd = (event, info, index) => {
+    const swipeThreshold = -29; // 스와이프 임계값
+    const currentX = info.offset.x; // 현재 스와이프된 x 위치
+
+    // 임계값을 넘으면 삭제 버튼이 보이도록 설정
+    if (currentX < swipeThreshold) {
+      event.target.closest(`.${styles.mySvcContainer}`).classList.add(styles.swiped);
+      setItemX((prev) => ({
+        ...prev,
+        [index]: swipeThreshold,  // 개별 항목의 x 위치를 업데이트
+      }));
+    } else {
+      event.target.closest(`.${styles.mySvcContainer}`).classList.remove(styles.swiped);
+      setItemX((prev) => ({
+        ...prev,
+        [index]: 0,  // 그렇지 않으면 원래 위치로 되돌림
+      }));
+    }
+  };
+
+  
 
   // 서비스 이미지 맵핑 (카테고리별 이미지 표시)
   const renderServiceImage = () => {
@@ -520,23 +556,44 @@ const HomePage = () => {
           const dDayMessage = calculateDday(nextPayDate, today);
 
           return (
-            <button key={index} className={styles.mySvcBox} onClick={() => {
-              myServiceClick(item);  // 서비스 클릭 시 선택된 서비스를 처리
-              openEditModal();  // 편집 모달 열기
-            }}>
-              <div className={styles.mySvcLogo}></div>
-              <div className={styles.mySvcInfo}>
-                <p className={styles.mySvcName}>{item.name}</p>
-                <p className={styles.mySvcPrice}>{item.price.toLocaleString()} 원 / {item.cycle}</p>
-              </div>
-              {/* 결제일에 따라 배경 색상 적용 */}
-              <p className={styles.mySvcDday} style={{ backgroundColor: dDayMessage === '오늘' ? '#FF594F' : '#528DFF' }}>
-                {dDayMessage}
-              </p>
-              <div className={styles.mySvcDetail}>
-                <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
-              </div>
-            </button>
+            <div key={item.name} className={styles.mySvcContainer}>
+              <motion.div
+                key={index}
+                drag="x"
+                dragConstraints={{ left: -29, right: 0 }}
+                dragElastic={0.1}
+                dragControls={swipeDragControls}
+                onDragEnd={(event, info) => handleDragEnd(event, info, index)} // 핸들러에 index 전달
+                style={{ x: itemX[index] || 0 }}  // 개별 항목의 x 좌표 설정
+                className={styles.swipeContainer}
+              >
+                <button className={styles.mySvcBox} onClick={() => {
+                  myServiceClick(item);  // 서비스 클릭 시 선택된 서비스를 처리
+                  openEditModal();  // 편집 모달 열기
+                }}>
+                  <div className={styles.mySvcLogo}></div>
+                  <div className={styles.mySvcInfo}>
+                    <p className={styles.mySvcName}>{item.name}</p>
+                    <p className={styles.mySvcPrice}>{item.price.toLocaleString()} 원 / {item.cycle}</p>
+                  </div>
+                  {/* 결제일에 따라 배경 색상 적용 */}
+                  <p className={styles.mySvcDday} style={{ backgroundColor: dDayMessage === '오늘' ? '#FF594F' : '#528DFF' }}>
+                    {dDayMessage}
+                  </p>
+                  <div className={styles.mySvcDetail}>
+                    <img src={detailBtn} alt="detail Button" className={styles.detailBtn} />
+                  </div>
+                </button>
+              </motion.div>
+              <motion.button
+                className={styles.deleteBtn}
+                onClick={() => deleteService(item.name)} // 이름을 전달하여 삭제
+                initial={{ opacity: 0 }}
+                animate={{ opacity: itemX[index] === -29 ? 1 : 0 }} // 삭제 버튼이 보이도록 설정
+              >
+                삭제
+              </motion.button>
+            </div>
           );
         })}
       </div>
@@ -558,25 +615,41 @@ const HomePage = () => {
                   </div>
                   <div className={styles.editSvcPayDateBox}>
                       <p className={styles.editSvcDday}>오늘 결제</p>
-                      <p className={styles.editSvcMessage}>{monthsDifference(today, new Date(selectedMySvc?.subscribeDate))}달 전에 구독을 시작했어요</p>
+                      <p className={styles.editSvcMessage}>
+                        {selectedMySvc?.cycle === "1개월" 
+                          ? `${monthsDifference(today, new Date(selectedMySvc?.subscribeDate))}달 전에 구독을 시작했어요`
+                          : `${Math.floor(monthsDifference(today, new Date(selectedMySvc?.subscribeDate)) / 12)}년 전에 구독을 시작했어요`}
+                      </p>
                       <div className={styles.editSvcCircle}> 
                         <div className={styles.line}>
                           <img src={line} alt="line" className={styles.line} />
                         </div>
                         <div className={styles.editCircle1}>
-                          <div className={styles.month}>{koreanDate(new Date(selectedMySvc?.subscribeDate),"month")}</div>
-                          <div className={styles.day}>{koreanDate(new Date(selectedMySvc?.subscribeDate),"day")}</div>
+                          <div className={styles.month}>
+                            {koreanDate(new Date(selectedMySvc?.subscribeDate), "month")}
+                          </div>
+                          <div className={styles.day}>
+                            {koreanDate(new Date(selectedMySvc?.subscribeDate), "day")}
+                          </div>
                         </div>
                         <div className={styles.editCircle2}>
-                          <div className={styles.month}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "month").formatPreviousPayDate}</div>
-                          <div className={styles.day}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "day").formatPreviousPayDate}</div>
+                          <div className={styles.month}>
+                            {getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "month", selectedMySvc?.cycle).formatPreviousPayDate}
+                          </div>
+                          <div className={styles.day}>
+                            {getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "day", selectedMySvc?.cycle).formatPreviousPayDate}
+                          </div>
                         </div>
                         <div className={styles.editCircle3}>
-                            <div className={styles.nextMonth}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "month").formatNextPayDate}</div>
-                            <div className={styles.nextDay}>{getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "day").formatNextPayDate}</div>
+                          <div className={styles.nextMonth}>
+                            {getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "month", selectedMySvc?.cycle).formatNextPayDate}
+                          </div>
+                          <div className={styles.nextDay}>
+                            {getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "day", selectedMySvc?.cycle).formatNextPayDate}
+                          </div>
                         </div>
                       </div>
-                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -642,7 +715,7 @@ const HomePage = () => {
                         {days.map(day => (
                           <option key={day} value={day}>{day}</option>
                         ))}
-                      </select>
+                      </select>                
                     </div>
                   </div>
                 </div>

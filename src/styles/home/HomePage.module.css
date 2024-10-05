@@ -17,7 +17,7 @@ body {
   height: 100%;
   text-align: center;
   overflow-y: auto; 
-  padding-bottom: 17%;
+  padding-bottom: 23%;
   scroll-behavior: smooth; 
   overflow-x: hidden; 
 }
@@ -27,22 +27,21 @@ body {
   flex-direction: column; 
   align-items: flex-start; 
   width: 100%;
-  gap: 0;
-  margin: 15% 0 8% 5%;
+  gap: 8px;
+  margin: 23% 0 8% 5%;
 }
 
 .userName{
   color: #000000;
   font-size: 20px;
   font-weight: bolder;
-  height: 0px;
 }
 
 .userJob{
   color: #000000;
   font-size: 12px;
-  font-weight: 500;
-  height: 0px;
+  font-weight: 600;
+
 }
 
 .Summary {
@@ -55,7 +54,7 @@ body {
   width: 363px;
   height: 112px;
   padding: 0;
-  margin-bottom: 4%;
+  margin-bottom: 5%;
 }
 
 .sumState{
@@ -63,19 +62,21 @@ body {
   justify-content:center;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   width: 90px;
   height: 100px;
-  font-weight: 500;
 }
 
 .sumStatus{
   color: #528DFF;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .sumCount{
   color: #528DFF;
   font-size: 20px;
+  font-weight: 500;
 }
 
 .sumTotalExp{
@@ -83,19 +84,21 @@ body {
   justify-content:center;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   width: 120px;
   height: 100px;
-  font-weight: 500;
 }
 
 .labelTotalExp{
   color: #000000;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .valueTotalExp{
   color: #000000;
   font-size: 20px;
+  font-weight: 500;
 }
 
 .Notif{
@@ -137,24 +140,30 @@ body {
 }
 
 .notifDate{
+  position: absolute;
+  top: 15px;
+  left: 15px;
   font-size: 12px;
   font-weight: bold;
   color: #5C5C5C;
-  margin: 16px 0 0 25px;
 }
 
 .notifPrice{
+  position: absolute;
+  top: 35px;
+  left: 15px;
   font-size: 20px;
   font-weight: bold;
   color: #5C5C5C;
-  margin: 0px 0 0 25px;
 }
 
 .notifMsg{
+  position: absolute;
+  top: 62px;
+  left: 17px;
   font-size: 10px;
   font-weight: bolder;
   color: #5C5C5C;
-  margin: 0px 0 0 25px;
 }
 
 .notifLogo{
@@ -194,6 +203,16 @@ body {
   margin: 0 0 0 15px;
 }
 
+.mySvcContainer{
+  position: relative;
+  display: flex;
+  flex-direction:row; 
+  justify-content: center;
+  align-items:center;
+  overflow: hidden;
+  width: 363px;
+}
+
 .mySvcBox {
   position: relative;
   display: flex;
@@ -210,19 +229,27 @@ body {
 }
 
 .deleteBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 0px;
+  right: -112px;
   top: 0px;
-  background-color: red;
+  background-color: #FF594F;
   color: white;
-  padding: 10px;
-  width: 112px;
+  width: 70px;
   height: 112px;
   border-radius: 25px;
   border: none;
   font-size: 16px;
-  transition: transform 0.3s ease; /* 부드러운 이동 효과 */
-  z-index: 1; /* svcBox 뒤에 위치 */
+  transition: transform 0.01s ease; /* 부드러운 이동 효과 */
+  z-index: 0; /* svcBox 뒤에 위치 */
+  object-fit: cover;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mySvcContainer.swiped .deleteBtn {
+  right: 0; /* 스와이프 시 deleteBtn 보이게 */
 }
 
 .mySvcLogo{
@@ -466,11 +493,13 @@ button:focus
   color: #000000;
   font-size: 22px;
   font-weight: 600;
+  margin: 20px 0 0 0;
 }
 
 .editSvcPrice {
   color: #595959;
   font-size: 15px;
+  margin: 10px 0 0 0;
 }
 
 .editSvcPayDateBox{
@@ -495,7 +524,7 @@ button:focus
 .editSvcMessage{
   color: #595959;
   font-size: 15px;
-  margin: 0 0 0 30px;
+  margin: 5px 0 0 30px;
 }
 
 .editSvcCircle{
@@ -558,7 +587,6 @@ button:focus
 .month, .nextMonth{
   color: #ffffff;
   font-size: 10px;
-  transform: translateY(3px);
 }
 
 .day{
@@ -577,12 +605,14 @@ button:focus
   color: #595959;
   font-size: 14px;
   font-weight: 500;
+  margin: 20px 0 0 0;
 }
 
 .updatedAt, .createdAt{
   color: #595959;
   font-size: 20px;
   font-weight: 500;
+  margin: 5px 0 0 0;
 }
 
 

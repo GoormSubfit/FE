@@ -27,7 +27,7 @@ const DateCycle = () => {
       {/* 텍스트 */}
       <div style={{
         position: 'absolute',
-        top: '45%',
+        top: '43%',
         left: '51%',
         transform: 'translate(-50%, -50%)',
         color: '#404040',
