@@ -9,7 +9,7 @@ function useFetchUserName() {
   useEffect(() => {
     const fetchUserName = async () => {
       try {
-        const response = await axios.get('https://api.example.com/user'); 
+        const response = await axios.get('15.164.28.108:8080/recommendation/list'); 
         setName(response.data.name); 
       } catch (err) {
         setError(err); 
