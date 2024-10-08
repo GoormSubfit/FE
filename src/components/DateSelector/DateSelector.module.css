@@ -1,0 +1,17 @@
+/* DateSelector.module.css */
+select {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    width: 80px;
+    text-align: center;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #528DFF;
+  }
+  

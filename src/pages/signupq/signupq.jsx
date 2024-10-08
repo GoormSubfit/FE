@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; // useLocation 추가
 import styles from '../../styles/signupq/signupq.module.css';
-import CustomDropdown from '../../components/dropdown'; 
+import CustomDropdown from '../../components/dropdown'; // 성별 선택을 위한 컴포넌트
+import useSignupForm from '../../hooks/useSignupForm';
 
 function App() {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [job, setJob] = useState('');
+  const navigate = useNavigate(); 
+  const location = useLocation(); // useLocation 사용
+  const { userId, password } = location.state; // 전달된 userId와 password 받기
+  const { name, setName, age, setAge, job, setJob, gender, setGender, allFieldsFilled } = useSignupForm();
 
-  const allFieldsFilled = () => {
-    return name.trim() !== '' && age.trim() !== '' && job.trim() !== '';
+  const handleButtonClick = () => {
+    if (allFieldsFilled()) {
+      navigate('/signupq2', { state: { name, age, job, gender, userId, password } }); // 성별(gender)도 함께 전달
+    }
   };
 
   return (
@@ -21,49 +26,66 @@ function App() {
         <p className={styles["comment4"]}>몇 가지 간단한 질문이 있을 예정입니다.</p>
       </div>
       <div className={styles["q-container"]}>
-        <input
-          className={`${styles["input-name"]} ${name.trim() ? styles["input-filled"] : ""}`}
-          type="text"
-          placeholder="이름"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onKeyDown={(e) => {
-            if (/\d/.test(e.key)) {
-              e.preventDefault();
-            }
-          }}
-        />
-        <p className={styles["comment-name"]}>8글자 이내 ex. 홍길동, 커피머신</p>
+        {/* 이름 입력 필드 */}
+        <div className={styles["container1"]}>
+          <input
+            className={`${styles["input-name"]} ${name.trim() ? styles["input-filled"] : ""}`}
+            type="text"
+            placeholder="이름"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => {
+              if (/\d/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
+          />
+          <p className={styles["comment-name"]}>8글자 이내 ex. 홍길동, 커피머신</p>
+        </div>
+        
+        {/* 성별 선택 컴포넌트 */}
+        <CustomDropdown setGender={setGender} /> {/* setGender로 성별 값을 업데이트 */}
 
-        <CustomDropdown />
+        {/* 나이 입력 필드 */}
+        <div className={styles["container2"]}>
+          <input
+            className={`${styles["input-age"]} ${age.trim() ? styles["input-filled"] : ""}`}
+            type="number"
+            placeholder="나이"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+          />
+        </div>
 
-        <input
-          className={`${styles["input-age"]} ${age.trim() ? styles["input-filled"] : ""}`}
-          type="number"
-          placeholder="나이"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-        />
-        <input
-          className={`${styles["input-job"]} ${job.trim() ? styles["input-filled"] : ""}`}
-          type="text"
-          placeholder="직업"
-          value={job}
-          onChange={(e) => setJob(e.target.value)}
-          onKeyDown={(e) => {
-            if (/\d/.test(e.key)) {
-              e.preventDefault();
-            }
+        {/* 직업 입력 필드 */}
+        <div className={styles["container3"]}>
+          <input
+            className={`${styles["input-job"]} ${job.trim() ? styles["input-filled"] : ""}`}
+            type="text"
+            placeholder="직업"
+            value={job}
+            onChange={(e) => setJob(e.target.value)}
+            onKeyDown={(e) => {
+              if (/\d/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
+          />
+          <p className={styles["comment-job"]}>ex. 학생, 백수</p>
+        </div>
+
+        {/* 다음 버튼 */}
+        <button
+          className={`${styles["q-start"]} ${allFieldsFilled() ? styles["active"] : ""}`}
+          disabled={!allFieldsFilled()}
+          onClick={handleButtonClick} // navigate 호출 시 gender도 함께 전달
+          style={{
+            backgroundColor: allFieldsFilled() ? '#528DFF' : '#D9D9D9',
           }}
-        />
-        <p className={styles["comment-job"]}>ex. 학생, 백수</p>
+        >
+          회원가입 질문 시작
+        </button>
       </div>
-      <button
-        className={`${styles["q-start"]} ${allFieldsFilled() ? styles["active"] : ""}`}
-        disabled={!allFieldsFilled()}
-      >
-        회원가입 질문 시작
-      </button>
     </div>
   );
 }

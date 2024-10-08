@@ -28,25 +28,26 @@
     font-size: 24px;
     font-weight: bold;
     position: relative; 
-    top: 20px; 
+    top: 10%; 
+    margin-bottom: 14%;
   }
   
 
   .input-id {
-    margin-top: 30px;
+    margin-top: 10%;
     width: 260px;
     height: 50px;
   }
   
   .input-pwd {
-    margin-top: 20px;
+    margin-top: 5%;
     width: 260px;
     height: 50px;
   }
   
 
   .input-label {
-    margin-bottom: 5px;
+    margin-bottom: 5%;
     font-size: 15px;
     color: #555;
     width: 80px; 
@@ -66,7 +67,7 @@
     width: 100%;
     height: 51px;
     padding: 10px;
-    padding: 10px 10px 10px 40px; /* padding: top right bottom left */
+    padding: 10px 10px 10px 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
