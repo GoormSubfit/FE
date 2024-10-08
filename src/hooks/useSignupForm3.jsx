@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axios/axios_instance'; // Axios 인스턴스 가져오기
 
 const useSignupForm3 = () => {
   const [card, setCard] = useState(''); 
@@ -14,7 +14,8 @@ const useSignupForm3 = () => {
       formData.append('card', card);
 
       try {
-        const response = await axios.post('http://15.164.28.108:8080/users/register', formData, {
+        // Axios 인스턴스를 사용해 POST 요청
+        const response = await axiosInstance.post('/users/register', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

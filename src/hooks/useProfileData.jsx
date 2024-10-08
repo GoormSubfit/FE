@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axios/axios_instance'; // Axios 인스턴스를 가져오기
 
 const useProfileData = () => {
   const [name, setName] = useState(''); // 이름 상태 관리
@@ -7,13 +7,9 @@ const useProfileData = () => {
   useEffect(() => {
     const fetchName = async () => {
       try {
-        const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰을 가져온다고 가정
-        const response = await axios.get('http://15.164.28.108:8080/users/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`, // 토큰을 요청 헤더에 추가
-          },
-        });
-        
+        // Axios 인스턴스를 사용해 요청
+        const response = await axiosInstance.get('/users/profile'); // 토큰이 자동으로 포함된 요청
+
         // 서버로부터 받은 이름 데이터를 상태에 설정
         const storedName = response.data.name; // 서버에서 받아온 name 데이터
         setName(storedName);
@@ -29,4 +25,3 @@ const useProfileData = () => {
 };
 
 export default useProfileData;
-// 토큰으로 이름 가져오는 훅

@@ -99,20 +99,80 @@ margin-bottom: 4%;
         align-items: center;
       }
 
-      .result-box {
-        width: 360px;
-        height: 110px;
-        background-color: #f3f3f3;
-        border-radius: 10px;
-        display: inline-block;
-        text-align: center;
-        line-height: 110px;
-        margin-bottom: 3%;
-      }
 
       .bottom-button{
         font-size: 25px;
         background-color: #528DFF;
         color: #ffffff;
         border-radius: 40px;
+        margin-top: 10%;
+      }
+
+      .result-box {
+        position: relative;
+        width: 360px;
+        height: 110px;
+        background-color: #f3f3f3;
+        border-radius: 10px;
+        display: flex; /* 왼쪽과 오른쪽을 나누기 위한 flex 설정 */
+        justify-content: space-between; /* 좌우 섹션 간의 간격을 벌림 */
+        align-items: center; /* 상하 가운데 정렬 */
+        padding: 10px;
+        margin-bottom: 3%;
+      }
+      
+      .left-section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        text-align: center; /* 왼쪽 정렬 */
+        width: 45%; /* 왼쪽 섹션의 너비 */
+        right: 5%;
+        bottom: 3%;
+      }
+      
+      .right-section {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        text-align: left; /* 왼쪽 정렬 */
+        width: 50%; /* 오른쪽 섹션의 너비 */
+        right: 10%;
+      }
+      
+      .seperate-line {
+        position: relative;
+        width: 1px;
+        height: 100%; /* 전체 높이만큼 */
+        background-color: #cccccc; /* 분리선 색상 */
+        margin: 0 10px; /* 좌우 여백 */
+        right: 10%;
+      }
+      
+      .type {
+        font-size: 14px;
+        color: #555555;
+      }
+      
+      .serviceName {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10%;
+      }
+      
+      .price{
+        font-size: 15px;
+        color: #757575;
+        margin-bottom: 8%;
+        margin-top: 5%;
+      }
+      
+      .userAnswer{
+        font-size: 12px;
+        color: #757575;
+
+      }
+      .createdAt {
+        font-size: 12px;
+        color: #757575;
       }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axios/axios_instance'; // Axios 인스턴스 가져오기
 
 function useLoginValidation() {
   const [loginError, setLoginError] = useState(null);
@@ -11,7 +11,8 @@ function useLoginValidation() {
 
     try {
       console.log('로그인 시도 중: ', { userId, password }); // 전송하려는 데이터 확인
-      const response = await axios.post('http://15.164.28.108:8080/users/login', {
+      // Axios 인스턴스를 사용해 로그인 요청
+      const response = await axiosInstance.post('/users/login', {
         userId,   
         password
       });

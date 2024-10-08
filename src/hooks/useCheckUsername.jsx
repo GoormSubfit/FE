@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axios/axios_instance'; // Axios 인스턴스 가져오기
 
 function useCheckUsername() {
   const [isDuplicate, setIsDuplicate] = useState(null);
@@ -11,13 +11,14 @@ function useCheckUsername() {
     setError(null);
 
     try {
-      const response = await axios.get(`http://15.164.28.108:8080/users/check-userid?userId=${userId}`);
-      setIsDuplicate(response.data.exists); 
+      // Axios 인스턴스를 사용해 요청
+      const response = await axiosInstance.get(`/users/check-userid?userId=${userId}`);
+      setIsDuplicate(response.data.exists); // 중복 여부 설정
     } catch (err) {
       if (err.response && err.response.status === 409) {
         setIsDuplicate(true);
       } else {
-        setError(err); 
+        setError(err);
       }
     } finally {
       setLoading(false);
@@ -28,4 +29,3 @@ function useCheckUsername() {
 }
 
 export default useCheckUsername;
-//아이디 중복확인
