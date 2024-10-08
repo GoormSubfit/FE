@@ -15,7 +15,7 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 844px;
+
   text-align: center;
   overflow-y: auto; 
   padding-bottom: 23%;
@@ -126,7 +126,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center; 
-  gap: 7px;
+  gap: 8px;
 }
 
 .notifBox{
@@ -137,8 +137,15 @@ body {
   background-color: #E8F0FF;
   color: #5C5C5C;
   border-radius: 25px;
-  width: 179px;
+  width: 176px;
   height: 113px;
+}
+
+.notInfo{
+  color: #5C5C5C;
+  font-size: 15px;
+  width: 360px;
+  margin: 5% 0 10% 0;
 }
 
 .notifDate{
@@ -191,7 +198,8 @@ body {
   flex-direction: column; 
   align-items: flex-start; 
   gap: 15px;
-  margin: 10px 0 0 0;
+  width: 360px;
+  margin-bottom: 2%;
 }
 
 .secMySvc{
@@ -281,8 +289,12 @@ body {
 
 .mySvcName{
   color: #5C5C5C;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
   font-size: 13px;
   font-weight: 500;
+  width: 130px;
   margin-top: 0px;
   margin-bottom: 5px;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import Back from '../../components/back'
+import Back from '../../components/Back'
 import styles from '../../styles/signupq/profile.module.css'
 
 function App() {

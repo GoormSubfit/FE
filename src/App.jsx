@@ -1,6 +1,19 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Login from './pages/login/login'; // Login 페이지 (Back 버튼 없음)
+import Login_S from './pages/login/login_signup';
+import Calendar from './pages/calendar/calendar'; 
+import Signup from './pages/signup/signup';
+import Signupq from './pages/signupq/signupq';
+import Signupq2 from './pages/signupq/signupq2';
+import Signupq3 from './pages/signupq/signupq3';
+import Profile from './pages/signupq/profile';
+import Result from './pages/result/result';
+import Recommend from './pages/recommend/recommend';
+import HomePage from './pages/home/HomePage';
 import RecHome from './pages/home/RecHome';
+
+// 추가된 질문 페이지들 (Cloud, Ebook, Music, Ott, Delivery)
 import CloudQ1 from './pages/question/CloudQ1';
 import CloudQ2 from './pages/question/CloudQ2';
 import CloudQ3 from './pages/question/CloudQ3';
@@ -37,7 +50,10 @@ import DeliveryQ5 from './pages/question/DeliveryQ5';
 import DeliveryQ6 from './pages/question/DeliveryQ6';
 import DeliveryQ7 from './pages/question/DeliveryQ7';
 
-function App() {
+// 공통 레이아웃 (Back 버튼 포함)
+import Layout from './components/layout';
+
+export default function App() {
   const cloudRoutes = [
     { path: "/cloudq1", element: <CloudQ1 /> },
     { path: "/cloudq2", element: <CloudQ2 /> },
@@ -89,27 +105,46 @@ function App() {
   ];
 
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<RecHome />} />
-        {cloudRoutes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-        {ebookRoutes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-        {musicRoutes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-        {ottRoutes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-        {deliveryRoutes.map((route, index) => (
-          <Route key={index} path={route.path} element={route.element} />
-        ))}
-      </Routes>
-    </Router>
-  );
-}
+        {/* Back 버튼이 없는 Login 페이지 */}
+        <Route path='/' element={<Login/>}/> 
+        <Route path='/HomePage' element={<HomePage/>}/>
 
-export default App;
+        {/* Layout 컴포넌트를 사용하는 나머지 페이지들 (Back 버튼 포함) */}
+        <Route element={<Layout />}>
+          <Route path='/login_s' element={<Login_S/>}/>
+          <Route path='/calendar' element={<Calendar/>}/>
+          <Route path='/signup' element={<Signup/>}/>
+          <Route path='/signupq' element={<Signupq/>}/>
+          <Route path='/signupq2' element={<Signupq2/>}/>
+          <Route path='/signupq3' element={<Signupq3/>}/>
+          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/result' element={<Result/>}/>
+          <Route path='/recommend' element={<Recommend/>}/>
+          <Route path='/RecHome' element={<RecHome/>}/>
+          
+          {cloudRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+
+          {ebookRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+
+          {musicRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+
+          {ottRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+
+          {deliveryRoutes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
