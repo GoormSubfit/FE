@@ -1,17 +1,22 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom'; // Outlet을 사용하여 자식 컴포넌트를 렌더링
-import Back from './Back'; // Back 컴포넌트 가져오기
+import { Outlet } from 'react-router-dom';
+import Back from './Back';
+import Bar from './Bar'; // Bar 컴포넌트 import
 
 export default function Layout() {
   return (
-    <div>
+    <div className="layout-container">
       <header>
-        <Back /> {/* 뒤로 가기 버튼을 넣음 */}
+        <Back /> {/* 뒤로 가기 버튼 */}
       </header>
-      
+
       <main>
-        <Outlet /> {/* 이 부분에 각 페이지의 콘텐츠가 들어감 */}
+        <Outlet /> {/* 각 페이지의 콘텐츠가 여기에 들어감 */}
       </main>
+
+      <footer>
+        <Bar /> {/* 페이지 하단에 Bar 추가 */}
+      </footer>
     </div>
   );
 }

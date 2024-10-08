@@ -1,6 +1,6 @@
 // HomePage.jsx
 import React, { useState, useEffect } from 'react';
-import { motion, useDragControls } from 'framer-motion';  // Ensure you are using framer-motion or a similar library
+  // Ensure you are using framer-motion or a similar library
 import styles from '../../styles/home/HomePage.module.css';
 import plusBtn from "../../assets/images/Plus.svg"; 
 import subplusBtn from "../../assets/images/subplus.svg"; 
@@ -50,6 +50,8 @@ import useSubscribeSummary from "../../hooks/useSubscribeSummary";
 import useSubscribeList from '../../hooks/useSubscribeList'
 import useDeleteSubscribe from "../../hooks/useDeleteSubscribe";
 import useEditSubscribe from '../../hooks/useEditSubscribe';
+import { motion, useDragControls } from 'framer-motion';
+
 
 const HomePage = () => {
   const token = localStorage.getItem('token');
@@ -827,11 +829,6 @@ const HomePage = () => {
             <button className={`${styles.catBtn} ${activeCat === 'OTT' ? styles.activeCat : ''}`} onClick={() => catClick('OTT')}>OTT</button>
           </div>
         )}
-        <div className={styles.Bar}>
-          <button className={styles.profile}><img src={profBtn} alt="Profile Button" className={styles.profBtn}/></button>
-          <button className={styles.calendar}><img src={calBtn} alt="Calendar Button" className={styles.calBtn}/></button>
-          <button className={styles.question}><img src={qBtn} alt="Question Button" className={styles.qBtn}/></button>
-        </div>
       </div>
 
       {/* 구독 추가 Modal */}
