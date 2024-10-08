@@ -109,7 +109,7 @@ export default function App() {
       <Routes>
         {/* Back 버튼이 없는 Login 페이지 */}
         <Route path='/' element={<Login/>}/> 
-        <Route path='/HomePage' element={<HomePage/>}/>
+        
 
         {/* Layout 컴포넌트를 사용하는 나머지 페이지들 (Back 버튼 포함) */}
         <Route element={<Layout />}>
@@ -123,6 +123,7 @@ export default function App() {
           <Route path='/result' element={<Result/>}/>
           <Route path='/recommend' element={<Recommend/>}/>
           <Route path='/RecHome' element={<RecHome/>}/>
+          <Route path='/HomePage' element={<HomePage/>}/>
           
           {cloudRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
