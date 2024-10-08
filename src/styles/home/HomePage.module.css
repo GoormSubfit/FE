@@ -15,9 +15,10 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+
   text-align: center;
   overflow-y: auto; 
-  padding-bottom: 17%;
+  padding-bottom: 23%;
   scroll-behavior: smooth; 
   overflow-x: hidden; 
 }
@@ -27,22 +28,21 @@ body {
   flex-direction: column; 
   align-items: flex-start; 
   width: 100%;
-  gap: 0;
-  margin: 15% 0 8% 5%;
+  gap: 8px;
+  margin: 23% 0 8% 5%;
 }
 
 .userName{
   color: #000000;
   font-size: 20px;
   font-weight: bolder;
-  height: 0px;
 }
 
 .userJob{
   color: #000000;
   font-size: 12px;
-  font-weight: 500;
-  height: 0px;
+  font-weight: 600;
+
 }
 
 .Summary {
@@ -52,10 +52,10 @@ body {
   background-color: #F3F3F3;
   border-radius: 25px;
   gap: 10px;
-  width: 363px;
+  width: 360px;
   height: 112px;
   padding: 0;
-  margin-bottom: 4%;
+  margin-bottom: 5%;
 }
 
 .sumState{
@@ -63,19 +63,21 @@ body {
   justify-content:center;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   width: 90px;
   height: 100px;
-  font-weight: 500;
 }
 
 .sumStatus{
   color: #528DFF;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .sumCount{
   color: #528DFF;
   font-size: 20px;
+  font-weight: 500;
 }
 
 .sumTotalExp{
@@ -83,19 +85,21 @@ body {
   justify-content:center;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
   width: 120px;
   height: 100px;
-  font-weight: 500;
 }
 
 .labelTotalExp{
   color: #000000;
   font-size: 12px;
+  font-weight: 600;
 }
 
 .valueTotalExp{
   color: #000000;
   font-size: 20px;
+  font-weight: 500;
 }
 
 .Notif{
@@ -103,7 +107,8 @@ body {
   flex-direction: column; 
   align-items: flex-start; 
   gap: 15px;
-  margin-bottom: 2%;
+  width: 360px;
+  margin-bottom: 5%;
 }
 
 .secNotif{
@@ -121,7 +126,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center; 
-  gap: 7px;
+  gap: 8px;
 }
 
 .notifBox{
@@ -132,29 +137,42 @@ body {
   background-color: #E8F0FF;
   color: #5C5C5C;
   border-radius: 25px;
-  width: 179px;
+  width: 176px;
   height: 113px;
 }
 
+.notInfo{
+  color: #5C5C5C;
+  font-size: 15px;
+  width: 360px;
+  margin: 5% 0 10% 0;
+}
+
 .notifDate{
+  position: absolute;
+  top: 15px;
+  left: 15px;
   font-size: 12px;
   font-weight: bold;
   color: #5C5C5C;
-  margin: 16px 0 0 25px;
 }
 
 .notifPrice{
+  position: absolute;
+  top: 35px;
+  left: 15px;
   font-size: 20px;
   font-weight: bold;
   color: #5C5C5C;
-  margin: 0px 0 0 25px;
 }
 
 .notifMsg{
+  position: absolute;
+  top: 62px;
+  left: 17px;
   font-size: 10px;
   font-weight: bolder;
   color: #5C5C5C;
-  margin: 0px 0 0 25px;
 }
 
 .notifLogo{
@@ -180,7 +198,8 @@ body {
   flex-direction: column; 
   align-items: flex-start; 
   gap: 15px;
-  margin: 10px 0 0 0;
+  width: 360px;
+  margin-bottom: 2%;
 }
 
 .secMySvc{
@@ -194,6 +213,16 @@ body {
   margin: 0 0 0 15px;
 }
 
+.mySvcContainer{
+  position: relative;
+  display: flex;
+  flex-direction:row; 
+  justify-content: center;
+  align-items:center;
+  overflow: hidden;
+  width: 360px;
+}
+
 .mySvcBox {
   position: relative;
   display: flex;
@@ -201,7 +230,7 @@ body {
   align-items: center;
   background-color: #F3F3F3;
   border-radius: 25px;
-  width: 363px;
+  width: 360px;
   height: 112px;
   padding: 0 0 0 0;
   transition: transform 0.3s ease;
@@ -210,19 +239,27 @@ body {
 }
 
 .deleteBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 0px;
+  right: -112px;
   top: 0px;
-  background-color: red;
+  background-color: #FF594F;
   color: white;
-  padding: 10px;
-  width: 112px;
+  width: 70px;
   height: 112px;
   border-radius: 25px;
   border: none;
   font-size: 16px;
-  transition: transform 0.3s ease; /* 부드러운 이동 효과 */
-  z-index: 1; /* svcBox 뒤에 위치 */
+  transition: transform 0.01s ease; /* 부드러운 이동 효과 */
+  z-index: 0; /* svcBox 뒤에 위치 */
+  object-fit: cover;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mySvcContainer.swiped .deleteBtn {
+  right: 0; /* 스와이프 시 deleteBtn 보이게 */
 }
 
 .mySvcLogo{
@@ -252,8 +289,12 @@ body {
 
 .mySvcName{
   color: #5C5C5C;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
   font-size: 13px;
   font-weight: 500;
+  width: 130px;
   margin-top: 0px;
   margin-bottom: 5px;
 
@@ -267,6 +308,7 @@ body {
 }
 
 .mySvcDday{
+  color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -466,11 +508,13 @@ button:focus
   color: #000000;
   font-size: 22px;
   font-weight: 600;
+  margin: 20px 0 0 0;
 }
 
 .editSvcPrice {
   color: #595959;
   font-size: 15px;
+  margin: 10px 0 0 0;
 }
 
 .editSvcPayDateBox{
@@ -495,7 +539,7 @@ button:focus
 .editSvcMessage{
   color: #595959;
   font-size: 15px;
-  margin: 0 0 0 30px;
+  margin: 5px 0 0 30px;
 }
 
 .editSvcCircle{
@@ -558,7 +602,6 @@ button:focus
 .month, .nextMonth{
   color: #ffffff;
   font-size: 10px;
-  transform: translateY(3px);
 }
 
 .day{
@@ -577,14 +620,39 @@ button:focus
   color: #595959;
   font-size: 14px;
   font-weight: 500;
+  margin: 20px 0 0 0;
 }
 
 .updatedAt, .createdAt{
   color: #595959;
   font-size: 20px;
   font-weight: 500;
+  margin: 5px 0 0 0;
 }
 
+.dateSelector {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  gap: 10px; /* 선택 요소 사이에 간격 추가 */
+  background-color: transparent; /* 배경색 추가 */
+  border-radius: 10px; /* 모서리를 둥글게 */
+  width: 250px;
+}
+
+select {
+  background-color: transparent;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #595959;
+  width: 80px;
+  text-align: center;
+}
+
+select:focus {
+  outline: none;
+  border-color: #528DFF;
+}
 
 .addModalPage1Content{
   display: flex;
@@ -651,8 +719,9 @@ button:focus
   scroll-behavior: smooth; 
   overflow-y: hidden; 
   width: 390px;
-  height: 130px;
-  margin: 0 2px 0 2px;
+  height: 126px;
+  padding: 0 2px 0 2px;
+  margin: 5% 0 0 0;
   flex-shrink: 0;
 }
 
@@ -694,6 +763,25 @@ button:focus
   width: 115px;
   height: 115px;
   border-radius: 25px;
+}
+
+.addSvcName{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  color: #000000;
+  font-size: 25px;
+  font-weight: 700;
+  height: 60px;
+  gap: 20px;
+  margin: 10px 0 60% 0;
+}
+
+.nameBar{
+  background-color: #595959;
+  width: 110px;
+  height: 4px;
+  border-radius: 10px;
 }
 
 .selectButton {
@@ -746,7 +834,7 @@ button:focus
   justify-content: center;
   align-items: center;
   gap: 17px;
-  margin: 5% 0 0 0;
+  margin: 10% 0 0 0;
 }
 
 .svsInput {
@@ -787,6 +875,17 @@ button:focus
   padding: 0 15px; /* 좌우 여백 설정 */
   font-size: 17px; /* 텍스트 크기 */
   color: #8F8F8F; /* 텍스트 색상 */
+}
+
+/* 오버레이 스타일 추가 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* 어두운 반투명 배경 */
+  z-index: 4; /* + 버튼과 카테고리 버튼 뒤에 위치 */
 }
 
 
