@@ -51,7 +51,7 @@ import DeliveryQ6 from './pages/question/DeliveryQ6';
 import DeliveryQ7 from './pages/question/DeliveryQ7';
 
 // 공통 레이아웃 (Back 버튼 포함)
-import Layout from './components/Layout';
+import Layout from './components/layout';
 
 export default function App() {
   const cloudRoutes = [
@@ -107,10 +107,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Back 버튼이 없는 Login 페이지 */}
         <Route path='/' element={<Login/>}/> 
         
-        {/* Layout 컴포넌트를 사용하는 나머지 페이지들 (Back 버튼 포함) */}
         <Route element={<Layout />}>
           <Route path='/login_s' element={<Login_S/>}/>
           <Route path='/calendar' element={<Calendar/>}/>

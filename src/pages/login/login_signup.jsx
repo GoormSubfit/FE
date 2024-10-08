@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import styles from '../../styles/login/login_signup.module.css'; 
 import EyeIcon from '../../assets/images/login_signup/eyeopened.svg';
@@ -12,8 +12,14 @@ function App() {
   const [rememberId, setRememberId] = useState(false);
   const [userId, setUserId] = useState(''); 
   const [password, setPassword] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false); // 폼 유효성 상태 관리
   const navigate = useNavigate();
   const { validateLogin, loginError, loading } = useLoginValidation();
+
+  // 아이디와 비밀번호 입력이 모두 완료되면 폼을 유효하다고 설정
+  useEffect(() => {
+    setIsFormValid(userId.trim() !== '' && password.trim() !== ''); // 둘 다 입력되었는지 확인
+  }, [userId, password]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(prevState => !prevState);
@@ -25,10 +31,10 @@ function App() {
 
   const handleLogin = async () => {
     const success = await validateLogin(userId, password);
-    if (success) {
-      const token = success.token; // 서버로부터 받은 토큰
-      localStorage.setItem('token', token); // 토큰을 로컬 스토리지에 저장
-      navigate('/profile'); // 로그인 성공 시 /profile 페이지로 이동
+    if (success && success.token) {  // 성공하면 토큰이 있는지 확인
+      const token = success.token;  // 서버로부터 받은 토큰
+      localStorage.setItem('token', token);  // 토큰을 로컬 스토리지에 저장
+      navigate('/HomePage');  // 로그인 성공 시 HomePage로 이동
     }
   };
 
@@ -88,7 +94,10 @@ function App() {
       <button 
         className={styles["login-button"]} 
         onClick={handleLogin} 
-        disabled={loading}
+        disabled={!isFormValid || loading}  // 폼 유효하지 않거나 로딩 중일 때 버튼 비활성화
+        style={{
+          backgroundColor: isFormValid ? '#528DFF' : '#D9D9D9'  // 유효하면 색상 변경
+        }}
       >
         {loading ? '로그인 중...' : '로그인'}
       </button>

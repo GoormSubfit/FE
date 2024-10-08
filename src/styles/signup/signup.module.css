@@ -41,6 +41,7 @@
     margin-top: 10%;
     width: 260px;
     height: 50px;
+    margin-bottom: 2%;
   }
 
   .duplicate-check {
@@ -66,6 +67,7 @@
     width: 260px;
     height: 50px;
     position: relative; 
+    margin-bottom: 2%;
   }
 
   .input-pwd-check{
@@ -73,6 +75,7 @@
     width: 260px;
     height: 50px;
     position: relative; 
+    margin-bottom: 2%;
   }
 
   
