@@ -1,6 +1,6 @@
 // HomePage.jsx
 import React, { useState, useEffect } from 'react';
-  // Ensure you are using framer-motion or a similar library
+import { motion, useDragControls } from 'framer-motion';  // Ensure you are using framer-motion or a similar library
 import styles from '../../styles/home/HomePage.module.css';
 import plusBtn from "../../assets/images/Plus.svg"; 
 import subplusBtn from "../../assets/images/subplus.svg"; 
@@ -50,8 +50,6 @@ import useSubscribeSummary from "../../hooks/useSubscribeSummary";
 import useSubscribeList from '../../hooks/useSubscribeList'
 import useDeleteSubscribe from "../../hooks/useDeleteSubscribe";
 import useEditSubscribe from '../../hooks/useEditSubscribe';
-import { motion, useDragControls } from 'framer-motion';
-
 
 const HomePage = () => {
   const token = localStorage.getItem('token');
@@ -145,7 +143,7 @@ const HomePage = () => {
     if (!token) {
       localStorage.setItem(
         'token',
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0VXNlcjEyMyIsImlhdCI6MTcyODI4MDY5NiwiZXhwIjoxNzI4MzY3MDk2fQ.fiH-9nxAzaO6q9vAvv_4-ELq388NYIvKsKWkavxNW-g'
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0VXNlcjEyMyIsImlhdCI6MTcyODM3MTM3MCwiZXhwIjoxNzI4NDU3NzcwfQ.ttbSuODfItpblGJAS4ICGW4gx_sUNtRZ8-hqZk-DHQs'
       );
     }
   }, []);  // 컴포넌트가 처음 렌더링될 때만 실행
@@ -181,6 +179,13 @@ const HomePage = () => {
     const totalSpending = subscribeList.reduce((acc, item) => acc + item.price, 0);
     setTotalSpent(totalSpending);
   }, [subscribeList]);
+
+  useEffect(() => {
+    if (!isAddModal && !isEditModal) {
+      fetchSubscribeSummary();
+      fetchSubscribeList();  // 모달이 닫힐 때 목록을 새로고침
+    }
+  }, [isAddModal, isEditModal]);
 
   
   const today = new Date();
@@ -220,17 +225,21 @@ const HomePage = () => {
 
   // 날짜 '~일뒤' 계산
   const calculateDday = (subscribeDate, today) => {
-    if (subscribeDate.toDateString() === today.toDateString()) {
+    // 시간 정보를 제거하고 순수한 날짜 비교를 위해 setHours를 사용합니다.
+    const cleanToday = new Date(today.setHours(0, 0, 0, 0));
+    const cleanSubscribeDate = new Date(subscribeDate.setHours(0, 0, 0, 0));
+  
+    // 날짜 차이 계산
+    const diffTime = cleanSubscribeDate - cleanToday;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  
+    // 같은 날짜인지 체크
+    if (diffDays === 0) {
       return '오늘';
-    }
-    else{
-    const diffTime = subscribeDate.getTime() - today.getTime(); // 밀리초 차이 계산
-    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)); // 밀리초를 일로 변환한 값
-    
-    return diffDays > 0 ? `${diffDays}일 뒤` : '오늘';
+    } else if (diffDays > 0) {
+      return `${diffDays}일 뒤`;
     }
   };
-
 
   // [1개월 또는 1년 주기 선택 가능] 처음 결제일로부터 다음 결제일을 주기에 따라 계산하는 함수 
   const calculateNextPayDate = (subscribeDate, cycle = '1개월') => {
@@ -389,7 +398,9 @@ const HomePage = () => {
       setActiveCat('');
       setCatSelected(false);
       setSelectedSvc('');
-      setSelectedYear(1);
+      setNewSubName('');
+      setNewSubPrice(null);
+      setSelectedYear(currentYear);
       setSelectedMonth(1);
       setSelectedDay('');
   }
@@ -444,19 +455,20 @@ const HomePage = () => {
       try {
         const response = await addSubscribe(formData, token);
         if (response) {
-            await fetchSubscribeList();  // 성공 후 구독 리스트를 새로고침
+          console.log('Subscription added successfully');
         }
-    } catch (error) {
+      } catch (error) {
         console.error('Error adding subscription:', error);
         alert('구독 추가 중 오류가 발생했습니다.');
-    } finally {
+      } finally {
+        await fetchSubscribeList(); // 성공/실패에 상관없이 구독 목록을 새로고침
         closeAddModal();  // 성공/실패에 상관없이 모달 닫기
-    }
-    
+      }
     } else {
       alert('모든 내용을 입력해주세요.');
     }
   };
+  
   
 
 
@@ -531,18 +543,27 @@ const HomePage = () => {
   };
   
 
-  const deleteService = async (subscriptionId) => {
+  const deleteService = async (subscriptionId, index) => {
     try {
       await deleteSubscribe(subscriptionId); // 구독 삭제 API 호출
   
       // 구독 삭제 후 리스트를 새로 가져오기
       fetchSubscribeList();  // 최신 구독 리스트를 다시 가져옴
+      fetchSubscribeSummary();
+
+      // Reset the swipe position
+      setItemX((prev) => {
+        const updatedPositions = { ...prev };
+        updatedPositions[index] = 0; // 해당 인덱스의 위치를 초기화
+        return updatedPositions;
+      });
   
     } catch (error) {
       console.error('Failed to delete subscription:', error);
       alert('구독 삭제 중 오류가 발생했습니다.');
-    }
+    } 
   };
+  
 
 
   // 프로필, 구독 요약 또는 구독 목록 로딩 상태 처리

@@ -29,4 +29,4 @@ const useDeleteSubscribe = () => {
   return { deleteSubscribe, loading, error, success };
 };
 
-export default useDeleteSubscribe;  
+export default useDeleteSubscribe;
