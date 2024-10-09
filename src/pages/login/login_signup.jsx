@@ -12,13 +12,12 @@ function App() {
   const [rememberId, setRememberId] = useState(false);
   const [userId, setUserId] = useState(''); 
   const [password, setPassword] = useState('');
-  const [isFormValid, setIsFormValid] = useState(false); // 폼 유효성 상태 관리
+  const [isFormValid, setIsFormValid] = useState(false); 
   const navigate = useNavigate();
   const { validateLogin, loginError, loading } = useLoginValidation();
 
-  // 아이디와 비밀번호 입력이 모두 완료되면 폼을 유효하다고 설정
   useEffect(() => {
-    setIsFormValid(userId.trim() !== '' && password.trim() !== ''); // 둘 다 입력되었는지 확인
+    setIsFormValid(userId.trim() !== '' && password.trim() !== '');
   }, [userId, password]);
 
   const togglePasswordVisibility = () => {
@@ -31,10 +30,18 @@ function App() {
 
   const handleLogin = async () => {
     const success = await validateLogin(userId, password);
-    if (success && success.token) {  // 성공하면 토큰이 있는지 확인
-      const token = success.token;  // 서버로부터 받은 토큰
-      localStorage.setItem('token', token);  // 토큰을 로컬 스토리지에 저장
-      navigate('/HomePage');  // 로그인 성공 시 HomePage로 이동
+    if (success && success.token) { 
+      const token = success.token; 
+      localStorage.setItem('token', token); 
+      navigate('/HomePage'); 
+    }
+  };
+
+  const handleInput = (e, setState) => {
+    const value = e.target.value;
+    const regex = /^[a-zA-Z0-9]*$/; // 영어와 숫자만 허용
+    if (regex.test(value)) {
+      setState(value);
     }
   };
 
@@ -50,7 +57,7 @@ function App() {
             type="text" 
             placeholder="아이디" 
             value={userId} 
-            onChange={(e) => setUserId(e.target.value)} 
+            onChange={(e) => handleInput(e, setUserId)} // 입력 제한 적용
           />
         </div>
         <div className={styles["input-pwd"]}>
@@ -59,7 +66,7 @@ function App() {
             type={showPassword ? "text" : "password"} 
             placeholder="비밀번호 영문, 숫자 포함 8자 이상" 
             value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
+            onChange={(e) => handleInput(e, setPassword)} // 입력 제한 적용
           />
           <span className={styles["toggle-password"]} onClick={togglePasswordVisibility}>
             <img src={showPassword ? EyeOffIcon : EyeIcon} alt="Toggle Password Visibility" />
@@ -75,7 +82,7 @@ function App() {
         </div>
       </div>
 
-      {loginError && <p className={styles["error-message"]}>{loginError}</p>} {/* 로그인 실패 시 에러 메시지 */}
+      {loginError && <p className={styles["error-message"]}>{loginError}</p>} 
 
       <div className={styles["find-container"]}>
         <a className={styles["find-id"]}>아이디 찾기</a>
@@ -85,7 +92,7 @@ function App() {
         <a 
           className={styles["signup"]} 
           href="#"
-          onClick={() => navigate('/signup')} // 회원가입 페이지로 이동
+          onClick={() => navigate('/signup')} 
         >
           회원가입
         </a>
@@ -94,9 +101,9 @@ function App() {
       <button 
         className={styles["login-button"]} 
         onClick={handleLogin} 
-        disabled={!isFormValid || loading}  // 폼 유효하지 않거나 로딩 중일 때 버튼 비활성화
+        disabled={!isFormValid || loading}  
         style={{
-          backgroundColor: isFormValid ? '#528DFF' : '#D9D9D9'  // 유효하면 색상 변경
+          backgroundColor: isFormValid ? '#528DFF' : '#D9D9D9'  
         }}
       >
         {loading ? '로그인 중...' : '로그인'}

@@ -14,8 +14,8 @@ function App() {
   const [passwordCheck, setPasswordCheck] = useState(''); 
   const [passwordError, setPasswordError] = useState(''); 
   const [passwordMatchError, setPasswordMatchError] = useState(''); 
-  const [isFormValid, setIsFormValid] = useState(false); // 폼 유효성 상태
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const [isFormValid, setIsFormValid] = useState(false);
+  const navigate = useNavigate();
   const { isDuplicate, loading, error, checkUsername } = useCheckUsername();
 
   const togglePasswordVisibility = () => {
@@ -57,8 +57,15 @@ function App() {
     return true;
   };
 
+  const handleInput = (e, setState) => {
+    const value = e.target.value;
+    const regex = /^[a-zA-Z0-9]*$/; // 영어와 숫자만 허용
+    if (regex.test(value)) {
+      setState(value);
+    }
+  };
+
   useEffect(() => {
-    // 모든 조건을 확인해 폼이 유효한지 상태 설정
     const isValid = validatePassword() && validatePasswordMatch() && !isDuplicate && !loading;
     setIsFormValid(isValid);
   }, [password, passwordCheck, isDuplicate, loading]);
@@ -86,7 +93,7 @@ function App() {
             type="text" 
             placeholder="아이디" 
             value={username}
-            onChange={(e) => setUsername(e.target.value)} 
+            onChange={(e) => handleInput(e, setUsername)} // 입력 제한 적용
           />
           <button 
             className={styles["duplicate-check"]} 
@@ -111,7 +118,7 @@ function App() {
             type={showPassword ? "text" : "password"} 
             placeholder="비밀번호 영문, 숫자 포함 8자 이상" 
             value={password}
-            onChange={(e) => setPassword(e.target.value)} 
+            onChange={(e) => handleInput(e, setPassword)} // 입력 제한 적용
             onBlur={validatePassword}
           />
           <span className={styles["toggle-password"]} onClick={togglePasswordVisibility}>
@@ -127,7 +134,7 @@ function App() {
             type={showPasswordCheck ? "text" : "password"} 
             placeholder="비밀번호 확인" 
             value={passwordCheck}
-            onChange={(e) => setPasswordCheck(e.target.value)} 
+            onChange={(e) => handleInput(e, setPasswordCheck)} // 입력 제한 적용
             onBlur={validatePasswordMatch} 
           />
           <span className={styles["toggle-password"]} onClick={togglePasswordCheckVisibility}>
@@ -141,9 +148,9 @@ function App() {
       <button 
         className={styles["bottom-button"]} 
         onClick={handleSubmit} 
-        disabled={!isFormValid} // 폼 유효하지 않으면 버튼 비활성화
+        disabled={!isFormValid}
         style={{
-          backgroundColor: isFormValid ? '#528DFF' : '#D9D9D9' // 유효하면 색상 변경
+          backgroundColor: isFormValid ? '#528DFF' : '#D9D9D9'
         }}
       >
         다음

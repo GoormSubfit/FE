@@ -34,6 +34,7 @@
     height: 110px;  
     border-radius: 25px;
     background-color: #E8F0FF;
+    margin-top: 10%;
 }
 
 .comment-container{
@@ -53,8 +54,7 @@
 }
 
 .top-bcomment1{
-
-    font-size: 15px;
+ font-size: 15px;
 }
 
 
@@ -99,3 +99,18 @@
     font-weight: bold;
   }
   
+  .bottom-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin-top: 10%;
+}
+.bottom-box{
+    width: 363px;
+    height: 71px;  
+    border-radius: 25px;
+    background-color: #F3F3F3;
+}

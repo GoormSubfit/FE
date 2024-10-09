@@ -100,18 +100,18 @@ margin-bottom: 4%;
         align-items: center;
       }
 
-
       .bottom-button{
+        position: absolute;
         font-size: 25px;
         background-color: #528DFF;
         color: #ffffff;
         border-radius: 40px;
-        margin-top: 10%;
+        bottom: 10%;
       }
 
       .result-box {
         position: relative;
-        width: 360px;
+        width: 350px;
         height: 110px;
         background-color: #f3f3f3;
         border-radius: 10px;
@@ -120,6 +120,7 @@ margin-bottom: 4%;
         align-items: center; /* 상하 가운데 정렬 */
         padding: 10px;
         margin-bottom: 3%;
+        margin-left: 3%;
       }
       
       .left-section {
@@ -177,3 +178,62 @@ margin-bottom: 4%;
         font-size: 12px;
         color: #757575;
       }
+
+      .result-box {
+        position: relative;
+        transition: transform 0.3s ease;
+      }
+      
+      .swiped {
+        transform: translateX(-29px); /* 삭제 버튼이 보이도록 */
+      }
+      
+      .delete-button {
+        height: 130px;
+        width: 110px;
+        position: absolute;
+        right: 3%;
+        top: 45%;
+        transform: translateY(-50%);
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 20%;
+      }
+      
+      .result-box-container {
+        position: relative;
+        width: 100%;
+      }
+            
+      .sort-sheet {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        border-top-left-radius: 80px;
+        border-top-right-radius: 80px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .sort-button {
+        width: 291px;
+        padding: 15px;
+        font-size: 16px;
+        background-color: #F3F3F3;
+        color: #595959;
+        border: none;
+        margin: 5px 0;
+        border-radius: 25px;
+      }
+      
+      .sort-button:hover {
+        background-color: #3b6cd1;
+      }
+      
