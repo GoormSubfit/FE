@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useDragControls } from 'framer-motion';  // Ensure you are using framer-motion or a similar library
 import styles from '../../styles/home/HomePage.module.css';
 import plusBtn from "../../assets/images/Plus.svg"; 
-import subplusBtn from "../../assets/images/subplus.svg"; 
+import subplusBtn from "../../assets/images/SubPlus.svg"; 
 import profBtn from "../../assets/images/ProfileBtn.svg";
 import calBtn from "../../assets/images/CalendarBtn.svg";
 import qBtn from "../../assets/images/QuestionBtn.svg";
