@@ -51,7 +51,9 @@ import DeliveryQ6 from './pages/question/DeliveryQ6';
 import DeliveryQ7 from './pages/question/DeliveryQ7';
 
 // 공통 레이아웃 (Back 버튼 포함)
-import Layout from './components/layout';
+import BackLayout from './components/BackLayout';
+// Bar만 포함된 레이아웃
+import BarLayout from './components/BarLayout';
 
 export default function App() {
   const cloudRoutes = [
@@ -108,20 +110,18 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login/>}/> 
-        
-        <Route element={<Layout />}>
+
+        {/* Back 버튼이 필요한 레이아웃 */}
+        <Route element={<BackLayout />}>
           <Route path='/login_s' element={<Login_S/>}/>
-          <Route path='/calendar' element={<Calendar/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/signupq' element={<Signupq/>}/>
           <Route path='/signupq2' element={<Signupq2/>}/>
           <Route path='/signupq3' element={<Signupq3/>}/>
           <Route path='/profile' element={<Profile/>}/>
           <Route path='/result' element={<Result/>}/>
-          <Route path='/recommend' element={<Recommend/>}/>
-          <Route path='/HomePage' element={<HomePage/>}/>
           <Route path='/RecHome' element={<RecHome/>}/>
-          
+
           {cloudRoutes.map((route, index) => (
             <Route key={index} path={route.path} element={route.element} />
           ))}
@@ -142,6 +142,14 @@ export default function App() {
             <Route key={index} path={route.path} element={route.element} />
           ))}
         </Route>
+
+        {/* Bar 컴포넌트가 필요한 레이아웃 */}
+        <Route element={<BarLayout />}>
+          <Route path='/HomePage' element={<HomePage/>}/>
+          <Route path='/calendar' element={<Calendar/>}/>
+          <Route path='/recommend' element={<Recommend/>}/>
+        </Route>
+
       </Routes>
     </BrowserRouter>
   )

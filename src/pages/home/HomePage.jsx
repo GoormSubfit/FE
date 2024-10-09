@@ -50,11 +50,12 @@ import useSubscribeSummary from "../../hooks/useSubscribeSummary";
 import useSubscribeList from '../../hooks/useSubscribeList'
 import useDeleteSubscribe from "../../hooks/useDeleteSubscribe";
 import useEditSubscribe from '../../hooks/useEditSubscribe';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const token = localStorage.getItem('token');
   console.log("Token received:", token);
-
+  const navigate = useNavigate();
   // 훅을 무조건 호출합니다. (조건 안에서 호출하지 않음)
   const { profile, loading: profileLoading, error: profileError, fetchProfile } = useProfile(token);
   const { summary, loading: summaryLoading, error: summaryError, fetchSubscribeSummary} = useSubscribeSummary(token);
@@ -439,14 +440,12 @@ const HomePage = () => {
       formData.append('subscribeDate', formatSelectedDate());
   
       const imageUrl = serviceImageMap[selectedSvc];
-      console.log("Fetching image from URL:", imageUrl);
       let logoImage;
   
       try {
         logoImage = await fetchImageAsFile(imageUrl);
         formData.append('logoImage', logoImage);
       } catch (error) {
-        console.error('Error fetching image:', error);
         alert('로고 이미지를 가져오는 데 실패했습니다.');
         return;
       }
@@ -456,18 +455,23 @@ const HomePage = () => {
         const response = await addSubscribe(formData, token);
         if (response) {
           console.log('Subscription added successfully');
+          const subscribeDate = formatSelectedDate();  
+          const { formatPreviousPayDate, formatNextPayDate } = getPreviousAndNextPayDates(subscribeDate, "both", newSubCycle);
+  
+          // URL에 newSubName, newSubPrice, subscribeDate, previousPayDate, nextPayDate 포함해서 전달
+          navigate(`/calendar?subscribeDate=${subscribeDate}&previousPayDate=${formatPreviousPayDate}&nextPayDate=${formatNextPayDate}&newSubName=${newSubName}&newSubPrice=${newSubPrice}`);
         }
       } catch (error) {
-        console.error('Error adding subscription:', error);
         alert('구독 추가 중 오류가 발생했습니다.');
       } finally {
-        await fetchSubscribeList(); // 성공/실패에 상관없이 구독 목록을 새로고침
-        closeAddModal();  // 성공/실패에 상관없이 모달 닫기
+        await fetchSubscribeList();
+        closeAddModal();
       }
     } else {
       alert('모든 내용을 입력해주세요.');
     }
   };
+  
   
   
 
@@ -499,7 +503,7 @@ const HomePage = () => {
 
   const saveEditModal = handleSubmit(() => {
     if (newSubName.trim() && newSubPrice && formatSelectedDate()) {
-      // 이제 onSubmit을 직접 호출하여 서버에 데이터를 보낼 수 있습니다.
+      // 서버로 데이터를 보내는 로직
       onSubmit({
         subscriptionId: selectedMySvc.id,
         name: newSubName, // 입력된 새 구독 이름
@@ -507,6 +511,13 @@ const HomePage = () => {
         cycle: newSubCycle, // 선택된 새 구독 주기
         subscribeDate: formatSelectedDate() // 선택된 새 시작 결제일
       });
+  
+      // 결제일, 이전 결제일, 다음 결제일을 계산
+      const subscribeDate = formatSelectedDate();  // 처음 결제일
+      const { formatPreviousPayDate, formatNextPayDate } = getPreviousAndNextPayDates(subscribeDate, "both", newSubCycle);
+  
+      // 정보를 URL에 쿼리 파라미터로 넘기면서 페이지 이동
+      navigate(`/calendar?subscribeDate=${subscribeDate}&previousPayDate=${formatPreviousPayDate}&nextPayDate=${formatNextPayDate}&newSubName=${newSubName}&newSubPrice=${newSubPrice}`);
   
       // 모달을 닫고 초기 상태로 리셋
       setIsEditModal(false);
@@ -521,6 +532,8 @@ const HomePage = () => {
       fetchSubscribeList();
     }
   });
+  
+  
 
   //스와이프해서 삭제버튼 활성화
   const handleDragEnd = (event, info, index) => {
