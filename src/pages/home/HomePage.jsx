@@ -772,13 +772,6 @@ const HomePage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className={styles.editSvcAlert}>
-                        <p className={styles.editSvcAlertSet}>알림 설정</p>
-                        <p className={styles.editSvcAlertMessage}>결제 전 알림</p>
-                        <button className={styles.editSvcAlertBtn}>
-                          <div className={styles.btnCircle} onClick={handleToggle}></div>
-                        </button>
-                      </div>
                 </div>
               </div>
             </div>

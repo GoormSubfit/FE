@@ -606,53 +606,6 @@ button:focus
   font-weight: 600;
 }
 
-.editSvcAlert{
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items:flex-start;
-  position: relative;
-  width: 329px;
-  height: 130px;
-  border-radius: 25px;
-  margin: 10% 0 0 0;
-}
-
-.editSvcAlertSet{
-  color: #000000;
-  font-size: 15px;
-  font-weight: 900;
-  margin: 30px 0 4px 30px;
-}
-
-.editSvcAlertMessage{
-  position: absolute;
-  top: 65px;
-  color: #595959;
-  font-size: 15px;
-  margin: 5px 0 0 30px;
-}
-
-.editSvcAlertBtn{
-  position: absolute;
-  top: 65px;
-  right: 30px;
-  font-size: 16px;
-  background-color:#528DFF;
-  width: 42px;
-  height: 24px;
-  padding: 0;
-  border-radius: 24px;
-  cursor: pointer;
-}
-
-.btnCircle{
-  width: 20px;
-  height: 20px;
-  background-color: white;
-  border-radius: 50%;
-}
-
 .updated, .created{
   color: #595959;
   font-size: 14px;
