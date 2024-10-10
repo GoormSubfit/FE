@@ -72,8 +72,8 @@ const EbookQ3 = () => {
           자기계발서
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("비즈시스 선호") ? styles.selected : ""}`}
-          onClick={() => handleClick("비즈시스 선호")}
+          className={`${styles.optionBtn} ${selected.includes("비즈니스 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("비즈니스 선호")}
         >
           비즈니스
         </button>
