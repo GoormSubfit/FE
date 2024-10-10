@@ -1,29 +1,42 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/DeliveryQ2.module.css';
+import { useNavigate, useLocation } from 'react-router-dom';
+import styles from '../../styles/question/CloudQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const DeliveryQ2 = () => {
   const [selected, setSelected] = useState("");
-  const fdcostOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type, answers } = location.state; 
 
-  const handleClick = (deliveryFdcost) => {
-    if (selected === deliveryFdcost) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(deliveryFdcost); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const goNext = () => {
     if (selected) {
-      navigate('/deliveryq3'); 
+      // 새로운 질문-답변을 배열에 추가
+      const answer2 = { question: "배달 음식의 평균 가격대는 얼마인가요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer2];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/deliveryq3', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with DeliveryQ2 (as array):", updatedAnswers); 
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -45,22 +58,22 @@ const DeliveryQ2 = () => {
       <div className={styles.question}>
         <p className={styles.p}>배달 음식의 평균 가격대는 얼마인가요?</p>
       </div>
-      <div className={styles.options} ref={fdcostOptionsRef}>
+      <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("lte10000") ? styles.selected : ""}`}
-          onClick={() => handleClick("lte10000")}
+          className={`${styles.optionBtn} ${selected === "평균 10,000원 이하" ? styles.selected : ""}`}
+          onClick={() => handleClick("평균 10,000원 이하")}
         >
           10,000원 이하
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("10000to20000") ? styles.selected : ""}`}
-          onClick={() => handleClick("10000to20000")}
+          className={`${styles.optionBtn} ${selected === "평균 10,000~20,000원" ? styles.selected : ""}`}
+          onClick={() => handleClick("평균 10,000~20,000원")}
         >
           10,000원~20,000원
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes(" gte20000") ? styles.selected : ""}`}
-          onClick={() => handleClick(" gte20000")}
+          className={`${styles.optionBtn} ${selected === "평균 20,000원 이상" ? styles.selected : ""}`}
+          onClick={() => handleClick("평균 20,000원 이상")}
         >
           20,000원 이상
         </button>

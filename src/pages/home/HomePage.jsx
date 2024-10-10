@@ -351,6 +351,7 @@ const HomePage = () => {
   const formatSelectedDate = () => {
     const formattedMonth = String(selectedMonth).padStart(2, '0'); // 월을 두 자리로 포맷
     const formattedDay = String(selectedDay).padStart(2, '0'); // 일을 두 자리로 포맷
+    const formattedDate = `${selectedYear}-${formattedMonth}-${formattedDay}`; 
     return `${selectedYear}-${formattedMonth}-${formattedDay}`;
   };
 
@@ -425,6 +426,11 @@ const HomePage = () => {
 
   // 새로운 구독을 추가하는 함수 (useAddSubscription 훅을 사용)
   const saveAddModal = async () => {
+    console.log('이름:', newSubName);
+    console.log('가격:', newSubPrice);
+    console.log('구독 주기:', newSubCycle);
+    console.log('결제일:', formatSelectedDate());
+  
     if (newSubName.trim() && newSubPrice && selectedSvc && formatSelectedDate()) {
       const formData = new FormData();
       const price = parseInt(newSubPrice, 10);
@@ -454,14 +460,18 @@ const HomePage = () => {
       try {
         const response = await addSubscribe(formData, token);
         if (response) {
-          console.log('Subscription added successfully');
+          console.log('구독이 성공적으로 추가되었습니다.');  // 구독 성공 로그
           const subscribeDate = formatSelectedDate();  
           const { formatPreviousPayDate, formatNextPayDate } = getPreviousAndNextPayDates(subscribeDate, "both", newSubCycle);
   
+          // 네비게이션 로그 추가
+          console.log('네비게이션 실행:', subscribeDate, formatPreviousPayDate, formatNextPayDate, newSubName, newSubPrice);
+          
           // URL에 newSubName, newSubPrice, subscribeDate, previousPayDate, nextPayDate 포함해서 전달
           navigate(`/calendar?subscribeDate=${subscribeDate}&previousPayDate=${formatPreviousPayDate}&nextPayDate=${formatNextPayDate}&newSubName=${newSubName}&newSubPrice=${newSubPrice}`);
         }
       } catch (error) {
+        console.error('구독 추가 중 오류가 발생했습니다:', error);  // 에러 로그
         alert('구독 추가 중 오류가 발생했습니다.');
       } finally {
         await fetchSubscribeList();
@@ -471,6 +481,8 @@ const HomePage = () => {
       alert('모든 내용을 입력해주세요.');
     }
   };
+  
+  
   
   
   

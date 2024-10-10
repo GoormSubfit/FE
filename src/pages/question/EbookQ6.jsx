@@ -1,29 +1,41 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/EbookQ6.module.css';
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from '../../styles/question/EbookQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const EbookQ6 = () => {
   const [selected, setSelected] = useState("");
-  const abusageOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type, answers } = location.state; 
 
-  const handleClick = (ebookAbusage) => {
-    if (selected === ebookAbusage) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(ebookAbusage); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const goNext = () => {
     if (selected) {
-      navigate('/ebookq7'); 
+      // 새로운 질문-답변을 배열에 추가
+      const answer6 = { question: "오디오북을 자주 이용하시나요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer6];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/ebookq7', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with EbookQ6 (as array):", updatedAnswers); 
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -45,16 +57,16 @@ const EbookQ6 = () => {
       <div className={styles.question}>
         <p className={styles.p}>오디오북을 자주 이용하시나요?</p>
       </div>
-      <div className={styles.options} ref={abusageOptionsRef}>
+      <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
-          onClick={() => handleClick("yes")}
+          className={`${styles.optionBtn} ${selected.includes("오디오 북을 자주 사용함") ? styles.selected : ""}`}
+          onClick={() => handleClick("오디오 북을 자주 사용함")}
         >
           네
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
-          onClick={() => handleClick("no")}
+          className={`${styles.optionBtn} ${selected.includes("오디오북 자주 사용하지 않음") ? styles.selected : ""}`}
+          onClick={() => handleClick("오디오북 자주 사용하지 않음")}
         >
           아니요
         </button>
