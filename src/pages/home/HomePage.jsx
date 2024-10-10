@@ -88,6 +88,7 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const swipeDragControls = useDragControls();
   const [itemX, setItemX] = useState(0); 
+  const [isOn, setIsOn] = useState(false);
   const serviceImageMap = {
     '넷플릭스': netflixBtn,
     '디즈니플러스': disneyPlusBtn,
@@ -577,7 +578,10 @@ const HomePage = () => {
     } 
   };
   
-
+  const handleToggle = () => {
+    setIsOn(!isOn); // 버튼을 클릭할 때마다 토글 상태를 반전시킴
+  };
+  
 
   // 프로필, 구독 요약 또는 구독 목록 로딩 상태 처리
   if (profileLoading || subscribeListLoading || summaryLoading) {
@@ -767,6 +771,13 @@ const HomePage = () => {
                             {getPreviousAndNextPayDates(selectedMySvc?.subscribeDate, "day", selectedMySvc?.cycle).formatNextPayDate}
                           </div>
                         </div>
+                      </div>
+                      <div className={styles.editSvcAlert}>
+                        <p className={styles.editSvcAlertSet}>알림 설정</p>
+                        <p className={styles.editSvcAlertMessage}>결제 전 알림</p>
+                        <button className={styles.editSvcAlertBtn}>
+                          <div className={styles.btnCircle} onClick={handleToggle}></div>
+                        </button>
                       </div>
                 </div>
               </div>

@@ -91,6 +91,7 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: bolder;
   font-size: 18.5px;
+  line-height: 1.7;
   height: 50px;
   text-align: center;
   color: #000000;
@@ -123,7 +124,7 @@ body {
   background-color: #d9d9d9;
   border-radius: 30px;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   width: 276px;
   height: 57px;

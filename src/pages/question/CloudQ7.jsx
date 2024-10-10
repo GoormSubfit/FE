@@ -62,6 +62,7 @@ const CloudQ7 = () => {
         <div className={styles.smallcircle}></div>
         <div className={styles.smallcircle}></div>
         <div className={styles.smallcircle}></div>
+        <div className={styles.smallcircle}></div>
         <div className={styles.activePage}>Step 7</div>
       </div>
       <div className={styles.question}>
