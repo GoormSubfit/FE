@@ -634,16 +634,20 @@ button:focus
 }
 
 .editSvcAlertBtn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: absolute;
   top: 65px;
   right: 30px;
   font-size: 16px;
-  background-color:#528DFF;
+  background-color:#bbb;
   width: 42px;
   height: 24px;
   padding: 0 0 0 2px;
   border-radius: 24px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btnCircle{
@@ -654,12 +658,12 @@ button:focus
   transition: transform 0.3s ease;
 }
 
-.editSvcAlertBtn:focus {
-  background-color: #bbb;
+.activeBtn {
+  background-color: #528DFF; /* 클릭 시 오른쪽으로 이동 */
 }
 
 .active {
-  transform: translateX(17px); /* 클릭 시 오른쪽으로 이동 */
+  transform: translateX(20px); /* 클릭 시 오른쪽으로 이동 */
 }
 
 .updated, .created{

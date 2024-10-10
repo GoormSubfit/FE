@@ -774,9 +774,9 @@ const HomePage = () => {
                 <div className={styles.editSvcAlert}>
                   <p className={styles.editSvcAlertSet}>알림 설정</p>
                   <p className={styles.editSvcAlertMessage}>결제 전 알림</p>
-                  <button className={styles.editSvcAlertBtn} onClick={handleToggle}>
+                  <div className={`${styles.editSvcAlertBtn} ${isOn ? styles.activeBtn : ''}`} onClick={handleToggle}>
                     <div className={`${styles.btnCircle} ${isOn ? styles.active : ''}`} />
-                  </button>
+                  </div>
                   </div>
               </div>
             </div>
