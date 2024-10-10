@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
-import styles from '../../styles/question/CloudQ1.module.css';
+import styles from '../../styles/question/DeliveryQ4.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
