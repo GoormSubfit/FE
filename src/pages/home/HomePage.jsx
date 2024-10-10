@@ -1007,9 +1007,9 @@ const HomePage = () => {
                   </div>
                 )}
                 </div>
-                <div className={styles.addSvcName}>
+                <div className={styles.addSvcNameBox}>
                   <div className={styles.nameBar}></div>
-                  {selectedSvc}
+                  <div className={styles.addSvcName}>{selectedSvc}</div>
                 </div>
                 {/* 선택 버튼 */}
                 <button className={styles.selectButton} onClick={selectClick}>선택</button>

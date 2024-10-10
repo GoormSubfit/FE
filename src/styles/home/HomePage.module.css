@@ -688,7 +688,7 @@ select:focus {
   scroll-behavior: smooth; 
   overflow-y: hidden;
   width: 360px; 
-  margin: 120px 0 30px 30px;
+  margin: 140px 0 25px 30px;
   flex-shrink: 0;
 }
 
@@ -721,7 +721,7 @@ select:focus {
   width: 390px;
   height: 126px;
   padding: 0 2px 0 2px;
-  margin: 5% 0 0 0;
+  margin: 0 0 0 0;
   flex-shrink: 0;
 }
 
@@ -765,16 +765,14 @@ select:focus {
   border-radius: 25px;
 }
 
-.addSvcName{
+.addSvcNameBox{
   display:flex;
   flex-direction: column;
   align-items: center;
-  color: #000000;
-  font-size: 25px;
-  font-weight: 700;
+  position: relative;
   height: 60px;
   gap: 20px;
-  margin: 10px 0 60% 0;
+  margin: 10px 0 65% 0;
 }
 
 .nameBar{
@@ -782,6 +780,14 @@ select:focus {
   width: 110px;
   height: 4px;
   border-radius: 10px;
+}
+
+.addSvcName{
+  position: absolute;
+  top: 90px;
+  color: #000000;
+  font-size: 25px;
+  font-weight: 700;
 }
 
 .selectButton {

@@ -5,7 +5,7 @@ export default function Home() {
     const navigate = useNavigate();
 
     function goHome() {
-        navigate('/');
+        navigate('/HomePage');
     }
 
     return (
