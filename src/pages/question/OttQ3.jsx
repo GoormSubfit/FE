@@ -1,29 +1,42 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/OttQ3.module.css';
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from '../../styles/question/EbookQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
+
 
 const OttQ3 = () => {
   const [selected, setSelected] = useState("");
-  const deviceOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type, answers } = location.state; 
 
-  const handleClick = (ottDevice) => {
-    if (selected === ottDevice) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(ottDevice); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const goNext = () => {
     if (selected) {
-      navigate('/ottq4'); 
+      // 새로운 질문-답변을 배열에 추가
+      const answer3 = { question: "동시 시청이 필요한 디바이스 수는 몇 대인가요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer3];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/ottq4', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with OttQ3 (as array):", updatedAnswers); 
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -46,24 +59,24 @@ const OttQ3 = () => {
       <div className={styles.question}>
         <p className={styles.p}>동시 시청이 필요한 디바이스<br/> 수는 몇 대인가요?</p>
       </div>
-      <div className={styles.options} ref={deviceOptionsRef}>
+      <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("one") ? styles.selected : ""}`}
-          onClick={() => handleClick("one")}
+          className={`${styles.optionBtn} ${selected.includes("1대 필요") ? styles.selected : ""}`}
+          onClick={() => handleClick("1대 필요")}
         >
           1대
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("two") ? styles.selected : ""}`}
-          onClick={() => handleClick("two")}
+          className={`${styles.optionBtn} ${selected.includes("2대 필요") ? styles.selected : ""}`}
+          onClick={() => handleClick("2대 필요")}
         >
           2대
         </button>
         <button
           className={`${styles.optionBtn} ${
-            selected.includes("threemore") ? styles.selected : ""
+            selected.includes("3대 이상 필요") ? styles.selected : ""
           }`}
-          onClick={() => handleClick("threemore")}
+          onClick={() => handleClick("3대 이상 필요")}
         >
           3대 이상
         </button>

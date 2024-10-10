@@ -1,31 +1,43 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/MusicQ1.module.css';
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from '../../styles/question/EbookQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const MusicQ1 = () => {
   const [selected, setSelected] = useState("");
   const genreOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { updateAnswer } = useRecommendation(); 
+  const {type} = location.state;
 
-  const handleClick = (musicGenre) => {
-    if (selected === musicGenre) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(musicGenre); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
-
+  
   const goNext = () => {
     if (selected) {
-      navigate('/musicq2'); 
+      const answer1 = { question: "주로 듣는 음악 장르는 무엇인가요?", answer: selected };
+      const updatedAnswers = [...previousAnswers, answer1];
+
+      // 상태 업데이트 확인
+      console.log("Updating answers with:", updatedAnswers);
+      updateAnswer(updatedAnswers);
+
+      console.log("Updated answers with MusicQ1:", updatedAnswers); 
+      navigate('/musicq2', { state: { type, answers: updatedAnswers } });
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
+
 
   return (
     <div className={styles.container}>
@@ -47,46 +59,46 @@ const MusicQ1 = () => {
       </div>
       <div className={styles.options} ref={genreOptionsRef}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("pop") ? styles.selected : ""}`}
-          onClick={() => handleClick("pop")}
+          className={`${styles.optionBtn} ${selected.includes("팝") ? styles.selected : ""}`}
+          onClick={() => handleClick("팝")}
         >
           팝
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("hiphop") ? styles.selected : ""}`}
-          onClick={() => handleClick("hiphop")}
+          className={`${styles.optionBtn} ${selected.includes("힙합") ? styles.selected : ""}`}
+          onClick={() => handleClick("힙합")}
         >
           힙합
         </button>
         <button
           className={`${styles.optionBtn} ${
-            selected.includes("classic") ? styles.selected : ""
+            selected.includes("클래식") ? styles.selected : ""
           }`}
-          onClick={() => handleClick("classic")}
+          onClick={() => handleClick("클래식")}
         >
           클래식
         </button>
         <button
           className={`${styles.optionBtn} ${
-            selected.includes("jazz") ? styles.selected : ""
+            selected.includes("재즈") ? styles.selected : ""
           }`}
-          onClick={() => handleClick("jazz")}
+          onClick={() => handleClick("재즈")}
         >
           재즈
         </button>
         <button
           className={`${styles.optionBtn} ${
-            selected.includes("k-pop") ? styles.selected : ""
+            selected.includes("K-pop") ? styles.selected : ""
           }`}
-          onClick={() => handleClick("k-pop")}
+          onClick={() => handleClick("K-pop")}
         >
           K-pop
         </button>
         <button
           className={`${styles.optionBtn} ${
-            selected.includes("edm") ? styles.selected : ""
+            selected.includes("EDM") ? styles.selected : ""
           }`}
-          onClick={() => handleClick("edm")}
+          onClick={() => handleClick("EDM")}
         >
           EDM
         </button>

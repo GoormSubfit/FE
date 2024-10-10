@@ -49,7 +49,6 @@ const useRecommendation = () => {
     const jsonPayload = JSON.stringify(payload, null, 2);
 
     console.log('Submitting recommendation with payload:', jsonPayload);
-    console.log('reere');
 
     setLoading(true);
 

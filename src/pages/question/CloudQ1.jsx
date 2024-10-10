@@ -1,31 +1,39 @@
-// src/pages/question/CloudQ1.jsx
-import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom'; // useNavigate 훅 가져오기
+import React, { useState } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../styles/question/CloudQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const CloudQ1 = () => {
   const [selected, setSelected] = useState("");
-  const useOptionsRef = useRef(null);  // 스크롤 영역 참조
-  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {type} = location.state;
+  const { result, updateAnswer } = useRecommendation(); 
 
-  const handleClick = (cloudUse) => {
-    if (selected === cloudUse) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(cloudUse); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
-
-  // '다음' 버튼 클릭 시 CloudQ2로 이동
+  
   const goNext = () => {
     if (selected) {
-      navigate('/cloudq2'); // CloudQ2 페이지로 이동
+      const answer1 = { question: "클라우드를 주로 어떤 용도로 사용하시나요?", answer: selected };
+      const updatedAnswers = [...previousAnswers, answer1];
+
+      // 상태 업데이트 확인
+      console.log("Updating answers with:", updatedAnswers);
+      updateAnswer(updatedAnswers);
+
+      console.log("Updated answers with CloudQ1:", updatedAnswers); 
+      navigate('/cloudq2', { state: { type, answers: updatedAnswers } });
     } else {
-      alert('옵션을 선택해주세요.'); // 선택하지 않았을 경우 경고 메시지
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -38,33 +46,31 @@ const CloudQ1 = () => {
           <img src={line} alt="line" className={styles.line} />
         </div>
         <div className={styles.activePage}>Step 1</div>
-        <div className={styles.midcircle}> </div>
-        <div className={styles.smallcircle}> </div>
-        <div className={styles.smallcircle}> </div>
-        <div className={styles.midcircle}> </div>
+        <div className={styles.midcircle}></div>
+        <div className={styles.smallcircle}></div>
+        <div className={styles.smallcircle}></div>
+        <div className={styles.midcircle}></div>
         <div className={styles.bigcircle}>7</div>
       </div>
       <div className={styles.question}>
         <p className={styles.p}>클라우드를 주로 어떤 용도로<br/>사용하시나요?</p>
       </div>
-      <div className={styles.options} ref={useOptionsRef}>
+      <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("FB") ? styles.selected : ""}`}
-          onClick={() => handleClick("FB")}
+          className={`${styles.optionBtn} ${selected === "파일 백업 용도로 주로 사용" ? styles.selected : ""}`}
+          onClick={() => handleClick("파일 백업 용도로 주로 사용")}
         >
           파일 백업
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("DS") ? styles.selected : ""}`}
-          onClick={() => handleClick("DS")}
+          className={`${styles.optionBtn} ${selected === "문서 공유 용도로 주로 사용" ? styles.selected : ""}`}
+          onClick={() => handleClick("문서 공유 용도로 주로 사용")}
         >
           문서 공유
         </button>
         <button
-          className={`${styles.optionBtn} ${
-            selected.includes("PVS") ? styles.selected : ""
-          }`}
-          onClick={() => handleClick("PVS")}
+          className={`${styles.optionBtn} ${selected === "사진 및 동영상 저장 용도로 주로 사용" ? styles.selected : ""}`}
+          onClick={() => handleClick("사진 및 동영상 저장 용도로 주로 사용")}
         >
           사진 및 동영상 저장
         </button>

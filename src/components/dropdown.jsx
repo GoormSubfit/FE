@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/components/dropdown.module.css';
 
-function CustomDropdown() {
+function CustomDropdown({ setGender }) { // setGender를 props로 받음
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(''); 
 
@@ -10,6 +10,9 @@ function CustomDropdown() {
   const handleOptionClick = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
+
+    // 성별 값을 "남" 또는 "여"에 따라 true/false로 변환해서 setGender 호출
+    setGender(option === '남' ? 'true' : 'false');
   };
 
   return (

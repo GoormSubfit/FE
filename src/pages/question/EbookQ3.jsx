@@ -1,29 +1,42 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/EbookQ3.module.css';
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from '../../styles/question/EbookQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const EbookQ3 = () => {
+  const prefOptionsRef = useRef(null);
   const [selected, setSelected] = useState("");
-  const prefOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type, answers } = location.state; 
 
-  const handleClick = (ebookPref) => {
-    if (selected === ebookPref) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(ebookPref); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const goNext = () => {
     if (selected) {
-      navigate('/ebookq4'); 
+      // 새로운 질문-답변을 배열에 추가
+      const answer3 = { question: "선호하는 책의 장르는 무엇인가요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer3];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/ebookq4', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with EbookQ3 (as array):", updatedAnswers); 
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -47,38 +60,38 @@ const EbookQ3 = () => {
       </div>
       <div className={styles.options} ref={prefOptionsRef}>
       <button
-          className={`${styles.optionBtn} ${selected.includes("novel") ? styles.selected : ""}`}
-          onClick={() => handleClick("novel")}
+          className={`${styles.optionBtn} ${selected.includes("소설 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("소설 선호")}
         >
-          소설
+          소설 선호
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("selfhelp") ? styles.selected : ""}`}
-          onClick={() => handleClick("selfhelp")}
+          className={`${styles.optionBtn} ${selected.includes("자기계발서 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("자기계발서 선호")}
         >
           자기계발서
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("business") ? styles.selected : ""}`}
-          onClick={() => handleClick("business")}
+          className={`${styles.optionBtn} ${selected.includes("비즈시스 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("비즈시스 선호")}
         >
           비즈니스
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("history") ? styles.selected : ""}`}
-          onClick={() => handleClick("history")}
+          className={`${styles.optionBtn} ${selected.includes("역사 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("역사 선호")}
         >
           역사
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("science") ? styles.selected : ""}`}
-          onClick={() => handleClick("science")}
+          className={`${styles.optionBtn} ${selected.includes("과학 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("과학 선호")}
         >
           과학
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("comics") ? styles.selected : ""}`}
-          onClick={() => handleClick("comics")}
+          className={`${styles.optionBtn} ${selected.includes("만화 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("만화 선호")}
         >
           만화
         </button>

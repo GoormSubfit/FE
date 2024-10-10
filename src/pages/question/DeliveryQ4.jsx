@@ -1,28 +1,43 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/DeliveryQ4.module.css';
+import React, { useState } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
+import styles from '../../styles/question/CloudQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const DeliveryQ4 = () => {
   const [selected, setSelected] = useState("");
-  const useDpOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
-  const handleClick = (deliveryUseDp) => {
-    if (selected === deliveryUseDp) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(deliveryUseDp); // 클릭된 버튼을 선택
-    }
+  const location = useLocation();
+  const { type,answers } = location.state; 
+
+  const previousAnswers = location.state?.answers || [];
+
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
+
 
   const goNext = () => {
     if (selected) {
-      navigate('/deliveryq5'); 
+      // 새로운 질문-답변을 배열에 추가
+      const answer5 = { question: "결제 시 포인트 적립이나 할인 혜택을 자주 사용하시나요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer5];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/deliveryq5', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with DeliveryQ4 (as array):", updatedAnswers); 
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -44,16 +59,16 @@ const DeliveryQ4 = () => {
       <div className={styles.question}>
         <p className={styles.p}> 결제 시 포인트 적립이나 할인 혜택을<br/>자주 사용하시나요?</p>
       </div>
-      <div className={styles.options} ref={useDpOptionsRef}>
-      <button
-          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
-          onClick={() => handleClick("yes")}
+      <div className={styles.options}>
+        <button
+          className={`${styles.optionBtn} ${selected === "포인트 적립 & 할인혜택 자주 이용" ? styles.selected : ""}`}
+          onClick={() => handleClick("포인트 적립 & 할인혜택 자주 이용")}
         >
           네
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
-          onClick={() => handleClick("no")}
+        className={`${styles.optionBtn} ${selected === "포인트 적립 & 할인혜택 자주 이용 안함" ? styles.selected : ""}`}
+        onClick={() => handleClick("포인트 적립 & 할인혜택 자주 이용 안함")}
         >
           아니요
         </button>

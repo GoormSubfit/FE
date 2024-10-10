@@ -1,29 +1,39 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from '../../styles/question/EbookQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const EbookQ1 = () => {
   const [selected, setSelected] = useState("");
-  const timeOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { updateAnswer } = useRecommendation(); 
+  const {type} = location.state;
 
-  const handleClick = (ebookTime) => {
-    if (selected === ebookTime) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(ebookTime); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
-
+  
   const goNext = () => {
     if (selected) {
-      navigate('/ebookq2'); 
+      const answer1 = { question: "하루 평균 독서 시간은 얼마나 되나요?", answer: selected };
+      const updatedAnswers = [...previousAnswers, answer1];
+
+      // 상태 업데이트 확인
+      console.log("Updating answers with:", updatedAnswers);
+      updateAnswer(updatedAnswers);
+
+      console.log("Updated answers with EbookQ1:", updatedAnswers); 
+      navigate('/ebookq2', { state: {type, answers: updatedAnswers } });
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -45,24 +55,24 @@ const EbookQ1 = () => {
       <div className={styles.question}>
         <p className={styles.p}>하루 평균 독서 시간은 얼마나 되나요?</p>
       </div>
-      <div className={styles.options} ref={timeOptionsRef}>
+      <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("lte1h") ? styles.selected : ""}`}
-          onClick={() => handleClick("lte1h")}
+          className={`${styles.optionBtn} ${selected === "하루 1시간 독서" ? styles.selected : ""}`}
+          onClick={() => handleClick("하루 1시간 이하 독서")}
         >
           1시간 이하
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("2h") ? styles.selected : ""}`}
-          onClick={() => handleClick("2h")}
+          className={`${styles.optionBtn} ${selected === "하루 2시간 독서" ? styles.selected : ""}`}
+          onClick={() => handleClick("하루 2시간 독서")}
         >
           2시간
         </button>
         <button
           className={`${styles.optionBtn} ${
-            selected.includes("gte3h") ? styles.selected : ""
+            selected === "하루 3시간 이상 독서" ? styles.selected : ""
           }`}
-          onClick={() => handleClick("gte3h")}
+          onClick={() => handleClick("하루 3시간 이상 독서")}
         >
           3시간 이상
         </button>
