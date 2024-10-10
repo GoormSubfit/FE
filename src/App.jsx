@@ -53,6 +53,15 @@ import DeliveryQ7 from './pages/question/DeliveryQ7';
 // 공통 레이아웃 (Back 버튼 포함)
 import Layout from './components/layout';
 
+//질문창 레이아웃 (Back 과 홈버튼 존재)
+import BackLayout from './components/BackLayout'
+
+//HomePage 의 하단바 페이지 레이아웃 (하단바만 존재)
+import BarLayout from './components/BarLayout';
+
+//Login 관련 페이지들 Back버튼 레이아웃
+import LoginLayout from './components/LoginLayout'
+
 export default function App() {
   const cloudRoutes = [
     { path: "/cloudq1", element: <CloudQ1 /> },
@@ -109,42 +118,51 @@ export default function App() {
       <Routes>
         {/* Back 버튼이 없는 Login 페이지 */}
         <Route path='/' element={<Login/>}/> 
-        
 
         {/* Layout 컴포넌트를 사용하는 나머지 페이지들 (Back 버튼 포함) */}
-        <Route element={<Layout />}>
+        {/*<Route element={<Layout />}>
+        </Route>*/}
+
+        <Route element={<LoginLayout/>}>
           <Route path='/login_s' element={<Login_S/>}/>
-          <Route path='/calendar' element={<Calendar/>}/>
           <Route path='/signup' element={<Signup/>}/>
           <Route path='/signupq' element={<Signupq/>}/>
           <Route path='/signupq2' element={<Signupq2/>}/>
-          <Route path='/signupq3' element={<Signupq3/>}/>
-          <Route path='/profile' element={<Profile/>}/>
-          <Route path='/result' element={<Result/>}/>
-          <Route path='/recommend' element={<Recommend/>}/>
-          <Route path='/RecHome' element={<RecHome/>}/>
-          <Route path='/HomePage' element={<HomePage/>}/>
-          
-          {cloudRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-
-          {ebookRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-
-          {musicRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-
-          {ottRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-
-          {deliveryRoutes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
+          <Route path='/signupq3' element={<Signupq3/>}/>        
         </Route>
+
+        <Route element={<BackLayout/>}>
+          <Route path='/RecHome' element={<RecHome/>}/>
+          <Route path='/result' element={<Result/>}/>
+          <Route path='/profile' element={<Profile/>}/> 
+
+          {cloudRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+
+            {ebookRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+
+            {musicRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+
+            {ottRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+
+            {deliveryRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+        </Route>
+
+        <Route element={<BarLayout/>}>
+          <Route path='/calendar' element={<Calendar/>}/>
+          <Route path='/HomePage' element={<HomePage/>}/>
+          <Route path='/recommend' element={<Recommend/>}/>
+        </Route>
+
       </Routes>
     </BrowserRouter>
   )
