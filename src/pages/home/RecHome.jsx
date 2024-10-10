@@ -8,7 +8,7 @@ import useRecommendation from '../../hooks/useRecommendation';
 
 const RecHome = () => {
   const { changeType } = useRecommendation();
-  const [selected, setSelected] = useState("EBOOK"); // 단일 선택 상태 관리 (문자열)
+  const [selected, setSelected] = useState(""); // 단일 선택 상태 관리 (문자열)
   const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate 훅 사용
 
   const handleClick = (buttonName) => {

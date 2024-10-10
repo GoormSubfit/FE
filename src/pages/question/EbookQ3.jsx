@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import styles from '../../styles/question/EbookQ1.module.css';
+import styles from '../../styles/question/EbookQ3.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
@@ -72,8 +72,8 @@ const EbookQ3 = () => {
           자기계발서
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("비즈시스 선호") ? styles.selected : ""}`}
-          onClick={() => handleClick("비즈시스 선호")}
+          className={`${styles.optionBtn} ${selected.includes("비즈니스 선호") ? styles.selected : ""}`}
+          onClick={() => handleClick("비즈니스 선호")}
         >
           비즈니스
         </button>

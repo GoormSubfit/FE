@@ -1,21 +1,11 @@
-body {
-  display: flex;
-  justify-content: center;  /* 가로 방향으로 중앙 정렬 */
-  align-items: center;  /* 세로 방향으로 중앙 정렬 */
-  height: 100%;  /* 화면 전체 높이 사용 */
-  width: 100%;
-  background-color: white; /* 배경을 흰색으로 */
-  font-family: "Inter", sans-serif;
-}
 
 .homeContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  width: 100%;
-  height: 100%;
-
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
   text-align: center;
   overflow-y: auto; 
   padding-bottom: 23%;
@@ -616,6 +606,66 @@ button:focus
   font-weight: 600;
 }
 
+.editSvcAlert{
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+  position: relative;
+  width: 329px;
+  height: 130px;
+  border-radius: 25px;
+  margin: 10% 0 0 0;
+}
+
+.editSvcAlertSet{
+  color: #000000;
+  font-size: 15px;
+  font-weight: 900;
+  margin: 30px 0 4px 30px;
+}
+
+.editSvcAlertMessage{
+  position: absolute;
+  top: 65px;
+  color: #595959;
+  font-size: 15px;
+  margin: 5px 0 0 30px;
+}
+
+.editSvcAlertBtn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 65px;
+  right: 30px;
+  font-size: 16px;
+  background-color:#bbb;
+  width: 42px;
+  height: 24px;
+  padding: 0 0 0 2px;
+  border-radius: 24px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btnCircle{
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.activeBtn {
+  background-color: #528DFF; /* 클릭 시 오른쪽으로 이동 */
+}
+
+.active {
+  transform: translateX(20px); /* 클릭 시 오른쪽으로 이동 */
+}
+
 .updated, .created{
   color: #595959;
   font-size: 14px;
@@ -688,7 +738,7 @@ select:focus {
   scroll-behavior: smooth; 
   overflow-y: hidden;
   width: 360px; 
-  margin: 120px 0 30px 30px;
+  margin: 140px 0 25px 30px;
   flex-shrink: 0;
 }
 
@@ -721,7 +771,7 @@ select:focus {
   width: 390px;
   height: 126px;
   padding: 0 2px 0 2px;
-  margin: 5% 0 0 0;
+  margin: 0 0 0 0;
   flex-shrink: 0;
 }
 
@@ -765,16 +815,15 @@ select:focus {
   border-radius: 25px;
 }
 
-.addSvcName{
+.addSvcNameBox{
   display:flex;
   flex-direction: column;
   align-items: center;
-  color: #000000;
-  font-size: 25px;
-  font-weight: 700;
+  position: relative;
   height: 60px;
+  width: 300px;
   gap: 20px;
-  margin: 10px 0 60% 0;
+  margin: 10px 0 65% 0;
 }
 
 .nameBar{
@@ -782,6 +831,14 @@ select:focus {
   width: 110px;
   height: 4px;
   border-radius: 10px;
+}
+
+.addSvcName{
+  position: absolute;
+  top: 90px;
+  color: #000000;
+  font-size: 25px;
+  font-weight: 700;
 }
 
 .selectButton {
@@ -887,5 +944,3 @@ select:focus {
   background-color: rgba(0, 0, 0, 0.3); /* 어두운 반투명 배경 */
   z-index: 4; /* + 버튼과 카테고리 버튼 뒤에 위치 */
 }
-
-

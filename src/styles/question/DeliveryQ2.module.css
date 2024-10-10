@@ -1,4 +1,3 @@
-/* CloudQ_2.module.css */
 body {
   display: flex;
   justify-content: center;  /* 가로 방향으로 중앙 정렬 */
@@ -14,15 +13,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  min-width: 390px;
-  max-width: 430px;
-  height: 100%;
-  min-height: 844px;
-  max-height: 932px;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
   text-align: center;
 }
-
+  
 .questionStep {
   display: flex;
   justify-content: space-between;
@@ -105,6 +101,7 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: bolder;
   font-size: 18.5px;
+  line-height: 1.7;
   height: 50px;
   text-align: center;
   color: #000000;
@@ -137,7 +134,7 @@ body {
   background-color: #d9d9d9;
   border-radius: 30px;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   width: 276px;
   height: 57px;
@@ -165,16 +162,16 @@ body {
 }
   
   
-:is(.deliveryFdcostButton, .back, .home, .next):hover,
-:is(.deliveryFdcostButton, .back, .home, .next):active,
-:is(.deliveryFdcostButton, .back, .home, .next):focus,
+:is(.optionBtn, .back, .home, .next):hover,
+:is(.optionBtn, .back, .home, .next):active,
+:is(.optionBtn, .back, .home, .next):focus,
 .selected:active,
 .selected:focus{
   outline: none;
   border: none; 
 }
   
-:is(.deliveryFdcostButton, .home, .next):hover{
+:is(.optionBtn, .home, .next):hover{
   transform: scale(1.02); 
 }
   
@@ -193,7 +190,7 @@ body {
   height: 24px; 
 }
   
-.homebtn {
+.homebutton {
   width: 36px; 
   height: 36px; 
 }

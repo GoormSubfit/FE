@@ -1,4 +1,3 @@
-/* MusicQ_1.module.css */
 body {
   display: flex;
   justify-content: center;  /* 가로 방향으로 중앙 정렬 */
@@ -14,15 +13,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  min-width: 390px;
-  max-width: 430px;
-  height: 100%;
-  min-height: 844px;
-  max-height: 932px;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
   text-align: center;
 }
-
+  
 .questionStep {
   display: flex;
   justify-content: space-between;
@@ -105,6 +101,7 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: bolder;
   font-size: 18.5px;
+  line-height: 1.7;
   height: 50px;
   text-align: center;
   color: #000000;
@@ -137,11 +134,11 @@ body {
   background-color: #d9d9d9;
   border-radius: 30px;
   font-weight: bold;
-  padding: 2%; 
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   width: 276px;
   height: 57px;
+  padding: 2%; 
   cursor: pointer;  /* 마우스 포인터를 클릭 가능한 상태로 표시 */
   transition: transform 0.2s, background-color 0.3s ease; 
   color: #ffffff;
@@ -165,16 +162,16 @@ body {
 }
   
   
-:is(.musicGenreBtn, .back, .home, .next):hover,
-:is(.musicGenreBtn, .back, .home, .next):active,
-:is(.musicGenreBtn, .back, .home, .next):focus,
+:is(.optionBtn, .back, .home, .next):hover,
+:is(.optionBtn, .back, .home, .next):active,
+:is(.optionBtn, .back, .home, .next):focus,
 .selected:active,
 .selected:focus{
   outline: none;
   border: none; 
 }
   
-:is(.musicGenreBtn, .home, .next):hover{
+:is(.optionBtn, .home, .next):hover{
   transform: scale(1.02); 
 }
   

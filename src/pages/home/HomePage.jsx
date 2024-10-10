@@ -88,6 +88,7 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const swipeDragControls = useDragControls();
   const [itemX, setItemX] = useState(0); 
+  const [isOn, setIsOn] = useState(false);
   const serviceImageMap = {
     '넷플릭스': netflixBtn,
     '디즈니플러스': disneyPlusBtn,
@@ -351,7 +352,6 @@ const HomePage = () => {
   const formatSelectedDate = () => {
     const formattedMonth = String(selectedMonth).padStart(2, '0'); // 월을 두 자리로 포맷
     const formattedDay = String(selectedDay).padStart(2, '0'); // 일을 두 자리로 포맷
-    const formattedDate = `${selectedYear}-${formattedMonth}-${formattedDay}`; 
     return `${selectedYear}-${formattedMonth}-${formattedDay}`;
   };
 
@@ -426,11 +426,6 @@ const HomePage = () => {
 
   // 새로운 구독을 추가하는 함수 (useAddSubscription 훅을 사용)
   const saveAddModal = async () => {
-    console.log('이름:', newSubName);
-    console.log('가격:', newSubPrice);
-    console.log('구독 주기:', newSubCycle);
-    console.log('결제일:', formatSelectedDate());
-  
     if (newSubName.trim() && newSubPrice && selectedSvc && formatSelectedDate()) {
       const formData = new FormData();
       const price = parseInt(newSubPrice, 10);
@@ -460,18 +455,14 @@ const HomePage = () => {
       try {
         const response = await addSubscribe(formData, token);
         if (response) {
-          console.log('구독이 성공적으로 추가되었습니다.');  // 구독 성공 로그
+          console.log('Subscription added successfully');
           const subscribeDate = formatSelectedDate();  
           const { formatPreviousPayDate, formatNextPayDate } = getPreviousAndNextPayDates(subscribeDate, "both", newSubCycle);
   
-          // 네비게이션 로그 추가
-          console.log('네비게이션 실행:', subscribeDate, formatPreviousPayDate, formatNextPayDate, newSubName, newSubPrice);
-          
           // URL에 newSubName, newSubPrice, subscribeDate, previousPayDate, nextPayDate 포함해서 전달
           navigate(`/calendar?subscribeDate=${subscribeDate}&previousPayDate=${formatPreviousPayDate}&nextPayDate=${formatNextPayDate}&newSubName=${newSubName}&newSubPrice=${newSubPrice}`);
         }
       } catch (error) {
-        console.error('구독 추가 중 오류가 발생했습니다:', error);  // 에러 로그
         alert('구독 추가 중 오류가 발생했습니다.');
       } finally {
         await fetchSubscribeList();
@@ -481,8 +472,6 @@ const HomePage = () => {
       alert('모든 내용을 입력해주세요.');
     }
   };
-  
-  
   
   
   
@@ -589,7 +578,10 @@ const HomePage = () => {
     } 
   };
   
-
+  const handleToggle = () => {
+    setIsOn(!isOn); // 버튼을 클릭할 때마다 토글 상태를 반전시킴
+  };
+  
 
   // 프로필, 구독 요약 또는 구독 목록 로딩 상태 처리
   if (profileLoading || subscribeListLoading || summaryLoading) {
@@ -735,16 +727,14 @@ const HomePage = () => {
               </button>
               <button className={styles.exitBtn} onClick={editStart}>편집</button>    
               <div className={styles.editModalPage1Content}>
-                  <div className={styles.editSvcInfo}>
-
-                    <div className={styles.editSvcLogo}>
-                      <img src={selectedMySvc?.logoUrl} alt={`${selectedMySvc?.name} logo`} className={styles.logoUrl} />
-                    </div>
-
-                    <div className={styles.editSvcName}>{selectedMySvc?.name}</div>
-                    <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.cycle}</div>
+                <div className={styles.editSvcInfo}>
+                  <div className={styles.editSvcLogo}>
+                    <img src={selectedMySvc?.logoUrl} alt={`${selectedMySvc?.name} logo`} className={styles.logoUrl} />
                   </div>
-                  <div className={styles.editSvcPayDateBox}>
+                  <div className={styles.editSvcName}>{selectedMySvc?.name}</div>
+                  <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.cycle}</div>
+                </div>
+                <div className={styles.editSvcPayDateBox}>
                       <p className={styles.editSvcDday}>오늘 결제</p>
                       <p className={styles.editSvcMessage}>
                         {selectedMySvc?.cycle === "1개월" 
@@ -781,6 +771,13 @@ const HomePage = () => {
                         </div>
                       </div>
                 </div>
+                <div className={styles.editSvcAlert}>
+                  <p className={styles.editSvcAlertSet}>알림 설정</p>
+                  <p className={styles.editSvcAlertMessage}>결제 전 알림</p>
+                  <div className={`${styles.editSvcAlertBtn} ${isOn ? styles.activeBtn : ''}`} onClick={handleToggle}>
+                    <div className={`${styles.btnCircle} ${isOn ? styles.active : ''}`} />
+                  </div>
+                  </div>
               </div>
             </div>
           )}
@@ -1019,9 +1016,9 @@ const HomePage = () => {
                   </div>
                 )}
                 </div>
-                <div className={styles.addSvcName}>
+                <div className={styles.addSvcNameBox}>
                   <div className={styles.nameBar}></div>
-                  {selectedSvc}
+                  <div className={styles.addSvcName}>{selectedSvc}</div>
                 </div>
                 {/* 선택 버튼 */}
                 <button className={styles.selectButton} onClick={selectClick}>선택</button>

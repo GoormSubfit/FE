@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import netflix from '../../assets/images/result/netfilx.svg';
@@ -77,8 +77,10 @@ import yes24Btn from "../../assets/images/serviceBtn/Yes24.svg";
 import kyoboBookBtn from "../../assets/images/serviceBtn/KyoboBook.svg";
 import kakao from "../../assets/images/result/kakao.svg";
 import watcha from "../../assets/images/result/watcha.svg";
+import scribd from "../../assets/images/result/scribd.svg"
 import styles from '../../styles/result/result.module.css';
 import useProfileData from "../../hooks/useProfileData";
+import useRecommendation from "../../hooks/useRecommendation";
 
 // 서비스 이름과 이미지 매핑 객체
 const serviceImages = {
@@ -99,7 +101,7 @@ const serviceImages = {
   '지니뮤직': genieBtn,
   '멜론': melonBtn,
   '유튜브 뮤직': youtubeMusicBtn,
-  '배민 클럽': baeminBtn,
+  '배민클럽': baeminBtn,
   '요기패스': yogiyoBtn,
   '쿠팡이츠': coupangEatsBtn,
   '신세계 유니버스': shinsegaeUniverseBtn,
@@ -117,7 +119,8 @@ const serviceImages = {
   '교보문고 sam': kyoboBookBtn,
   '예스24 ebook': yes24Btn,
   '카카오 톡서랍 플러스': kakao,
-  '네이버 Vibe':vibe
+  '네이버 Vibe':vibe,
+  '스크립드':scribd
 };
 
 
@@ -125,24 +128,36 @@ const getServiceImage = (serviceName) => {
   return serviceImages[serviceName] || defaultImage;
 };
 
-function Result() { // 컴포넌트 이름을 'Result'로 변경
+function Result() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedDescription, setSelectedDescription] = useState(null); // 선택된 이미지 설명 저장
   const imageRefs = useRef([]);
   const galleryRef = useRef(null);
   const navigate = useNavigate();
-  const { name } = useProfileData(); 
-
+  const { name } = useProfileData();
+  
   const location = useLocation();
-  const { type, answers, recommendation } = location.state; // type, answers, recommendation 받음
-  console.log('타입:', type);
-  console.log('답:', answers);
-  console.log('결과값:', recommendation);
+  const { type, answers } = location.state; // type, answers 받음
+  
+  const { submitRecommendation, loading, result, error } = useRecommendation(); // useRecommendation 훅 사용
+  
+  useEffect(() => {
+    submitRecommendation(type, answers); // 추천 데이터를 요청
+  }, [type, answers, submitRecommendation]);
+
+  // 로딩 중일 때는 로딩 화면을 보여주고 결과가 나오면 렌더링
+  if (loading || !result) {
+    return <div>결과를 기다리고 있습니다...</div>; // 로딩 상태를 표시
+  }
+
+  if (error) {
+    return <div>Error occurred: {error.message}</div>; // 에러 화면
+  }
 
   const handleImageClick = (index) => {
     setCurrentIndex(index);
-    const selectedComp = recommendation.comparisons[index];
-    setSelectedDescription(`${selectedComp.benefit1} / ${selectedComp.benefit2}`); // benefit1을 설명으로 설정
+    const selectedComp = result.comparisons[index]; // result에서 데이터 사용
+    setSelectedDescription(`${selectedComp.benefit1} / ${selectedComp.benefit2}`);
 
     const clickedImage = imageRefs.current[index];
     const galleryElement = galleryRef.current;
@@ -156,29 +171,28 @@ function Result() { // 컴포넌트 이름을 'Result'로 변경
     }
   };
 
-  // 메인 서비스 이미지 가져오기
-  const mainServiceImage = getServiceImage(recommendation.serviceName);
+  const mainServiceImage = getServiceImage(result.serviceName);
 
   return (
     <div className={styles["app-container"]}>
       <div className={styles["top-container"]}>
-      <p className={styles["top-comment"]}>
-          {name ? `${name}님께` : '사용자님께'}<br />"{recommendation.serviceName}"를 추천드립니다!
+        <p className={styles["top-comment"]}>
+          {name ? `${name}님께` : '사용자님께'}<br />"{result.serviceName}"를 추천드립니다!
         </p>
 
         <div className={styles["middle-container"]}>
           <div className={styles["result"]}>
             <div className={styles["outer-border"]}></div>
             <div className={styles["inner-border"]}></div>
-            <img src={mainServiceImage} className={styles["service-image"]} alt={recommendation.serviceName} />
+            <img src={mainServiceImage} className={styles["service-image"]} alt={result.serviceName} />
           </div>
           <div className={styles["comment-container"]}>
             <p className={styles["middle-comment1"]}>혜택 정보</p>
-            <p className={styles["price"]}>{recommendation.price}</p>
+            <p className={styles["price"]}>{result.price}</p>
             <p className={styles["infomation"]}>
-              {recommendation.benefit1}<br /><br />
-              {recommendation.benefit2}<br /><br />
-              {recommendation.benefit3}
+              {result.benefit1}<br /><br />
+              {result.benefit2}<br /><br />
+              {result.benefit3}
             </p>
           </div>
         </div>
@@ -187,7 +201,7 @@ function Result() { // 컴포넌트 이름을 'Result'로 변경
       <div className={styles["image-container"]}>
         <div className={styles["text-and-dots-container"]}>
           <div className={styles["dot-indicator-container"]}>
-            {recommendation.comparisons.map((comp, index) => (
+            {result.comparisons.map((comp, index) => (
               <div
                 key={index}
                 className={`${styles["dot"]} ${currentIndex === index ? styles["active"] : ''}`}
@@ -198,7 +212,7 @@ function Result() { // 컴포넌트 이름을 'Result'로 변경
         </div>
 
         <div className={styles["image-gallery"]} ref={galleryRef}>
-          {recommendation.comparisons.map((comp, index) => {
+          {result.comparisons.map((comp, index) => {
             const compImage = getServiceImage(comp.name);
             return (
               <img
@@ -221,9 +235,9 @@ function Result() { // 컴포넌트 이름을 'Result'로 변경
         <div className={styles["button-container"]}>
           <button
             className={styles["button1"]}
-            onClick={() => window.open(getServiceImage(recommendation.serviceName), '_blank')}
+            onClick={() => window.open(getServiceImage(result.serviceName), '_blank')}
           >
-            "{recommendation.serviceName}" 바로가기
+            "{result.serviceName}" 바로가기
           </button>
           <button className={styles["button2"]} onClick={() => navigate('/HomePage')}>
             마이페이지

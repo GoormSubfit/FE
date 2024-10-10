@@ -30,7 +30,7 @@ function App() {
     if (profileImage) {
       try {
         await uploadImage(profileImage, name); // 업로드 함수 호출
-        navigate('/RecHome'); // 업로드 성공시 페이지 이동
+        navigate('/login_s'); // 업로드 성공시 페이지 이동
       } catch (err) {
         console.error('이미지 업로드 실패:', err);
       }
