@@ -57,7 +57,7 @@ const EbookQ1 = () => {
       </div>
       <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected === "하루 1시간 독서" ? styles.selected : ""}`}
+          className={`${styles.optionBtn} ${selected === "하루 1시간 이하 독서" ? styles.selected : ""}`}
           onClick={() => handleClick("하루 1시간 이하 독서")}
         >
           1시간 이하

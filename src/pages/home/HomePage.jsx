@@ -727,16 +727,14 @@ const HomePage = () => {
               </button>
               <button className={styles.exitBtn} onClick={editStart}>편집</button>    
               <div className={styles.editModalPage1Content}>
-                  <div className={styles.editSvcInfo}>
-
-                    <div className={styles.editSvcLogo}>
-                      <img src={selectedMySvc?.logoUrl} alt={`${selectedMySvc?.name} logo`} className={styles.logoUrl} />
-                    </div>
-
-                    <div className={styles.editSvcName}>{selectedMySvc?.name}</div>
-                    <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.cycle}</div>
+                <div className={styles.editSvcInfo}>
+                  <div className={styles.editSvcLogo}>
+                    <img src={selectedMySvc?.logoUrl} alt={`${selectedMySvc?.name} logo`} className={styles.logoUrl} />
                   </div>
-                  <div className={styles.editSvcPayDateBox}>
+                  <div className={styles.editSvcName}>{selectedMySvc?.name}</div>
+                  <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.cycle}</div>
+                </div>
+                <div className={styles.editSvcPayDateBox}>
                       <p className={styles.editSvcDday}>오늘 결제</p>
                       <p className={styles.editSvcMessage}>
                         {selectedMySvc?.cycle === "1개월" 
@@ -773,6 +771,13 @@ const HomePage = () => {
                         </div>
                       </div>
                 </div>
+                <div className={styles.editSvcAlert}>
+                  <p className={styles.editSvcAlertSet}>알림 설정</p>
+                  <p className={styles.editSvcAlertMessage}>결제 전 알림</p>
+                  <button className={styles.editSvcAlertBtn} onClick={handleToggle}>
+                    <div className={`${styles.btnCircle} ${isOn ? styles.active : ''}`} />
+                  </button>
+                  </div>
               </div>
             </div>
           )}
