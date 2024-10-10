@@ -1,29 +1,42 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/MusicQ2.module.css';
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from '../../styles/question/EbookQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const MusicQ2 = () => {
   const [selected, setSelected] = useState("");
   const deviceOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type, answers } = location.state; 
 
-  const handleClick = (musicDevice) => {
-    if (selected === musicDevice) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(musicDevice); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const goNext = () => {
     if (selected) {
-      navigate('/musicq3'); 
+      // 새로운 질문-답변을 배열에 추가
+      const answer2 = { question: "주로 어떤 기기로 음악을 듣나요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer2];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/musicq3', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with MusicQ2 (as array):", updatedAnswers); 
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -48,26 +61,26 @@ const MusicQ2 = () => {
       </div>
       <div className={styles.options} ref={deviceOptionsRef}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("smartphone") ? styles.selected : ""}`}
-          onClick={() => handleClick("smartphone")}
+          className={`${styles.optionBtn} ${selected.includes("스마트폰 주로 사용") ? styles.selected : ""}`}
+          onClick={() => handleClick("스마트폰 주로 사용")}
         >
           스마트폰
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("tablet") ? styles.selected : ""}`}
-          onClick={() => handleClick("tablet")}
+          className={`${styles.optionBtn} ${selected.includes("태블릿 주로 사용") ? styles.selected : ""}`}
+          onClick={() => handleClick("태블릿 주로 사용")}
         >
           태블릿
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("smartspeaker") ? styles.selected : ""}`}
-          onClick={() => handleClick("smartspeaker")}
+          className={`${styles.optionBtn} ${selected.includes("스마트 스피커 주로 사용") ? styles.selected : ""}`}
+          onClick={() => handleClick("스마트 스피커 주로 사용")}
         >
           스마트 스피커
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("pc") ? styles.selected : ""}`}
-          onClick={() => handleClick("pc")}
+          className={`${styles.optionBtn} ${selected.includes("PC 주로 사용") ? styles.selected : ""}`}
+          onClick={() => handleClick("PC 주로 사용")}
         >
           PC
         </button>

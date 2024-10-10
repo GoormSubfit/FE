@@ -1,40 +1,58 @@
-/* .calendar-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-between;
-}
-
-.date-container {
-    width: 14%;
+.calendar-container {
+    width: 350px;
+    border: 1px solid #ccc;
     padding: 10px;
+    border-radius: 8px;
     text-align: center;
-    position: relative;
-}
-
-.date {
-    font-size: 16px;
-    position: relative;
-}
-
-.payment-date {
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .nav-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .month-year {
+    font-size: 18px;
     font-weight: bold;
-    position: relative;
-}
-
-.blue-circle {
-    width: 10px;
-    height: 10px;
-    background-color: blue;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.payment-description {
-    font-size: 12px;
-    color: gray;
-    margin-top: 5px;
-} */
+  }
+  
+  .weekdays {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+  
+  .calendar-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .day, .empty {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+  }
+  
+  .empty {
+    background-color: #f9f9f9;
+  }
+  

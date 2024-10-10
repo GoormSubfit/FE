@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom'; // useNavigate 가져오기
+import React, { useState } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../styles/question/CloudQ2.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
@@ -8,24 +8,36 @@ import Home from "../../components/Home";
 
 const CloudQ2 = () => {
   const [selected, setSelected] = useState("");
-  const storageOptionsRef = useRef(null);  // 스크롤 영역 참조
-  const navigate = useNavigate(); // useNavigate를 사용하여 navigate 함수 생성
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { type,answers } = location.state; // 이전 페이지의 답변을 가져옵니다.
 
-  const handleClick = (cloudStorage) => {
-    if (selected === cloudStorage) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(cloudStorage); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const goNext = () => {
     if (selected) {
-      navigate('/cloudq3');
+      // 새로운 질문-답변을 배열에 추가
+      const answer2 = { question: "필요한 저장 용량은 얼마나 되나요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer2];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/cloudq3', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with CloudQ2 (as array):", updatedAnswers); 
     } else {
       alert('옵션을 선택해주세요.');
     }
   };
+  
 
   return (
     <div className={styles.container}>
@@ -35,32 +47,32 @@ const CloudQ2 = () => {
         <div className={styles.line}>
           <img src={line} alt="line" className={styles.line} />
         </div>
-        <div className={styles.smallcircle}> </div>
         <div className={styles.activePage}>Step 2</div>
-        <div className={styles.midcircle}> </div>
-        <div className={styles.smallcircle}> </div>
-        <div className={styles.midcircle}> </div>
+        <div className={styles.midcircle}></div>
+        <div className={styles.smallcircle}></div>
+        <div className={styles.smallcircle}></div>
+        <div className={styles.midcircle}></div>
         <div className={styles.bigcircle}>7</div>
       </div>
       <div className={styles.question}>
         <p className={styles.p}>필요한 저장 용량은 얼마나 되나요?</p>
       </div>
-      <div className={styles.options} ref={storageOptionsRef}>
+      <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("lte5GB") ? styles.selected : ""}`}
-          onClick={() => handleClick("lte5GB")}
+          className={`${styles.optionBtn} ${selected === "5GB 이하 필요" ? styles.selected : ""}`}
+          onClick={() => handleClick("5GB 이하 필요")}
         >
           5GB 이하
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("lte50GB") ? styles.selected : ""}`}
-          onClick={() => handleClick("lte50GB")}
+          className={`${styles.optionBtn} ${selected === "50GB 이하 필요" ? styles.selected : ""}`}
+          onClick={() => handleClick("50GB 이하 필요")}
         >
           50GB 이하
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("gte1TB") ? styles.selected : ""}`}
-          onClick={() => handleClick("gte1TB")}
+          className={`${styles.optionBtn} ${selected === "1TB 이상 필요" ? styles.selected : ""}`}
+          onClick={() => handleClick("1TB 이상 필요")}
         >
           1TB 이상
         </button>

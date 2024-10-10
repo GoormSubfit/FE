@@ -1,29 +1,41 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import styles from '../../styles/question/OttQ6.module.css';
+import { useNavigate, useLocation } from "react-router-dom";
+import styles from '../../styles/question/EbookQ1.module.css';
 import line from "/src/assets/images/question-line.svg";
 import arrowIcon from "/src/assets/images/arrow.svg";
 import Back from "../../components/Back";
 import Home from "../../components/Home";
+import useRecommendation from "../../hooks/useRecommendation";
 
 const OttQ6 = () => {
   const [selected, setSelected] = useState("");
-  const dwnldOptionsRef = useRef(null);  // 스크롤 영역 참조
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type, answers } = location.state; 
 
-  const handleClick = (ottDwnld) => {
-    if (selected === ottDwnld) {
-      setSelected(""); // 선택 해제
-    } else {
-      setSelected(ottDwnld); // 클릭된 버튼을 선택
-    }
+  const previousAnswers = location.state?.answers || [];
+
+  const handleClick = (option) => {
+    setSelected(option);
   };
 
   const goNext = () => {
     if (selected) {
-      navigate('/ottq7'); 
+      // 새로운 질문-답변을 배열에 추가
+      const answer6 = { question: "즐겨보는 콘텐츠를 다운로드해서 오프라인으로 시청하시나요?", answer: selected };
+
+      // 기존 배열에 새 답변을 추가
+      const updatedAnswers = [...previousAnswers, answer6];
+
+      // 다음 페이지로 배열을 전달
+      navigate('/ottq7', {
+        state: {
+          type, answers: updatedAnswers // 배열로 전달
+        }
+      });
+      console.log("Updated answers with OttQ6 (as array):", updatedAnswers); 
     } else {
-      alert('옵션을 선택해주세요.'); 
+      alert('옵션을 선택해주세요.');
     }
   };
 
@@ -46,16 +58,16 @@ const OttQ6 = () => {
         <p className={styles.p}>즐겨보는 콘텐츠를 다운로드해서<br/>오프라인으로 시청하시나요?
         </p>
       </div>
-      <div className={styles.options} ref={dwnldOptionsRef}>
+      <div className={styles.options}>
         <button
-          className={`${styles.optionBtn} ${selected.includes("yes") ? styles.selected : ""}`}
-          onClick={() => handleClick("yes")}
+          className={`${styles.optionBtn} ${selected.includes("오프라인 시청 기능이 필요함") ? styles.selected : ""}`}
+          onClick={() => handleClick("오프라인 시청 기능이 필요함")}
         >
           네
         </button>
         <button
-          className={`${styles.optionBtn} ${selected.includes("no") ? styles.selected : ""}`}
-          onClick={() => handleClick("no")}
+          className={`${styles.optionBtn} ${selected.includes("항상 온라인으로 시청함") ? styles.selected : ""}`}
+          onClick={() => handleClick("항상 온라인으로 시청함")}
         >
           아니요
         </button>

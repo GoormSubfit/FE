@@ -51,12 +51,12 @@ function App() {
             </p>
           </div>
         </div>
-        <div className={styles["calendar-container"]}>
+        {/* <div className={styles["calendar-container"]}>
           <Mycalendar />
         </div>
         <div className={styles["bottom-container"]}>
           <div className={styles["bottom-box"]}></div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

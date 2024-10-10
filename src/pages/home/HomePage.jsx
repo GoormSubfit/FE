@@ -88,6 +88,7 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const swipeDragControls = useDragControls();
   const [itemX, setItemX] = useState(0); 
+  const [isOn, setIsOn] = useState(false);
   const serviceImageMap = {
     '넷플릭스': netflixBtn,
     '디즈니플러스': disneyPlusBtn,
@@ -577,7 +578,10 @@ const HomePage = () => {
     } 
   };
   
-
+  const handleToggle = () => {
+    setIsOn(!isOn); // 버튼을 클릭할 때마다 토글 상태를 반전시킴
+  };
+  
 
   // 프로필, 구독 요약 또는 구독 목록 로딩 상태 처리
   if (profileLoading || subscribeListLoading || summaryLoading) {
@@ -723,16 +727,14 @@ const HomePage = () => {
               </button>
               <button className={styles.exitBtn} onClick={editStart}>편집</button>    
               <div className={styles.editModalPage1Content}>
-                  <div className={styles.editSvcInfo}>
-
-                    <div className={styles.editSvcLogo}>
-                      <img src={selectedMySvc?.logoUrl} alt={`${selectedMySvc?.name} logo`} className={styles.logoUrl} />
-                    </div>
-
-                    <div className={styles.editSvcName}>{selectedMySvc?.name}</div>
-                    <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.cycle}</div>
+                <div className={styles.editSvcInfo}>
+                  <div className={styles.editSvcLogo}>
+                    <img src={selectedMySvc?.logoUrl} alt={`${selectedMySvc?.name} logo`} className={styles.logoUrl} />
                   </div>
-                  <div className={styles.editSvcPayDateBox}>
+                  <div className={styles.editSvcName}>{selectedMySvc?.name}</div>
+                  <div className={styles.editSvcPrice}>{selectedMySvc?.price?.toLocaleString()}원 / {selectedMySvc?.cycle}</div>
+                </div>
+                <div className={styles.editSvcPayDateBox}>
                       <p className={styles.editSvcDday}>오늘 결제</p>
                       <p className={styles.editSvcMessage}>
                         {selectedMySvc?.cycle === "1개월" 
@@ -769,6 +771,13 @@ const HomePage = () => {
                         </div>
                       </div>
                 </div>
+                <div className={styles.editSvcAlert}>
+                  <p className={styles.editSvcAlertSet}>알림 설정</p>
+                  <p className={styles.editSvcAlertMessage}>결제 전 알림</p>
+                  <div className={`${styles.editSvcAlertBtn} ${isOn ? styles.activeBtn : ''}`} onClick={handleToggle}>
+                    <div className={`${styles.btnCircle} ${isOn ? styles.active : ''}`} />
+                  </div>
+                  </div>
               </div>
             </div>
           )}
@@ -1007,9 +1016,9 @@ const HomePage = () => {
                   </div>
                 )}
                 </div>
-                <div className={styles.addSvcName}>
+                <div className={styles.addSvcNameBox}>
                   <div className={styles.nameBar}></div>
-                  {selectedSvc}
+                  <div className={styles.addSvcName}>{selectedSvc}</div>
                 </div>
                 {/* 선택 버튼 */}
                 <button className={styles.selectButton} onClick={selectClick}>선택</button>
